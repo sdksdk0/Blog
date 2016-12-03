@@ -4,7 +4,10 @@ ehthumbs.db
 
 # Folder config file
 Desktop.ini
-
+.metadata
+.svn
+.settings
+target
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 

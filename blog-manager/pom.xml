@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>cn.tf.blog</groupId>
+    <artifactId>blog-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>cn.tf.blog</groupId>
+  <artifactId>blog-manager</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <!-- 依赖管理 -->
+	<dependencies>
+		<dependency>
+			 <groupId>cn.tf.blog</groupId>
+			  <artifactId>blog-common</artifactId>
+			  <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+	<modules>
+		<module>blog-manager-pojo</module>
+		<module>blog-manager-mapper</module>
+		<module>blog-manager-service</module>
+		<module>blog-manager-web</module>
+	</modules>
+	
+	
+	<build>
+		<!-- 配置插件 -->
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<port>8083</port>
+					<path>/manager</path>
+					<!-- <url>http://139.199.158.214:8100/manager/text</url>
+					<username>tf</username>
+					<password>admin1</password>	  -->
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
