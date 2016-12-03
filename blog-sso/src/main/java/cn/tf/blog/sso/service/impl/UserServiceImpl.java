@@ -1,6 +1,7 @@
 package cn.tf.blog.sso.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +17,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+
+import com.sun.xml.internal.xsom.impl.scd.Iterators.Map;
 
 import cn.tf.blog.po.UUser;
 import cn.tf.blog.po.UUserExample;
@@ -192,5 +195,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean activeUser(String usId) {
 		return userMapper.updateStatus(usId);
+	}
+
+
+	@Override
+	public int update(String newPassword, String id) {
+		
+		UUser user=new UUser();
+		user.setUserid(id);
+		user.setPassword(DigestUtils.md5DigestAsHex(newPassword.getBytes()));
+		return userMapper.updateByPrimaryKeySelective(user);
 	}
 }

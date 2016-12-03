@@ -14,8 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.sun.xml.internal.xsom.impl.scd.Iterators.Map;
+
+import net.sf.json.JSONObject;
+
 import cn.tf.blog.po.UUser;
 import cn.tf.blog.common.util.ExceptionUtil;
+import cn.tf.blog.common.util.ResponseUtil;
 import cn.tf.blog.common.util.TaotaoResult;
 import cn.tf.blog.sso.dao.JedisClient;
 import cn.tf.blog.sso.service.UserService;
@@ -175,7 +181,20 @@ public class UserController {
 	
 	//修改密码
 	@RequestMapping("/modifyPassword")
-	@RequestBody
+	public String modifyPassword(String newPassword,String id,HttpServletResponse response)throws Exception{
+
+		int resultTotal=userService.update(newPassword,id);
+		
+		//跨域请求错误
+		JSONObject result=new JSONObject();
+		if(resultTotal>0){
+			result.put("success", true);
+		}else{
+			result.put("success", false);
+		}
+		ResponseUtil.write(response, result);
+		return null;
+	}
 	
 	
 	

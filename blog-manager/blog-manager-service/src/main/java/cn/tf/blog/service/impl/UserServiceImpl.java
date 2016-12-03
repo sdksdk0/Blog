@@ -34,10 +34,10 @@ public class UserServiceImpl implements  UserService{
 		
 		try {
 			String json=HttpClientUtil.doGet(SSO_BASE_URL+SSO_USER_TOKEN+token);
-			System.out.println(SSO_BASE_URL+SSO_USER_TOKEN+token);
+			
 			//把json转换为taotaoresult
 			TaotaoResult  result=TaotaoResult.formatToPojo(json, UUser.class);
-			System.out.println(result.getStatus());
+			
 			if(result.getStatus()==200){
 				UUser  user=(UUser) result.getData();
 				return user;

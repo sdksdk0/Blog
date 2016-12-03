@@ -24,5 +24,7 @@ public interface UserService {
 	TaotaoResult userLogout(String token);
 	//激活
 	boolean activeUser(String usId);
+	//修改密码
+	int update(String newPassword, String id);
 
 }

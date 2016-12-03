@@ -50,9 +50,12 @@
 					return false;
 				}
 				if (newPassword != newPassword2) {
-					$.messager.alert("系统提示", "确认密码输入错误！");
+					$.messager.alert("系统提示", "两次密码不一致！");
 					return false;
 				}
+				$.messager.alert("系统提示", "密码修改成功，下一次登录生效！");
+				$("#dlg").dialog("close");
+				
 				return true;
 			},
 			success : function(result) {
