@@ -60,12 +60,24 @@
    			<td><input type="text" id="title" name="title" style="width: 400px;"/></td>
    		</tr>
    		<tr>
-   			<td>所属类别：</td>
+   			<td>分类：</td>
    			<td>
-   				<select class="easyui-combobox" style="width: 154px" id="blogTypeId" name="blogType.id" editable="false" panelHeight="auto" >
+   				<select class="easyui-combobox" style="width: 154px" id="typeId" name="typeId" editable="false" panelHeight="auto" >
+					<option value="">--请选择--</option>	
+				    <c:forEach var="type" items="${typeCountList }">
+				    	<option value="${type.typeid }">${type.typename }</option>
+				    </c:forEach>			
+                </select>
+   			</td>
+   		</tr>
+   		<tr>
+   		
+   			<td>自定义类别：</td>
+   			<td>
+   				<select class="easyui-combobox" style="width: 154px" id="blogTypeId" name="typeName" editable="false" panelHeight="auto" >
 					<option value="">请选择博客类别...</option>	
 				    <c:forEach var="blogType" items="${blogTypeCountList }">
-				    	<option value="${blogType.id }">${blogType.typeName }</option>
+				    	<option value="${blogType.blogtypeId }">${blogType.typeName }</option>
 				    </c:forEach>			
                 </select>
    			</td>
@@ -94,6 +106,7 @@
     //实例化编辑器
     //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
     var ue = UE.getEditor('editor');
+    
 
 
 </script>

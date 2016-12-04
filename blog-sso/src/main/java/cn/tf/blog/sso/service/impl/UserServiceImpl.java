@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public TaotaoResult createUser(HttpServletRequest request,UUser user,HttpSession session) {
 		user.setCreatetime(new Date());
-		user.setUserid(UUID.randomUUID().toString());
+		user.setUserId(UUID.randomUUID().toString());
 		user.setState(0+"");
 		// md5加密
 		user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword()
@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
 
 		userMapper.insert(user);
 
-		session.setAttribute("userId",user.getUserid());
+		session.setAttribute("userId",user.getUserId());
 		
 		active(request, user, session);
 		return TaotaoResult.ok();
@@ -202,7 +202,7 @@ public class UserServiceImpl implements UserService {
 	public int update(String newPassword, String id) {
 		
 		UUser user=new UUser();
-		user.setUserid(id);
+		user.setUserId(id);
 		user.setPassword(DigestUtils.md5DigestAsHex(newPassword.getBytes()));
 		return userMapper.updateByPrimaryKeySelective(user);
 	}

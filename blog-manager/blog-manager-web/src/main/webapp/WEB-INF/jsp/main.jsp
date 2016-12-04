@@ -37,7 +37,7 @@
 
 	function openPasswordModifyDialog() {
 		$("#dlg").dialog("open").dialog("setTitle", "修改密码");
-		url = "http://localhost:8087/sso/user/modifyPassword?id=${user.userid}";
+		url = "http://localhost:8087/sso/user/modifyPassword?id=${user.userId}";
 	}
 
 	function modifyPassword() {
@@ -104,18 +104,7 @@
 		});
 	}
 
-	function refreshSystem() {
-		$
-				.post(
-						"${pageContext.request.contextPath}/admin/system/refreshSystem.do",
-						{}, function(result) {
-							if (result.success) {
-								$.messager.alert("系统提示", "已成功刷新系统缓存！");
-							} else {
-								$.messager.alert("系统提示", "刷新系统缓存失败！");
-							}
-						}, "json");
-	}
+
 </script>
 </head>
 <body class="easyui-layout">
@@ -144,7 +133,7 @@
 		<div class="easyui-accordion" data-options="fit:true,border:false">
 			<div title="常用操作" data-options="selected:true,iconCls:'icon-item'"
 				style="padding: 10px">
-				<a href="javascript:openTab('写博客','writeBlog','icon-writeblog')"
+				<a href="javascript:openTab('写博客','user/blog/toWrite?username=aaaa','icon-writeblog')"
 					class="easyui-linkbutton"
 					data-options="plain:true,iconCls:'icon-writeblog'"
 					style="width: 150px">写博客</a> <a

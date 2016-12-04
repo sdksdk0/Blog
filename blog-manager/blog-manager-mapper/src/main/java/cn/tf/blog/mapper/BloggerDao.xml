@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tf.blog.mapper.BloggerDao">
+
+	<resultMap type="cn.tf.blog.po.UUser" id="BloggerResult">
+		<result property="userId" column="userId"/>
+		<result property="username" column="username"/>
+		<result property="password" column="password"/>
+		<result property="nickName" column="nickName"/>
+		<result property="sign" column="sign"/>
+		<result property="proFile" column="proFile"/>
+		<result property="imagePath" column="imagePath"/>
+	</resultMap>
+	
+	<select id="find"  parameterType="String"   resultMap="BloggerResult">
+		select * from u_user where username=#{username}
+	</select>
+	
+	<select id="getByUserName" parameterType="String" resultMap="BloggerResult">
+		select * from u_user where username=#{username}
+	</select>
+	
+	<update id="update"  parameterType="cn.tf.blog.po.UUser">
+		update u_user
+		<set>
+			<if test="password!=null and password!='' ">
+				password=#{password},
+			</if>
+			<if test="nickName!=null and nickName!='' ">
+				nickName=#{nickName},
+			</if>
+			<if test="sign!=null and sign!='' ">
+				sign=#{sign},
+			</if>
+			<if test="proFile!=null and proFile!='' ">
+				proFile=#{proFile},
+			</if>
+			<if test="imagePath!=null and imagePath!='' ">
+				imagePath=#{imagePath}
+			</if>
+		</set>
+		where username=#{username}
+	</update>
+	
+</mapper> 

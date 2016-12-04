@@ -1,43 +1,58 @@
 package cn.tf.blog.po;
 
 public class ULink {
-    private String linkid;
+    private String linkId;
 
-    private String linkname;
+    private String linkName;
 
-    private String linkurl;
+    private String linkUrl;
 
-    private Integer orderno;
+    private Integer orderNo;
+    
+    private String username;
 
-    public String getLinkid() {
-        return linkid;
-    }
+	public String getLinkId() {
+		return linkId;
+	}
 
-    public void setLinkid(String linkid) {
-        this.linkid = linkid == null ? null : linkid.trim();
-    }
+	public void setLinkId(String linkId) {
+		this.linkId = linkId;
+	}
 
-    public String getLinkname() {
-        return linkname;
-    }
+	public String getLinkName() {
+		return linkName;
+	}
 
-    public void setLinkname(String linkname) {
-        this.linkname = linkname == null ? null : linkname.trim();
-    }
+	public void setLinkName(String linkName) {
+		this.linkName = linkName;
+	}
 
-    public String getLinkurl() {
-        return linkurl;
-    }
+	public String getLinkUrl() {
+		return linkUrl;
+	}
 
-    public void setLinkurl(String linkurl) {
-        this.linkurl = linkurl == null ? null : linkurl.trim();
-    }
+	public void setLinkUrl(String linkUrl) {
+		this.linkUrl = linkUrl;
+	}
 
-    public Integer getOrderno() {
-        return orderno;
-    }
+	public Integer getOrderNo() {
+		return orderNo;
+	}
 
-    public void setOrderno(Integer orderno) {
-        this.orderno = orderno;
-    }
+	public void setOrderNo(Integer orderNo) {
+		this.orderNo = orderNo;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+    
+    
+    
+
+    
 }

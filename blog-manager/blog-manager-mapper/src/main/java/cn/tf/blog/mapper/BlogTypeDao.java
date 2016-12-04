@@ -61,4 +61,6 @@ public interface BlogTypeDao {
 	 * @return
 	 */
 	public Integer delete(String id);
+
+	public List<UBlogtype> typelist(String username);
 }

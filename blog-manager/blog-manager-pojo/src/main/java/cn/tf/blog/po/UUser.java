@@ -3,17 +3,17 @@ package cn.tf.blog.po;
 import java.util.Date;
 
 public class UUser {
-    private String userid;
+    private String userId;
 
     private String username;
 
     private String password;
 
-    private String nickname;
+    private String nickName;
 
     private String sign;
 
-    private String imagepath;
+    private String imagePath;
 
     private String email;
 
@@ -23,93 +23,96 @@ public class UUser {
 
     private String state;
 
-    private String profile;
+    private String proFile;
+    
 
-    public String getUserid() {
-        return userid;
-    }
+	public String getUserId() {
+		return userId;
+	}
 
-    public void setUserid(String userid) {
-        this.userid = userid == null ? null : userid.trim();
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getNickname() {
-        return nickname;
-    }
+	public String getNickName() {
+		return nickName;
+	}
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname == null ? null : nickname.trim();
-    }
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 
-    public String getSign() {
-        return sign;
-    }
+	public String getSign() {
+		return sign;
+	}
 
-    public void setSign(String sign) {
-        this.sign = sign == null ? null : sign.trim();
-    }
+	public void setSign(String sign) {
+		this.sign = sign;
+	}
 
-    public String getImagepath() {
-        return imagepath;
-    }
+	public String getImagePath() {
+		return imagePath;
+	}
 
-    public void setImagepath(String imagepath) {
-        this.imagepath = imagepath == null ? null : imagepath.trim();
-    }
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
-    }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-    public Date getCreatetime() {
-        return createtime;
-    }
+	public Date getCreatetime() {
+		return createtime;
+	}
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
-    }
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
 
-    public String getState() {
-        return state;
-    }
+	public String getState() {
+		return state;
+	}
 
-    public void setState(String state) {
-        this.state = state == null ? null : state.trim();
-    }
+	public void setState(String state) {
+		this.state = state;
+	}
 
-    public String getProfile() {
-        return profile;
-    }
+	public String getProFile() {
+		return proFile;
+	}
 
-    public void setProfile(String profile) {
-        this.profile = profile == null ? null : profile.trim();
-    }
+	public void setProFile(String proFile) {
+		this.proFile = proFile;
+	}
+
+   
 }

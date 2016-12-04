@@ -178,4 +178,7 @@
       orderNo = #{orderno,jdbcType=VARCHAR}
     where typeId = #{typeid,jdbcType=VARCHAR}
   </update>
+  
+  
+  
 </mapper>

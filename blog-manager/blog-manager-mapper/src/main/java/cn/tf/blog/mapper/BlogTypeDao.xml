@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="findById" parameterType="Integer" resultMap="BlogTypeResult">
-		select * from t_blogType where blogtypeId=#{id} where username=#{username}
+		select * from t_blogType where blogtypeId=#{id} and username=#{username}
 	</select>
 	
 	<select id="list" parameterType="Map" resultMap="BlogTypeResult">
@@ -53,4 +53,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="String">
 		delete from u_blogType where blogtypeId=#{blogtypeId}
 	</delete>
+	
+	<select id="typelist" parameterType="String" resultMap="BlogTypeResult" >
+		SELECT * FROM u_blogtype WHERE username=#{username}
+	</select>
+	
+	
 </mapper> 

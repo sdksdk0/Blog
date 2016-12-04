@@ -2,19 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.tf.blog.mapper.UUserMapper" >
   <resultMap id="BaseResultMap" type="cn.tf.blog.po.UUser" >
-    <id column="userId" property="userid" jdbcType="VARCHAR" />
+    <id column="userId" property="userId" jdbcType="VARCHAR" />
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="nickName" property="nickname" jdbcType="VARCHAR" />
+    <result column="nickName" property="nickName" jdbcType="VARCHAR" />
     <result column="sign" property="sign" jdbcType="VARCHAR" />
-    <result column="imagePath" property="imagepath" jdbcType="VARCHAR" />
+    <result column="imagePath" property="imagePath" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="createTime" property="createtime" jdbcType="DATE" />
     <result column="state" property="state" jdbcType="CHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="cn.tf.blog.po.UUser" extends="BaseResultMap" >
-    <result column="profile" property="profile" jdbcType="LONGVARCHAR" />
+    <result column="proFile" property="proFile" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -79,7 +79,7 @@
     state
   </sql>
   <sql id="Blob_Column_List" >
-    profile
+    proFile
   </sql>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="cn.tf.blog.po.UUserExample" >
     select
@@ -117,11 +117,11 @@
     ,
     <include refid="Blob_Column_List" />
     from u_user
-    where userId = #{userid,jdbcType=VARCHAR}
+    where userId = #{userId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from u_user
-    where userId = #{userid,jdbcType=VARCHAR}
+    where userId = #{userId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="cn.tf.blog.po.UUserExample" >
     delete from u_user
@@ -133,16 +133,16 @@
     insert into u_user (userId, username, password, 
       nickName, sign, imagePath, 
       email, phone, createTime, 
-      state, profile)
-    values (#{userid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{nickname,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, #{imagepath,jdbcType=VARCHAR}, 
+      state, proFile)
+    values (#{userId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{nickName,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, #{imagePath,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{createtime,jdbcType=DATE}, 
-      #{state,jdbcType=CHAR}, #{profile,jdbcType=LONGVARCHAR})
+      #{state,jdbcType=CHAR}, #{proFile,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.tf.blog.po.UUser" >
     insert into u_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="userid != null" >
+      <if test="userId != null" >
         userId,
       </if>
       <if test="username != null" >
@@ -151,13 +151,13 @@
       <if test="password != null" >
         password,
       </if>
-      <if test="nickname != null" >
+      <if test="nickName != null" >
         nickName,
       </if>
       <if test="sign != null" >
         sign,
       </if>
-      <if test="imagepath != null" >
+      <if test="imagePath != null" >
         imagePath,
       </if>
       <if test="email != null" >
@@ -172,13 +172,13 @@
       <if test="state != null" >
         state,
       </if>
-      <if test="profile != null" >
-        profile,
+      <if test="proFile != null" >
+        proFile,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="userid != null" >
-        #{userid,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
       </if>
       <if test="username != null" >
         #{username,jdbcType=VARCHAR},
@@ -186,14 +186,14 @@
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="nickname != null" >
-        #{nickname,jdbcType=VARCHAR},
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
       </if>
       <if test="sign != null" >
         #{sign,jdbcType=VARCHAR},
       </if>
-      <if test="imagepath != null" >
-        #{imagepath,jdbcType=VARCHAR},
+      <if test="imagePath != null" >
+        #{imagePath,jdbcType=VARCHAR},
       </if>
       <if test="email != null" >
         #{email,jdbcType=VARCHAR},
@@ -207,8 +207,8 @@
       <if test="state != null" >
         #{state,jdbcType=CHAR},
       </if>
-      <if test="profile != null" >
-        #{profile,jdbcType=LONGVARCHAR},
+      <if test="proFile != null" >
+        #{proFile,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -221,8 +221,8 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update u_user
     <set >
-      <if test="record.userid != null" >
-        userId = #{record.userid,jdbcType=VARCHAR},
+      <if test="record.userId != null" >
+        userId = #{record.userId,jdbcType=VARCHAR},
       </if>
       <if test="record.username != null" >
         username = #{record.username,jdbcType=VARCHAR},
@@ -230,14 +230,14 @@
       <if test="record.password != null" >
         password = #{record.password,jdbcType=VARCHAR},
       </if>
-      <if test="record.nickname != null" >
-        nickName = #{record.nickname,jdbcType=VARCHAR},
+      <if test="record.nickName != null" >
+        nickName = #{record.nickName,jdbcType=VARCHAR},
       </if>
       <if test="record.sign != null" >
         sign = #{record.sign,jdbcType=VARCHAR},
       </if>
-      <if test="record.imagepath != null" >
-        imagePath = #{record.imagepath,jdbcType=VARCHAR},
+      <if test="record.imagePath != null" >
+        imagePath = #{record.imagePath,jdbcType=VARCHAR},
       </if>
       <if test="record.email != null" >
         email = #{record.email,jdbcType=VARCHAR},
@@ -251,8 +251,8 @@
       <if test="record.state != null" >
         state = #{record.state,jdbcType=CHAR},
       </if>
-      <if test="record.profile != null" >
-        profile = #{record.profile,jdbcType=LONGVARCHAR},
+      <if test="record.proFile != null" >
+        proFile = #{record.proFile,jdbcType=LONGVARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -261,29 +261,29 @@
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map" >
     update u_user
-    set userId = #{record.userid,jdbcType=VARCHAR},
+    set userId = #{record.userId,jdbcType=VARCHAR},
       username = #{record.username,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
-      nickName = #{record.nickname,jdbcType=VARCHAR},
+      nickName = #{record.nickName,jdbcType=VARCHAR},
       sign = #{record.sign,jdbcType=VARCHAR},
-      imagePath = #{record.imagepath,jdbcType=VARCHAR},
+      imagePath = #{record.imagePath,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       createTime = #{record.createtime,jdbcType=DATE},
       state = #{record.state,jdbcType=CHAR},
-      profile = #{record.profile,jdbcType=LONGVARCHAR}
+      proFile = #{record.proFile,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
     update u_user
-    set userId = #{record.userid,jdbcType=VARCHAR},
+    set userId = #{record.userId,jdbcType=VARCHAR},
       username = #{record.username,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
-      nickName = #{record.nickname,jdbcType=VARCHAR},
+      nickName = #{record.nickName,jdbcType=VARCHAR},
       sign = #{record.sign,jdbcType=VARCHAR},
-      imagePath = #{record.imagepath,jdbcType=VARCHAR},
+      imagePath = #{record.imagePath,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       createTime = #{record.createtime,jdbcType=DATE},
@@ -301,14 +301,14 @@
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="nickname != null" >
-        nickName = #{nickname,jdbcType=VARCHAR},
+      <if test="nickName != null" >
+        nickName = #{nickName,jdbcType=VARCHAR},
       </if>
       <if test="sign != null" >
         sign = #{sign,jdbcType=VARCHAR},
       </if>
-      <if test="imagepath != null" >
-        imagePath = #{imagepath,jdbcType=VARCHAR},
+      <if test="imagePath != null" >
+        imagePath = #{imagePath,jdbcType=VARCHAR},
       </if>
       <if test="email != null" >
         email = #{email,jdbcType=VARCHAR},
@@ -322,44 +322,44 @@
       <if test="state != null" >
         state = #{state,jdbcType=CHAR},
       </if>
-      <if test="profile != null" >
-        profile = #{profile,jdbcType=LONGVARCHAR},
+      <if test="proFile != null" >
+        proFile = #{proFile,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where userId = #{userid,jdbcType=VARCHAR}
+    where userId = #{userId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.tf.blog.po.UUser" >
     update u_user
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      nickName = #{nickname,jdbcType=VARCHAR},
+      nickName = #{nickName,jdbcType=VARCHAR},
       sign = #{sign,jdbcType=VARCHAR},
-      imagePath = #{imagepath,jdbcType=VARCHAR},
+      imagePath = #{imagePath,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       createTime = #{createtime,jdbcType=DATE},
       state = #{state,jdbcType=CHAR},
-      profile = #{profile,jdbcType=LONGVARCHAR}
-    where userId = #{userid,jdbcType=VARCHAR}
+      proFile = #{proFile,jdbcType=LONGVARCHAR}
+    where userId = #{userId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.tf.blog.po.UUser" >
     update u_user
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      nickName = #{nickname,jdbcType=VARCHAR},
+      nickName = #{nickName,jdbcType=VARCHAR},
       sign = #{sign,jdbcType=VARCHAR},
-      imagePath = #{imagepath,jdbcType=VARCHAR},
+      imagePath = #{imagePath,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       createTime = #{createtime,jdbcType=DATE},
       state = #{state,jdbcType=CHAR}
-    where userId = #{userid,jdbcType=VARCHAR}
+    where userId = #{userId,jdbcType=VARCHAR}
   </update>
   
   <update id="updateStatus"  parameterType="java.lang.String">
   	 update u_user
     set  state =1
-    where userId = #{userid,jdbcType=VARCHAR}
+    where userId = #{userId,jdbcType=VARCHAR}
   
   </update>
 

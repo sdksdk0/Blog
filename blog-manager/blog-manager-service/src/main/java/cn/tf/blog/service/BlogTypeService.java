@@ -54,4 +54,7 @@ public interface BlogTypeService {
 	 * @return
 	 */
 	public Integer delete(String id);
+
+	//查询所有的分类
+	public List<UBlogtype> typelist(String username);
 }

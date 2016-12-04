@@ -27,4 +27,5 @@ public interface STypeMapper {
     int updateByPrimaryKeySelective(SType record);
 
     int updateByPrimaryKey(SType record);
+
 }

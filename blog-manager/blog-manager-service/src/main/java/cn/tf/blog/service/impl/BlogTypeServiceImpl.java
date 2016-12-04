@@ -49,5 +49,11 @@ public class BlogTypeServiceImpl implements BlogTypeService{
 		return blogTypeDao.delete(id);
 	}
 
+	@Override
+	public List<UBlogtype> typelist(String username) {
+		
+		return blogTypeDao.typelist(username);
+	}
+
 
 }
