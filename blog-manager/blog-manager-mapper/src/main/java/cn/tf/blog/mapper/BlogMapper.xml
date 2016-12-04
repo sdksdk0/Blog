@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tf.blog.mapper.BlogMapper">
+
+	<resultMap type="cn.tf.blog.po.UBlog" id="BlogResult">
+		    <id column="blogId" property="blogid" jdbcType="VARCHAR" />
+		    <result column="title" property="title" jdbcType="VARCHAR" />
+		    <result column="summary" property="summary" jdbcType="VARCHAR" />
+		    <result column="releaseDate" property="releasedate" jdbcType="DATE" />
+		    <result column="clickHit" property="clickhit" jdbcType="VARCHAR" />
+		    <result column="replyHit" property="replyhit" jdbcType="VARCHAR" />
+		    <result column="blogtypeId" property="blogtypeid" jdbcType="VARCHAR" />
+		    <result column="typeId" property="typeid" jdbcType="VARCHAR" />
+		    <result column="keyWord" property="keyword" jdbcType="VARCHAR" />
+		    <result column="username" property="username" jdbcType="VARCHAR" />
+		    <result column="state" property="state" jdbcType="CHAR" />
+		    <result column="stypeName" property="stypeName" jdbcType="VARCHAR" />
+		    <result column="utypeName" property="utypeName" jdbcType="VARCHAR" />
+		
+	</resultMap>  
+	 <resultMap id="ResultMapWithBLOBs" type="cn.tf.blog.po.UBlog" extends="BlogResult" >
+    <result column="content" property="content" jdbcType="LONGVARBINARY" />
+  </resultMap>
+	  
+	<select id="countList"  resultMap="BlogResult">
+		SELECT DATE_FORMAT(releaseDate,'%Y年%m月') AS releaseDateStr ,COUNT(*) AS blogCount  FROM u_blog GROUP BY DATE_FORMAT(releaseDate,'%Y年%m月') ORDER BY DATE_FORMAT(releaseDate,'%Y年%m月') DESC
+	</select>
+	
+	<select id="list" parameterType="Map" resultMap="BlogResult">
+		SELECT b.*,s.typeName AS  stypeName ,t.typeName  AS utypeName  FROM u_blog   b LEFT JOIN  s_type  s  ON   
+		 b.typeId=s.typeId   LEFT JOIN   u_blogtype  t   ON  t.blogtypeId=b.blogtypeId 
+		<where>
+		    <if test="title!=null and title!='' ">
+				and b.title like #{title}
+			</if>
+			<if test="typeId!=null and typeId!='' ">
+				and b.typeId = #{typeId}
+			</if>
+			<if test="releaseDateStr!=null and releaseDateStr!='' ">
+				and DATE_FORMAT(releaseDate,'%Y年%m月') = #{releaseDateStr}
+			</if>
+			<if test="username!=null and username!='' ">
+				 and  b.username=#{username}
+			</if>
+			
+		</where>
+		  order by releaseDate desc
+		<if test="start!=null and size!=null">
+			limit #{start},#{size}
+		</if>
+	</select>
+	
+	<select id="getTotal" parameterType="Map" resultType="Long">
+			SELECT COUNT(*) FROM u_blog   
+		<where>
+		    <if test="title!=null and title!='' ">
+				and title like #{title}  
+			</if>
+			<if test="typeId!=null and typeId!='' ">
+				and typeId = #{typeId} 
+			</if>
+			<if test="releaseDateStr!=null and releaseDateStr!='' ">
+				and DATE_FORMAT(releaseDate,'%Y年%m月') = #{releaseDateStr}
+			</if> 
+			<if test="username!=null and username!=''  ">
+					 AND  username=#{username} 
+			</if>   
+			
+		</where>
+	</select>
+	
+	<select id="findById" parameterType="String" resultMap="BlogResult">
+		select * from u_blog where blogId=#{blogId}
+	</select>
+	
+	<update id="update" parameterType="cn.tf.blog.po.UBlog">
+		update u_blog
+		<set>
+			<if test="title!=null and title!='' ">
+				title=#{title},
+			</if>
+			<if test="summary!=null and summary!='' ">
+				summary=#{summary},
+			</if>
+			<if test="content!=null and content!='' ">
+				content=#{content},
+			</if>
+			<if test="blogtypeid!=null and blogtypeid!=''">
+				blogtypeId=#{blogtypeid},
+			</if>
+			
+			<if test="typeid!=null and typeid!=''">
+				typeId=#{typeid},
+			</if>
+			
+			<if test="clickhit!=null ">
+				clickHit=#{clickhit},
+			</if>
+			<if test="replyhit!=null ">
+				replyHit=#{replyhit},
+			</if>
+			<if test="keyword!=null and keyword!='' ">
+				keyWord=#{keyword},
+			</if>
+		</set>
+		where blogId=#{blogid}
+	</update>
+	
+	<select id="getLastBlog" parameterType="Integer" resultMap="BlogResult">
+		SELECT * FROM u_blog WHERE blogId&lt;#{blogId} ORDER BY blogId DESC LIMIT 1
+	</select>
+	
+	<select id="getNextBlog" parameterType="Integer" resultMap="BlogResult">
+		SELECT * FROM u_blog WHERE blogId&gt;#{blogId} ORDER BY blogId ASC LIMIT 1
+	</select>
+	
+
+	
+	<insert id="add" parameterType="cn.tf.blog.po.UBlog" >
+    insert into u_blog (blogId, title, summary, 
+      releaseDate, clickHit, replyHit, 
+      blogtypeId, typeId, keyWord, 
+      username, state, content
+      )
+    values (#{blogid,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
+     now(), #{clickhit,jdbcType=VARCHAR}, #{replyhit,jdbcType=VARCHAR}, 
+      #{blogtypeid,jdbcType=VARCHAR}, #{typeid,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, 1, #{content,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+	
+	
+	
+	<delete id="delete" parameterType="String">
+		delete from u_blog where blogId=#{blogId}
+	</delete>
+	
+	<select id="getBlogByTypeId" parameterType="String" resultType="String">
+		select count(*) from u_blog where blogtypeId=#{blogtypeId}
+	</select>
+</mapper> 

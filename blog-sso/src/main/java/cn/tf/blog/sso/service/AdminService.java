@@ -17,3 +17,4 @@ public interface AdminService {
 
 	TaotaoResult getUserByToken(String token);
 }
+ 

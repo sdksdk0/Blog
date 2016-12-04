@@ -15,7 +15,7 @@ public interface UScoreMapper {
     int insert(UScore record);
 
     int insertSelective(UScore record);
-
+ 
     List<UScore> selectByExample(UScoreExample example);
 
     UScore selectByPrimaryKey(String scoreid);

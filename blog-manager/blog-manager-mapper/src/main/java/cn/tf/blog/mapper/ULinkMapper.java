@@ -15,7 +15,7 @@ public interface ULinkMapper {
     int insert(ULink record);
 
     int insertSelective(ULink record);
-
+ 
     List<ULink> selectByExample(ULinkExample example);
 
     ULink selectByPrimaryKey(String linkid);

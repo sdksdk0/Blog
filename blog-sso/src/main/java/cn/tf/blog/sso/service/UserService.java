@@ -17,7 +17,7 @@ public interface UserService {
 
 	TaotaoResult getUserByToken(String token);
 	
-	/*
+	/*  
 	 * 
 	 * 退出登录
 	 */

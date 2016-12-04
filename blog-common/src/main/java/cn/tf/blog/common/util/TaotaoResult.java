@@ -16,7 +16,7 @@ public class TaotaoResult {
     // 响应业务状态
     private Integer status;
 
-    // 响应消息
+    // 响应消息   
     private String msg;
 
     // 响应中的数据

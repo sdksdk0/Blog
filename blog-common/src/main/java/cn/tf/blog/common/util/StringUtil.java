@@ -21,7 +21,7 @@ public class StringUtil {
 		}else{
 			return false;
 		}
-	}
+	} 
 	
 	/**
 	 * 判断是否不是空

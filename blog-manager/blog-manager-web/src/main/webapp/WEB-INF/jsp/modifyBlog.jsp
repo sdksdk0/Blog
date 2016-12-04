@@ -23,17 +23,23 @@
 	function submitData(){
 		var title=$("#title").val();
 		var blogTypeId=$("#blogTypeId").combobox("getValue");
+		var typeId=$("#typeId").combobox("getValue");
 		var content=UE.getEditor('editor').getContent();
-		var keyWord=$("#keyWord").val();
+		var username=$("#username").val();
+		var keyword=$("#keyword").val();
+		var blogid=$("#blogid").val();
+		
 		
 		if(title==null || title==''){
 			alert("请输入标题！");
+		}else if(typeId==null || typeId==''){
+			alert("请选择博客类别！");
 		}else if(blogTypeId==null || blogTypeId==''){
 			alert("请选择博客类别！");
 		}else if(content==null || content==''){
 			alert("请输入内容！");
 		}else{
-			$.post("${pageContext.request.contextPath}/admin/blog/save.do",{'id':'${param.id}','title':title,'blogType.id':blogTypeId,'content':content,'contentNoTag':UE.getEditor('editor').getContentTxt(),'summary':UE.getEditor('editor').getContentTxt().substr(0,155),'keyWord':keyWord},function(result){
+			$.post("${pageContext.request.contextPath}/user/blog/save",{'blogid':blogid,'username':username,'title':title,'blogtypeid':blogTypeId,'typeid':typeId,'content':content,'contentNoTag':UE.getEditor('editor').getContentTxt(),'summary':UE.getEditor('editor').getContentTxt().substr(0,155),'keyword':keyword},function(result){
 				if(result.success){
 					alert("博客修改成功！");
 				}else{
@@ -56,12 +62,24 @@
    			<td><input type="text" id="title" name="title" style="width: 400px;"/></td>
    		</tr>
    		<tr>
-   			<td>所属类别：</td>
+   			<td>分类：</td>
    			<td>
-   				<select class="easyui-combobox" style="width: 154px" id="blogTypeId" name="blogType.id" editable="false" panelHeight="auto" >
-					<option value="">请选择博客类别...</option>	
+   				<select class="easyui-combobox" style="width: 154px" id="typeId" name="typeId" editable="false" panelHeight="auto" >
+					
+				    <c:forEach var="type" items="${typeCountList }">
+				    	<option value="${type.typeid }">${type.typename }</option>
+				    </c:forEach>			
+                </select>
+   			</td>
+   		</tr>
+   		<tr>
+   		
+   			<td>自定义类别：</td>
+   			<td>
+   				<select class="easyui-combobox" style="width: 154px" id="blogTypeId" name="blogTypeId" editable="false" panelHeight="auto" >
+					
 				    <c:forEach var="blogType" items="${blogTypeCountList }">
-				    	<option value="${blogType.id }">${blogType.typeName }</option>
+				    	<option value="${blogType.blogtypeId }">${blogType.typeName }</option>
 				    </c:forEach>			
                 </select>
    			</td>
@@ -74,9 +92,12 @@
    		</tr>
    		<tr>
    			<td>关键字：</td>
-   			<td><input type="text" id="keyWord" name="keyWord" style="width: 400px;"/>&nbsp;(多个关键字中间用空格隔开)</td>
+   			<td><input type="text" id="keyword" name="keyword" style="width: 980px;"/>&nbsp;(多个关键字中间用空格隔开)</td>
    		</tr>
-   		<tr>
+   		
+   		<input  type="hidden"  type="username"  id="username"  value="aaaa"  />
+   		<input  type="hidden"  id="blogid"    name="blogid"   value="${blogid }"  />
+     		<tr>
    			<td></td>
    			<td>
    				<a href="javascript:submitData()" class="easyui-linkbutton" data-options="iconCls:'icon-submit'">发布博客</a>
@@ -93,16 +114,17 @@
 
     ue.addListener("ready",function(){
         //通过ajax请求数据
-        UE.ajax.request("${pageContext.request.contextPath}/admin/blog/findById.do",
+        UE.ajax.request("${pageContext.request.contextPath}/user/blog/findById",
             {
                 method:"post",
                 async : false,  
-                data:{"id":"${param.id}"},
+                data:{"blogid":"${param.blogid}"},
                 onsuccess:function(result){
                 	result = eval("(" + result.responseText + ")");  
                 	$("#title").val(result.title);
-                	$("#keyWord").val(result.keyWord);
-       				$("#blogTypeId").combobox("setValue",result.blogType.id);
+                	$("#keyword").val(result.keyword);
+       				$("#blogTypeId").combobox("setValue",result.blogtypeid);
+       				$("#typeId").combobox("setValue",result.typeid);
        				UE.getEditor('editor').setContent(result.content);
                 }
             }

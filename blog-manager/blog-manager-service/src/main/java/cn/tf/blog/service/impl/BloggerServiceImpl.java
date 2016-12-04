@@ -18,9 +18,9 @@ import cn.tf.blog.service.BloggerService;
 @Service("bloggerService")
 public class BloggerServiceImpl implements BloggerService{
 
-	@Resource
+	@Resource 
 	private BloggerDao bloggerDao;
-
+  
 	public UUser find(String username) {
 		return bloggerDao.find(username);
 	}

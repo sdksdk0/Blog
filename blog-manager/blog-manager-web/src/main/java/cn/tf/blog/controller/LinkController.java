@@ -31,10 +31,10 @@ import net.sf.json.JSONObject;
 public class LinkController {
 	
 	@Resource
-	private LinkService linkService;
-	
+	private LinkService linkService;  
+	   
 	/**
-	 * 分页查询友情链接信息
+	 * 分页查询友情链接信息 
 	 * @param page
 	 * @param rows
 	 * @param response

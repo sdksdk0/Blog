@@ -2,12 +2,13 @@ package cn.tf.blog.service.impl;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import cn.tf.blog.mapper.BlogDao;
+import cn.tf.blog.mapper.BlogMapper;
 import cn.tf.blog.po.UBlog;
 import cn.tf.blog.service.BlogService;
 
@@ -21,7 +22,7 @@ import cn.tf.blog.service.BlogService;
 public class BlogServiceImpl implements BlogService{
 
 	@Resource
-	private BlogDao blogDao;
+	private BlogMapper blogDao;
 	
 	public List<UBlog> countList() {
 		return blogDao.countList();
@@ -52,6 +53,7 @@ public class BlogServiceImpl implements BlogService{
 	}
 
 	public Integer add(UBlog blog) {
+		blog.setBlogid(UUID.randomUUID().toString());
 		return blogDao.add(blog);
 	}
 

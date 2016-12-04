@@ -11,7 +11,7 @@ public class UBlogtype {
     
     private String username;  //用户名
 
-	
+	  
 
 	public String getUsername() {
 		return username;

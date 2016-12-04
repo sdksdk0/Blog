@@ -28,17 +28,17 @@ import net.sf.json.JSONObject;
  * @author Administrator
  *
  */
-@Controller
+@Controller 
 @RequestMapping("/user/blogType")
 public class BlogTypeController {
 
 	@Resource
 	private BlogTypeService blogTypeService;
 	
-	@Resource
+	@Resource  
 	private BlogService blogService;
 	
-	/**
+	/**   
 	 * 分页查询博客类别信息
 	 * @param page
 	 * @param rows

@@ -20,18 +20,24 @@
 	
 	function submitData(){
 		var title=$("#title").val();
+		var typeId=$("#typeId").combobox("getValue");
 		var blogTypeId=$("#blogTypeId").combobox("getValue");
 		var content=UE.getEditor('editor').getContent();
 		var keyWord=$("#keyWord").val();
 		
+		var username=$("#username").val();
+	
+		
 		if(title==null || title==''){
 			alert("请输入标题！");
+		}else if(typeId==null || typeId==''){
+			alert("请选择博客类别！");
 		}else if(blogTypeId==null || blogTypeId==''){
 			alert("请选择博客类别！");
 		}else if(content==null || content==''){
 			alert("请输入内容！");
 		}else{
-			$.post("user/blog/save",{'title':title,'blogType.id':blogTypeId,'content':content,'contentNoTag':UE.getEditor('editor').getContentTxt(),'summary':UE.getEditor('editor').getContentTxt().substr(0,155),'keyWord':keyWord},function(result){
+			$.post("/manager/user/blog/save",{'username':username,'title':title,'typeid':typeId,'blogtypeid':blogTypeId,'content':content,'contentNoTag':UE.getEditor('editor').getContentTxt(),'summary':UE.getEditor('editor').getContentTxt().substr(0,155),'keyword':keyWord},function(result){
 				if(result.success){
 					alert("博客发布成功！");
 					resetValue();
@@ -74,7 +80,7 @@
    		
    			<td>自定义类别：</td>
    			<td>
-   				<select class="easyui-combobox" style="width: 154px" id="blogTypeId" name="typeName" editable="false" panelHeight="auto" >
+   				<select class="easyui-combobox" style="width: 154px" id="blogTypeId" name="blogTypeId" editable="false" panelHeight="auto" >
 					<option value="">请选择博客类别...</option>	
 				    <c:forEach var="blogType" items="${blogTypeCountList }">
 				    	<option value="${blogType.blogtypeId }">${blogType.typeName }</option>
@@ -92,6 +98,10 @@
    			<td>关键字：</td>
    			<td><input type="text/plain" id="keyWord" name="keyWord" style="width: 980px;"/>&nbsp;(多个关键字中间用空格隔开)</td>
    		</tr>
+   		
+   		
+   		<input  type="hidden"  type="username"  id="username"  value="aaaa"  />
+   		
    		<tr>
    			<td></td>
    			<td>

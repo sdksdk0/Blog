@@ -23,7 +23,7 @@ public class PictureServiceImpl implements PictureService{
 	private String FTP_ADDRESS;
 	@Value("${FTP_PORT}")
 	private int FTP_PORT;
-	@Value("${FTP_USERNAME}")
+	@Value("${FTP_USERNAME}") 
 	private String FTP_USERNAME;
 	@Value("${FTP_PASSWORD}")
 	private String FTP_PASSWORD;

@@ -28,7 +28,7 @@ public class PictureController {
 		//把result转换为json格式的字符串
 		
 		String json=JsonUtils.objectToJson(result);
-		
+		 
 		return json;
 	}
 

@@ -18,7 +18,7 @@
 	}
 	
 	function formatTitle(val,row){
-		return "<a target='_blank' href='${pageContext.request.contextPath}/blog/articles/"+row.id+".html'>"+val+"</a>"
+		return "<a target='_blank' href='${pageContext.request.contextPath}/blog/articles/"+row.blogid+".html'>"+val+"</a>"
 	}
 	
 	function searchBlog(){
@@ -35,12 +35,12 @@
 		 }
 		 var strIds=[];
 		 for(var i=0;i<selectedRows.length;i++){
-			 strIds.push(selectedRows[i].id);
+			 strIds.push(selectedRows[i].blogid);
 		 }
 		 var ids=strIds.join(",");
 		 $.messager.confirm("系统提示","您确定要删除这<font color=red>"+selectedRows.length+"</font>条数据吗？",function(r){
 				if(r){
-					$.post("${pageContext.request.contextPath}/admin/blog/delete.do",{ids:ids},function(result){
+					$.post("${pageContext.request.contextPath}/user/blog/delete",{ids:ids},function(result){
 						if(result.success){
 							 $.messager.alert("系统提示","数据已成功删除！");
 							 $("#dg").datagrid("reload");
@@ -60,7 +60,7 @@
 			 return;
 		 }
 		 var row=selectedRows[0];
-		 window.parent.openTab('修改博客','modifyBlog.jsp?id='+row.id,'icon-writeblog');
+		 window.parent.openTab('修改博客','user/blog/toUpdate?username=aaaa&blogid='+row.blogid,'icon-writeblog');
 	}
 	
 </script>
@@ -68,14 +68,15 @@
 <body style="margin: 1px">
 <table id="dg" title="博客管理" class="easyui-datagrid"
    fitColumns="true" pagination="true" rownumbers="true"
-   url="${pageContext.request.contextPath}/admin/blog/list.do" fit="true" toolbar="#tb">
+   url="${pageContext.request.contextPath}/user/blog/list?username=aaaa" fit="true" toolbar="#tb">
    <thead>
    	<tr>
    		<th field="cb" checkbox="true" align="center"></th>
-   		<th field="id" width="20" align="center">编号</th>
+   		<th field="blogid" width="50" align="center">编号</th>
    		<th field="title" width="200" align="center" formatter="formatTitle">标题</th>
-   		<th field="releaseDate" width="50" align="center">发布日期</th>
-   		<th field="blogType" width="50" align="center" formatter="formatBlogType">博客类别</th>
+   		<th field="releasedate" width="50" align="center">发布日期</th>
+   		<th field="utypeName" width="50" align="center" >博客类别</th>
+   		<th field="stypeName" width="50" align="center">大类</th>
    	</tr>
    </thead>
  </table>

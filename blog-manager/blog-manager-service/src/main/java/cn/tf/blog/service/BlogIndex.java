@@ -1,4 +1,4 @@
-package cn.tf.blog.lunece;
+package cn.tf.blog.service;
 
 import java.io.StringReader;
 import java.nio.file.Paths;
@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-
+import org.apache.commons.lang.StringEscapeUtils;  
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
 import org.apache.lucene.document.Document;
@@ -46,15 +46,15 @@ import cn.tf.blog.po.UBlog;
  */
 public class BlogIndex {
 
-	/*private Directory dir=null;
+	private Directory dir=null;
 	
 
-	*//**
+	/**//**
 	 * 获取IndexWriter实例
 	 * @return
 	 * @throws Exception
 	 *//*
-	private IndexWriter getWriter()throws Exception{
+*/	private IndexWriter getWriter()throws Exception{
 		dir=FSDirectory.open(Paths.get("C://lucene"));
 		SmartChineseAnalyzer analyzer=new SmartChineseAnalyzer();
 		IndexWriterConfig iwc=new IndexWriterConfig(analyzer);
@@ -62,14 +62,14 @@ public class BlogIndex {
 		return writer;
 	}
 	
-	*//**
+/*	*//**
 	 * 添加博客索引
 	 * @param blog
 	 *//*
-	public void addIndex(UBlog blog)throws Exception{
+*/	public void addIndex(UBlog blog)throws Exception{
 		IndexWriter writer=getWriter();
 		Document doc=new Document();
-		doc.add(new StringField("id",String.valueOf(blog.getId()),Field.Store.YES));
+		doc.add(new StringField("id",String.valueOf(blog.getBlogid()),Field.Store.YES));
 		doc.add(new TextField("title",blog.getTitle(),Field.Store.YES));
 		doc.add(new StringField("releaseDate",DateUtil.formatDate(new Date(), "yyyy-MM-dd"),Field.Store.YES));
 		doc.add(new TextField("content",blog.getContentNoTag(),Field.Store.YES));
@@ -77,28 +77,28 @@ public class BlogIndex {
 		writer.close();
 	}
 	
-	*//**
+	/**//**
 	 * 更新博客索引
 	 * @param blog
 	 * @throws Exception
 	 *//*
-	public void updateIndex(UBlog blog)throws Exception{
+*/	public void updateIndex(UBlog blog)throws Exception{
 		IndexWriter writer=getWriter();
 		Document doc=new Document();
-		doc.add(new StringField("id",String.valueOf(blog.getId()),Field.Store.YES));
+		doc.add(new StringField("id",String.valueOf(blog.getBlogid()),Field.Store.YES));
 		doc.add(new TextField("title",blog.getTitle(),Field.Store.YES));
 		doc.add(new StringField("releaseDate",DateUtil.formatDate(new Date(), "yyyy-MM-dd"),Field.Store.YES));
 		doc.add(new TextField("content",blog.getContentNoTag(),Field.Store.YES));
-		writer.updateDocument(new Term("id", String.valueOf(blog.getId())), doc);
+		writer.updateDocument(new Term("id", String.valueOf(blog.getBlogid())), doc);
 		writer.close();
 	}
 	
-	*//**
+	/**//**
 	 * 删除指定博客的索引
 	 * @param blogId
 	 * @throws Exception
 	 *//*
-	public void deleteIndex(String blogId)throws Exception{
+*/	public void deleteIndex(String blogId)throws Exception{
 		IndexWriter writer=getWriter();
 		writer.deleteDocuments(new Term("id",blogId));
 		writer.forceMergeDeletes(); // 强制删除
@@ -106,13 +106,13 @@ public class BlogIndex {
 		writer.close();
 	}
 	
-	*//**
+	/**//**
 	 * 查询博客信息
 	 * @param q 查询关键字
 	 * @return
 	 * @throws Exception
 	 *//*
-	public List<UBlog> searchBlog(String q)throws Exception{
+*/	public List<UBlog> searchBlog(String q)throws Exception{
 		dir=FSDirectory.open(Paths.get("C://lucene"));
 		IndexReader reader = DirectoryReader.open(dir);
 		IndexSearcher is=new IndexSearcher(reader);
@@ -134,7 +134,7 @@ public class BlogIndex {
 		for(ScoreDoc scoreDoc:hits.scoreDocs){
 			Document doc=is.doc(scoreDoc.doc);
 			UBlog blog=new UBlog();
-			blog.setId(Integer.parseInt(doc.get(("id"))));
+			blog.setBlogid(doc.get(("id")));
 			blog.setReleaseDateStr(doc.get(("releaseDate")));
 			String title=doc.get("title");
 			String content=StringEscapeUtils.escapeHtml(doc.get("content"));
@@ -163,5 +163,5 @@ public class BlogIndex {
 			blogList.add(blog);
 		}
 		return blogList;
-	}*/
+	}
 }

@@ -18,10 +18,10 @@ import cn.tf.blog.service.impl.UserServiceImpl;
 
 public class LoginInterceptor implements  HandlerInterceptor{
 
-	@Autowired
+	@Autowired 
 	private  UserService userService;
 	
-	//在handler执行之前处理  
+	//在handler执行之前处理    
 		@Override
 		public boolean preHandle(HttpServletRequest request,
 				HttpServletResponse response, Object handler) throws Exception {
@@ -30,7 +30,7 @@ public class LoginInterceptor implements  HandlerInterceptor{
 			String token=CookieUtils.getCookieValue(request, "TT_TOKEN_USER");
 			UUser user = userService.getUserByToken(token);
 			if(null==user){
-				//调到登录页面
+				//调到登录页面 
 				response.sendRedirect("http://localhost:8087/sso/page/login");
 				return false;
 			}

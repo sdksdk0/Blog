@@ -10,10 +10,10 @@ import cn.tf.blog.po.UBlog;
 /**
  * 博客Dao接口
  * @author Administrator
- *
+ *  
  */
-public interface BlogDao {
-
+public interface BlogMapper {
+  
 	/**
 	 * 根据日期月份分组查询
 	 * @return
@@ -81,6 +81,8 @@ public interface BlogDao {
 	 * @return
 	 */
 	public Integer getBlogByTypeId(String typeId);
+
+
 	
 	
 }

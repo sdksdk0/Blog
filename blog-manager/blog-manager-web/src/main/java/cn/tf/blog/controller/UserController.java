@@ -33,7 +33,7 @@ public class UserController {
 	@Resource
 	private BloggerService bloggerService;
 	
-	/**
+	/** 
 	 * 修改博主信息
 	 * @param file1
 	 * @param blogger
