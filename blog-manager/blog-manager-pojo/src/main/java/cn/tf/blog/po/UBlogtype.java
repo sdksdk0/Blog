@@ -1,33 +1,60 @@
 package cn.tf.blog.po;
 
 public class UBlogtype {
-    private String blogtypeid;
+    private String blogtypeId;
 
-    private String typename;
+    private String typeName;
+    
+    private Integer blogCount; // 数量
 
-    private String orderno;
+    private String orderNo;
+    
+    private String username;  //用户名
 
-    public String getBlogtypeid() {
-        return blogtypeid;
-    }
+	
 
-    public void setBlogtypeid(String blogtypeid) {
-        this.blogtypeid = blogtypeid == null ? null : blogtypeid.trim();
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public String getTypename() {
-        return typename;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setTypename(String typename) {
-        this.typename = typename == null ? null : typename.trim();
-    }
+	public String getBlogtypeId() {
+		return blogtypeId;
+	}
 
-    public String getOrderno() {
-        return orderno;
-    }
+	public void setBlogtypeId(String blogtypeId) {
+		this.blogtypeId = blogtypeId;
+	}
 
-    public void setOrderno(String orderno) {
-        this.orderno = orderno == null ? null : orderno.trim();
-    }
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+
+	public Integer getBlogCount() {
+		return blogCount;
+	}
+
+	public void setBlogCount(Integer blogCount) {
+		this.blogCount = blogCount;
+	}
+
+	public String getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+    
+    
+    
+    
+
 }

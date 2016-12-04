@@ -31,7 +31,7 @@
 		}else if(content==null || content==''){
 			alert("请输入内容！");
 		}else{
-			$.post("${pageContext.request.contextPath}/admin/blog/save.do",{'title':title,'blogType.id':blogTypeId,'content':content,'contentNoTag':UE.getEditor('editor').getContentTxt(),'summary':UE.getEditor('editor').getContentTxt().substr(0,155),'keyWord':keyWord},function(result){
+			$.post("user/blog/save",{'title':title,'blogType.id':blogTypeId,'content':content,'contentNoTag':UE.getEditor('editor').getContentTxt(),'summary':UE.getEditor('editor').getContentTxt().substr(0,155),'keyWord':keyWord},function(result){
 				if(result.success){
 					alert("博客发布成功！");
 					resetValue();
@@ -73,12 +73,12 @@
    		<tr>
    			<td valign="top">博客内容：</td>
    			<td>
-				   <script id="editor" type="text/plain" style="width:100%;height:500px;"></script>
+				   <script id="editor" type="text/plain" style="width:100%;height:400px;"></script>
    			</td>
    		</tr>
    		<tr>
    			<td>关键字：</td>
-   			<td><input type="text" id="keyWord" name="keyWord" style="width: 400px;"/>&nbsp;(多个关键字中间用空格隔开)</td>
+   			<td><input type="text/plain" id="keyWord" name="keyWord" style="width: 980px;"/>&nbsp;(多个关键字中间用空格隔开)</td>
    		</tr>
    		<tr>
    			<td></td>

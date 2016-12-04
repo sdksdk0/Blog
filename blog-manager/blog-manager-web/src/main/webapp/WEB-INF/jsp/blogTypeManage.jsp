@@ -23,12 +23,12 @@
 		 }
 		 var strIds=[];
 		 for(var i=0;i<selectedRows.length;i++){
-			 strIds.push(selectedRows[i].id);
+			 strIds.push(selectedRows[i].blogtypeId);
 		 }
 		 var ids=strIds.join(",");
 		 $.messager.confirm("系统提示","您确定要删除这<font color=red>"+selectedRows.length+"</font>条数据吗？",function(r){
 				if(r){
-					$.post("${pageContext.request.contextPath}/admin/blogType/delete.do",{ids:ids},function(result){
+					$.post("${pageContext.request.contextPath}/user/blogType/delete",{ids:ids},function(result){
 						if(result.success){
 							if(result.exist){
 								 $.messager.alert("系统提示",result.exist);
@@ -46,7 +46,7 @@
 	
 	function openBlogTypeAddDialog(){
 		$("#dlg").dialog("open").dialog("setTitle","添加博客类别信息");
-		url="${pageContext.request.contextPath}/admin/blogType/save.do";
+		url="${pageContext.request.contextPath}/user/blogType/save";
 	}
 	
 	function openBlogTypeModifyDialog(){
@@ -58,7 +58,7 @@
 		 var row=selectedRows[0];
 		 $("#dlg").dialog("open").dialog("setTitle","编辑博客类别信息");
 		 $("#fm").form("load",row);
-		 url="${pageContext.request.contextPath}/admin/blogType/save.do?id="+row.id;
+		 url="${pageContext.request.contextPath}/user/blogType/save?blogtypeId="+row.blogtypeId;
 	 }
 	
 	function saveBlogType(){
@@ -96,11 +96,11 @@
 <body style="margin: 1px">
 <table id="dg" title="博客类别管理" class="easyui-datagrid"
    fitColumns="true" pagination="true" rownumbers="true"
-   url="${pageContext.request.contextPath}/admin/blogType/list.do" fit="true" toolbar="#tb">
+   url="${pageContext.request.contextPath}/user/blogType/list?username=${user.username}" fit="true" toolbar="#tb">
    <thead>
    	<tr>
    		<th field="cb" checkbox="true" align="center"></th>
-   		<th field="id" width="20" align="center">编号</th>
+   		<th field="blogtypeId" width="50" align="center">编号</th> 
    		<th field="typeName" width="100" align="center">博客类型名称</th>
    		<th field="orderNo" width="100" align="center">排序序号</th>
    	</tr>
@@ -128,6 +128,7 @@
    			<td>博客类别排序：</td>
    			<td><input type="text" id="orderNo" name="orderNo" class="easyui-numberbox" required="true" style="width: 60px"/>&nbsp;(类别根据排序序号从小到大排序)</td>
    		</tr>
+   		<input type="hidden" name="username" id="username"  value="${user.username }"/>
    	</table>
    </form>
  </div>

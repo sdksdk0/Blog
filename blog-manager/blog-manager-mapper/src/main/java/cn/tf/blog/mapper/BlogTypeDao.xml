@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tf.blog.mapper.BlogTypeDao">
+
+	<resultMap type="cn.tf.blog.po.UBlogtype" id="BlogTypeResult">
+		<result property="blogtypeId" column="blogtypeId"/>
+		<result property="typeName" column="typeName"/>
+		<result property="blogCount" column="blogCount"/>
+		<result property="orderNo" column="orderNo"/>
+		<result property="username" column="username"/>
+	</resultMap>
+	
+	<select id="countList" resultMap="BlogTypeResult">
+		SELECT t2.blogtypeId,t2.typeName,COUNT(t1.blogtypeId) AS blogCount FROM u_blog t1 RIGHT JOIN u_blogType t2 ON t1.blogtypeId=t2.blogtypeId GROUP BY t2.typeName ORDER BY t2.orderNo
+		where username=#{username}
+
+	</select>
+	
+	<select id="findById" parameterType="Integer" resultMap="BlogTypeResult">
+		select * from t_blogType where blogtypeId=#{id} where username=#{username}
+	</select>
+	
+	<select id="list" parameterType="Map" resultMap="BlogTypeResult">
+		select * from u_blogType  where username=#{username}
+		<if test="start!=null and size!=null">
+			limit #{start},#{size}
+		</if>
+	</select>
+	
+	<select id="getTotal" parameterType="Map" resultType="Long">
+		select count(*) from u_blogType  where username=#{username}
+	</select>
+	
+	<insert id="add" parameterType="cn.tf.blog.po.UBlogtype">
+		insert into u_blogType values(#{blogtypeId},#{typeName},#{orderNo},#{username})  
+	</insert>
+	
+	<update id="update" parameterType="cn.tf.blog.po.UBlogtype">
+		update u_blogType
+		<set>
+			<if test="typeName!=null and typeName!='' ">
+				typeName=#{typeName},
+			</if>
+			<if test="orderNo!=null ">
+				orderNo=#{orderNo},
+			</if>
+		</set>
+		where blogtypeId=#{blogtypeId}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from u_blogType where blogtypeId=#{blogtypeId}
+	</delete>
+</mapper> 
