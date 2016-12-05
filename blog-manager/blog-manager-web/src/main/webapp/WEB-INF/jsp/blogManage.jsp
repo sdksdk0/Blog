@@ -60,7 +60,7 @@
 			 return;
 		 }
 		 var row=selectedRows[0];
-		 window.parent.openTab('修改博客','user/blog/toUpdate?username=aaaa&blogid='+row.blogid,'icon-writeblog');
+		 window.parent.openTab('修改博客','user/blog/toUpdate?username=${user.username}&blogid='+row.blogid,'icon-writeblog');
 	}
 	
 </script>
@@ -68,7 +68,7 @@
 <body style="margin: 1px">
 <table id="dg" title="博客管理" class="easyui-datagrid"
    fitColumns="true" pagination="true" rownumbers="true"
-   url="${pageContext.request.contextPath}/user/blog/list?username=aaaa" fit="true" toolbar="#tb">
+   url="${pageContext.request.contextPath}/user/blog/list?username=${user.username}" fit="true" toolbar="#tb">
    <thead>
    	<tr>
    		<th field="cb" checkbox="true" align="center"></th>

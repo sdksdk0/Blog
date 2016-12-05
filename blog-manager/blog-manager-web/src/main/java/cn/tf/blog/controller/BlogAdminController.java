@@ -1,6 +1,7 @@
 package cn.tf.blog.controller;
 
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -8,8 +9,11 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -85,7 +89,8 @@ public class BlogAdminController {
 	
 	//去博客修改页面
 	@RequestMapping("/toUpdate")
-	public String update(String username,String blogid,Model  model){
+	public String update(String username,String blogid,Model  model) throws UnsupportedEncodingException{
+		
 		
 		List<UBlogtype>   blogTypeCountList=blogTypeService.typelist(username);
 		model.addAttribute("blogTypeCountList",blogTypeCountList);
@@ -94,6 +99,12 @@ public class BlogAdminController {
 		List<SType> typeCountList = typeService.typelist();
 		model.addAttribute("typeCountList",typeCountList);
 		model.addAttribute("blogid",blogid);
+		
+		UBlog blog=blogService.findById(blogid);
+		blog.setContent(new String(blog.getContent().getBytes("iso-8859-1"),"utf-8"));
+		
+		model.addAttribute("blog",blog);
+		
 		
 		return "modifyBlog";
 	}

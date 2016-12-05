@@ -26,11 +26,11 @@
 	</bean>
 	
 	<!-- 拦截器配置 -->
-	   <mvc:interceptors>
+	 <mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
 			<bean class="cn.tf.blog.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
-	</mvc:interceptors>  
+	</mvc:interceptors> 
 	
 </beans>

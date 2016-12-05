@@ -67,7 +67,7 @@
    		</tr>
    		
    		
-   		<input  type="hidden"  type="username"  id="username"  value="aaaa"  />
+   		<input  type="hidden"  type="username"  id="username"  value="${user.username}"  />
    		
    		<tr>
    			<td></td>

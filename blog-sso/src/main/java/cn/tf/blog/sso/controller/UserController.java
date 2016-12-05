@@ -105,7 +105,8 @@ public class UserController {
 
 			score.setScoreid(UUID.randomUUID().toString());
 			score.setUsername(user.getUsername());
-			score.setScore(score.getScore());
+			//创建用户奖励50个积分
+			score.setScore(50);
 			
 			scoreService.add(score);
 			
