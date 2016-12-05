@@ -17,16 +17,7 @@ $(function () {
 })
 
 
-			  $(window).scroll(function () {
-				 var t=$(this).scrollTop();
-
-				if(t>300){
-					$(".gotopBtn").css("visibility","visible");
-				}else{
-					$(".gotopBtn").css("visibility","none");
-				}
-				
-			  });
+	
 			  
 			function checkInfo(){
 			
@@ -83,8 +74,21 @@ $(function () {
 							tdInfo="*2-17位的中文、字母、数字和下划线";	
 							flag1=false;
 						}else{
-							tdInfo="";	
-							flag1=true;
+							
+							$.ajax({
+				            	url : "/sso/user/check/"+$("#username").val()+"/1?r=" + Math.random(),  //浏览器缓存，每次地址不一样
+				            	success : function(data) {
+				            		
+				            		if (data.data==true) {
+				            			tdInfo="";	
+										flag1=true;
+				            		} else {
+				            			alert("用户名已经存在了");
+				            			tdInfo="*该用户名已存在";	
+										flag1=false;
+				            		}	
+				            	}
+							});
 						}
 						
 						$("#username_msg").text(tdInfo);
@@ -161,8 +165,24 @@ $(function () {
 							tdInfo="*请输入正确的联系电话";
 							flag3=false;
 						}else{
-							tdInfo="";	
-							flag3=true;
+							
+							$.ajax({
+				            	url : "/sso/user/check/"+$("#tel").val()+"/2?r=" + Math.random(),  //浏览器缓存，每次地址不一样
+				            	success : function(data) {
+				            		
+				            		if (data.data==true) {
+				            			tdInfo="";	
+										flag3=true;
+				            		} else {
+				            			alert("该号码已经存在了");
+				            			tdInfo="*该用户名已存在";	
+										flag1=false;
+				            		}	
+				            	}
+							});
+							
+							
+							
 						}
 						
 						$("#tel_msg").text(tdInfo);
@@ -210,7 +230,7 @@ $(function () {
 				if(window.DOMParser && !window.ActiveXOBject){
 					
 					var xmlhttp=new XMLHttpRequest();
-					xmlhttp.open("GET","city.xml",false);
+					//xmlhttp.open("GET","city.xml",false);
 					xmlhttp.send(null);
 					if(xmlhttp.readyState==4){
 						xmldom=xmlhttp.responseXML.documentElement;

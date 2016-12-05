@@ -140,6 +140,9 @@ public class BlogAdminController {
 			
 			resultTotal=blogService.update(blog);
 			blogIndex.updateIndex(blog); // 更新博客索引
+			
+			//添加到redis中
+			redisService.addBlog(blog);
 		}
 		JSONObject result=new JSONObject();
 		if(resultTotal>0){
@@ -193,6 +196,9 @@ public class BlogAdminController {
 		for(int i=0;i<idsStr.length;i++){
 			blogService.delete(idsStr[i]);
 			blogIndex.deleteIndex(idsStr[i]); // 删除对应博客的索引
+			
+			//删除redis中的文章
+			redisService.deleteBlog(idsStr[i]);
 		}
 		JSONObject result=new JSONObject();
 		result.put("success", true);

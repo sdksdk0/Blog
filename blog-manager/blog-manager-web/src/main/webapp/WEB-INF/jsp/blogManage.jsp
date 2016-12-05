@@ -18,7 +18,7 @@
 	}
 	
 	function formatTitle(val,row){
-		return "<a target='_blank' href='${pageContext.request.contextPath}/blog/articles/"+row.blogid+".html'>"+val+"</a>"
+		return "<a target='_blank' href='${pageContext.request.contextPath}/blog/articles/"+row.username+"/"+row.blogid+".html'>"+val+"</a>"
 	}
 	
 	function searchBlog(){

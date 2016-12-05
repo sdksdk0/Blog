@@ -6,4 +6,6 @@ public interface RedisService {
 	
 	public int addBlog(UBlog  blog);
 
+	public void deleteBlog(String blogid);
+
 }

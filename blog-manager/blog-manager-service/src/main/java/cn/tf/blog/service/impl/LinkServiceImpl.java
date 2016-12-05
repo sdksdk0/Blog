@@ -1,5 +1,7 @@
 package cn.tf.blog.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -26,7 +28,7 @@ public class LinkServiceImpl implements LinkService{
 	private LinkDao linkDao;
 	
 	public int add(ULink link) {
-		link.setLinkId(UUID.randomUUID().toString());
+		link.setLinkId(new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
 		return linkDao.add(link);
 	}
 

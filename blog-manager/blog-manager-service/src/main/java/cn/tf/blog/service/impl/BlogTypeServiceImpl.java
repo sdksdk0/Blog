@@ -1,5 +1,7 @@
 package cn.tf.blog.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -37,7 +39,8 @@ public class BlogTypeServiceImpl implements BlogTypeService{
 	}
 
 	public Integer add(UBlogtype blogType) {
-		blogType.setBlogtypeId(UUID.randomUUID().toString());
+		//blogType.setBlogtypeId(UUID.randomUUID().toString());
+		blogType.setBlogtypeId(new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
 		return blogTypeDao.add(blogType);
 	}
 

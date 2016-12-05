@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<select id="list" parameterType="Map" resultMap="CommentResult">
-		SELECT c.*,u.title  as title  FROM u_comment	c LEFT JOIN  u_blog   u  ON  c.blogId=u.blogId 
+		SELECT c.*,u.title  as title  FROM   u_comment c   LEFT JOIN   u_blog u  ON  c.blogId=u.blogId 
 		<where>
 			<if test="blogid!=null">
 				and c.blogId=#{blogid}
@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				and c.state=#{state}
 			</if>
 			<if test="username!=null and username!='' ">
-				and c.username=#{username}
+				and u.username=#{username}
 			</if>
 		</where>
 		order by c.commentDate 

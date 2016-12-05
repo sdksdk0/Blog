@@ -32,4 +32,11 @@ public class RedisServiceImpl implements RedisService{
 		return 0;
 	}
 
+
+	@Override
+	public void deleteBlog(String blogid) {
+		
+		jedisClient.del("BLOG_REDIS_ITEM_KEY :" + blogid);
+	}
+
 }

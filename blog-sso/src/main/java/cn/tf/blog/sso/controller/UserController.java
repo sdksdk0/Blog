@@ -90,6 +90,9 @@ public class UserController {
 		}
 	}
 	
+
+	
+	
 	
 	//创建用户
 	@RequestMapping(value="/register",method=RequestMethod.POST)
