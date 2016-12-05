@@ -144,7 +144,7 @@
 			</div>
 			<div title="博客管理" data-options="iconCls:'icon-bkgl'"
 				style="padding:10px;">
-				<a href="javascript:openTab('写博客','item-add','icon-writeblog')"
+				<a href="javascript:openTab('写博客','user/blog/toWrite?username=aaaa','icon-writeblog')"
 					class="easyui-linkbutton"
 					data-options="plain:true,iconCls:'icon-writeblog'"
 					style="width: 150px;">写博客</a> <a

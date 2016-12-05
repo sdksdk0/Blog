@@ -46,7 +46,7 @@
 </head>
 <body style="margin: 10px">
 <div id="p" class="easyui-panel" title="修改个人信息" style="padding: 10px">
-	<form id="form1" action="${pageContext.request.contextPath}/user/blogger/save" method="post" <!-- enctype="multipart/form-data" -->>
+	<form id="form1" action="${pageContext.request.contextPath}/user/blogger/save" method="post">
 	 	<table cellspacing="20px">
 	   		<tr>
 	   			<td width="80px">用户名：</td>

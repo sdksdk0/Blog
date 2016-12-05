@@ -22,7 +22,20 @@ public class PictureController {
 	@RequestMapping("/pic/upload")
 	@ResponseBody
 	public String  pictureUpload(MultipartFile  uploadFile){
-		System.out.println("aa");
+		
+		Map result=pictureService.uploadPicture(uploadFile);
+		System.out.println(result);
+		//把result转换为json格式的字符串
+		
+		String json=JsonUtils.objectToJson(result);
+		 
+		return json;
+	}
+	
+	@RequestMapping("/user/blog/pic/upload")
+	@ResponseBody
+	public String  pictureUpload1(MultipartFile  uploadFile){
+		
 		Map result=pictureService.uploadPicture(uploadFile);
 		System.out.println(result);
 		//把result转换为json格式的字符串

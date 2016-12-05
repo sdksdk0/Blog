@@ -14,8 +14,22 @@ public class UComment {
     private Date commentdate;
 
     private String state;
+    
+    private String title;
+    
+    
+    
+    
 
-    public String getCommentid() {
+    public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getCommentid() {
         return commentid;
     }
 

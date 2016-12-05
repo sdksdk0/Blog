@@ -58,7 +58,13 @@ public class BlogIndex {
 		dir=FSDirectory.open(Paths.get("C://lucene"));
 		SmartChineseAnalyzer analyzer=new SmartChineseAnalyzer();
 		IndexWriterConfig iwc=new IndexWriterConfig(analyzer);
-		IndexWriter writer=new IndexWriter(dir, iwc);
+		IndexWriter writer = null;
+		try {
+			writer = new IndexWriter(dir, iwc);
+		} catch (Exception e) {
+			writer.rollback();
+			e.printStackTrace();
+		}
 		return writer;
 	}
 	

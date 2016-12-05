@@ -11,51 +11,16 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
 
-<script type="text/javascript" charset="gbk" src="${pageContext.request.contextPath}/static/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="gbk" src="${pageContext.request.contextPath}/static/ueditor/ueditor.all.min.js"> </script>
-<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
-<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-<script type="text/javascript" charset="gbk" src="${pageContext.request.contextPath}/static/ueditor/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript">
-	
-	
-	
-	function submitData(){
-		var title=$("#title").val();
-		var blogTypeId=$("#blogTypeId").combobox("getValue");
-		var typeId=$("#typeId").combobox("getValue");
-		var content=UE.getEditor('editor').getContent();
-		var username=$("#username").val();
-		var keyword=$("#keyword").val();
-		var blogid=$("#blogid").val();
-		
-		
-		if(title==null || title==''){
-			alert("请输入标题！");
-		}else if(typeId==null || typeId==''){
-			alert("请选择博客类别！");
-		}else if(blogTypeId==null || blogTypeId==''){
-			alert("请选择博客类别！");
-		}else if(content==null || content==''){
-			alert("请输入内容！");
-		}else{
-			$.post("${pageContext.request.contextPath}/user/blog/save",{'blogid':blogid,'username':username,'title':title,'blogtypeid':blogTypeId,'typeid':typeId,'content':content,'contentNoTag':UE.getEditor('editor').getContentTxt(),'summary':UE.getEditor('editor').getContentTxt().substr(0,155),'keyword':keyword},function(result){
-				if(result.success){
-					alert("博客修改成功！");
-				}else{
-					alert("博客修改失败！");
-				}
-			},"json");
-		}
-	}
-	
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/static/js/common.js"></script>
+<link href="${pageContext.request.contextPath}/static/js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/static/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
+<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/static/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
 
-	
-
-</script>
 </head>
 <body style="margin: 10px">
 <div id="p" class="easyui-panel" title="修改博客" style="padding: 10px">
+<form id="itemAddForm" >
  	<table cellspacing="20px">
    		<tr>
    			<td width="80px">博客标题：</td>
@@ -87,12 +52,12 @@
    		<tr>
    			<td valign="top">博客内容：</td>
    			<td>
-				   <script id="editor" type="text/plain" style="width:100%;height:500px;"></script>
+				   <textarea style="width:100%;height:500px;visibility:hidden;" id="content"   name="content"></textarea>
    			</td>
    		</tr>
    		<tr>
    			<td>关键字：</td>
-   			<td><input type="text" id="keyword" name="keyword" style="width: 980px;"/>&nbsp;(多个关键字中间用空格隔开)</td>
+   			<td><input type="text" id="keyWord" name="keyWord" style="width: 980px;"/>&nbsp;(多个关键字中间用空格隔开)</td>
    		</tr>
    		
    		<input  type="hidden"  type="username"  id="username"  value="aaaa"  />
@@ -104,17 +69,29 @@
    			</td>
    		</tr>
    	</table>
+   	</form>
  </div>
  
- <script type="text/javascript">
 
-    //实例化编辑器
-    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-    var ue = UE.getEditor('editor');
 
-    ue.addListener("ready",function(){
-        //通过ajax请求数据
-        UE.ajax.request("${pageContext.request.contextPath}/user/blog/findById",
+
+<script type="text/javascript">
+	var itemAddEditor ;
+	//页面初始化完毕后执行此方法
+	$(function(){
+		//创建富文本编辑器
+		itemAddEditor = TAOTAO.createEditor("#itemAddForm [name=content]");
+		
+		
+		
+		//初始化类目选择和图片上传器
+		TAOTAO.init({fun:function(node){
+			//根据商品的分类id取商品 的规格模板，生成规格信息。
+			TAOTAO.changeItemParam(node, "itemAddForm");
+		}});
+		itemAddEditor.sync();
+		
+		    $.ajax("${pageContext.request.contextPath}/user/blog/findById",
             {
                 method:"post",
                 async : false,  
@@ -122,17 +99,81 @@
                 onsuccess:function(result){
                 	result = eval("(" + result.responseText + ")");  
                 	$("#title").val(result.title);
-                	$("#keyword").val(result.keyword);
+                	$("#keyWord").val(result.keyword);
        				$("#blogTypeId").combobox("setValue",result.blogtypeid);
        				$("#typeId").combobox("setValue",result.typeid);
-       				UE.getEditor('editor').setContent(result.content);
+       				$("#content").val(result.context);
+       				
                 }
             }
         );
-    });
-    
-   
+		
+		
+		
+		
+	});
+
+	
+	function clearForm(){
+		$('#itemAddForm').form('reset');
+		itemAddEditor.html('');
+	}
+	
+	
+	
+	
+	function submitData(){
+		var title=$("#title").val();
+		var typeId=$("#typeId").combobox("getValue");
+		var blogTypeId=$("#blogTypeId").combobox("getValue");
+		var content=itemAddEditor.html();
+		
+		itemAddEditor.sync();
+		
+		var dd=content.replace(/<\/?.+?>/g,"");
+		
+ 		var contentNoTag=dd.replace(/(^\s*)|(\s*$)/g,"");//dds为得到后的内容
+			
+		var summary=contentNoTag.substr(0,155);
+		
+		
+		var keyWord=$("#keyWord").val();
+
+		var username=$("#username").val();
+	
+		
+		if(title==null || title==''){
+			alert("请输入标题！");
+		}else if(typeId==null || typeId==''){
+			alert("请选择博客类别！");
+		}else if(blogTypeId==null || blogTypeId==''){
+			alert("请选择博客类别！");
+		}else if(content==null || content==''){
+			alert("请输入内容！");
+		}else{
+			 $.post("/manager/user/blog/save",{'username':username,'title':title,'typeid':typeId,'blogtypeid':blogTypeId,'content':content,'summary':summary,'contentNoTag':contentNoTag,'keyword':keyWord},function(result){
+				if(result.success){
+					alert("博客发布成功！");
+					resetValue();
+				}else{
+					alert("博客发布失败！");
+				}
+			},"json"); 
+		}
+	}
+	
+	// 重置数据
+	function resetValue(){
+		$("#title").val("");
+		
+		itemAddEditor.html("");
+		$("#keyWord").val("");
+	}
 </script>
+
+
+
+
 </body>
 </html>
 

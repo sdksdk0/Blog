@@ -21,12 +21,12 @@
 		 }
 		 var strIds=[];
 		 for(var i=0;i<selectedRows.length;i++){
-			 strIds.push(selectedRows[i].id);
+			 strIds.push(selectedRows[i].commentid);
 		 }
 		 var ids=strIds.join(",");
 		$.messager.confirm("系统提示","您确定要审核这<font color=red>"+selectedRows.length+"</font>条评论吗？",function(r){
 			if(r){
-				$.post("${pageContext.request.contextPath}/admin/comment/review.do",{ids:ids,state:state},function(result){
+				$.post("${pageContext.request.contextPath}/user/comment/review",{ids:ids,state:state},function(result){
 					if(result.success){
 						 $.messager.alert("系统提示","提交成功！");
 						 $("#dg").datagrid("reload");
@@ -37,30 +37,30 @@
 			} 
   	   });
 	}
-
-	
 	function formatBlogTitle(val,row){
-		if(val==null){
+	
+		if(val==''){
 			return "<font color='red'>该博客已被删除！</font>";
 		}else{
-			return "<a target='_blank' href='${pageContext.request.contextPath}/blog/articles/"+val.id+".html'>"+val.title+"</a>";			
+			return "<a target='_blank' href='${pageContext.request.contextPath}/blog/articles/"+row.blogid+".html'>"+row.title+"</a>";			
 		}
 	}
 	
+
 </script>
 </head>
 <body style="margin: 1px">
 <table id="dg" title="评论审核管理" class="easyui-datagrid"
    fitColumns="true" pagination="true" rownumbers="true"
-   url="${pageContext.request.contextPath}/admin/comment/list.do?state=0" fit="true" toolbar="#tb">
+   url="${pageContext.request.contextPath}/user/comment/list?state=0&username=${user.username}" fit="true" toolbar="#tb">
    <thead>
    	<tr>
    		<th field="cb" checkbox="true" align="center"></th>
-   		<th field="id" width="20" align="center">编号</th>
-   		<th field="blog" width="200" align="center" formatter="formatBlogTitle">博客标题</th>
-   		<th field="userIp" width="100" align="center">用户IP</th>
+   		<th field="commentid" width="20" align="center">编号</th>
+   		<th field="title" width="200" align="center" formatter="formatBlogTitle">博客标题</th>
+   		<th field="username" width="100" align="center">评论者用户名</th>
    		<th field="content" width="200" align="center">评论内容</th>
-   		<th field="commentDate" width="50" align="center">评论日期</th>
+   		<th field="commentdate" width="50" align="center">评论日期</th>
    	</tr>
    </thead>
  </table>
