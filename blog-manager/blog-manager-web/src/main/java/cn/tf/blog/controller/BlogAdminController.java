@@ -1,9 +1,11 @@
 package cn.tf.blog.controller;
 
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -20,10 +22,13 @@ import cn.tf.blog.common.util.StringUtil;
 import cn.tf.blog.po.SType;
 import cn.tf.blog.po.UBlog;  
 import cn.tf.blog.po.UBlogtype;
+import cn.tf.blog.po.UScore;
 import cn.tf.blog.service.BlogIndex;
 import cn.tf.blog.service.BlogService;
 import cn.tf.blog.service.BlogTypeService;
+import cn.tf.blog.service.RedisService;
 import cn.tf.blog.service.STypeService;
+import cn.tf.blog.service.ScoreService;
 import cn.tf.blog.util.DateJsonValueProcessor;
 
   
@@ -50,6 +55,12 @@ public class BlogAdminController {
 	
 	@Autowired
 	private STypeService typeService;
+	
+	@Autowired
+	private ScoreService scoreService;
+	
+	@Resource
+	private RedisService  redisService;
 	
 	// 博客索引
 	private BlogIndex blogIndex=new BlogIndex();
@@ -98,9 +109,22 @@ public class BlogAdminController {
 	@RequestMapping("/save")
 	public String save(UBlog blog,HttpServletResponse response)throws Exception{
 		int resultTotal=0; // 操作的记录条数
+		blog.setReleasedate(new Date());
+		
 		if(blog.getBlogid()==null){
 			resultTotal=blogService.add(blog);
 			blogIndex.addIndex(blog); // 添加博客索引
+			
+			//增加积分
+			UScore score=new UScore();
+			score.setUsername(blog.getUsername());
+		
+			scoreService.update(score);
+			
+			//添加到redis中
+			redisService.addBlog(blog);
+			
+			
 		}else{
 			
 			resultTotal=blogService.update(blog);

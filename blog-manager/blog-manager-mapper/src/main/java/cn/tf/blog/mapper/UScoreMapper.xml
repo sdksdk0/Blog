@@ -178,4 +178,10 @@
       username = #{username,jdbcType=VARCHAR}
     where scoreId = #{scoreid,jdbcType=VARCHAR}
   </update>
+  
+  
+  <update id="update"  parameterType="cn.tf.blog.po.UScore">
+ 	 UPDATE  u_score  SET score=score+10  WHERE username=#{username}
+  </update>
+  
 </mapper>

@@ -5,7 +5,9 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.swing.JEditorPane;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.tf.blog.mapper.BlogMapper;
@@ -22,47 +24,49 @@ import cn.tf.blog.service.BlogService;
 public class BlogServiceImpl implements BlogService{
 
 	@Resource
-	private BlogMapper blogDao;
+	private BlogMapper blogMapper;
+
 	
 	public List<UBlog> countList() {
-		return blogDao.countList();
+		return blogMapper.countList();
 	}
 
 	public List<UBlog> list(Map<String, Object> map) {
-		return blogDao.list(map);
+		return blogMapper.list(map);
 	}
 
 	public Long getTotal(Map<String, Object> map) {
-		return blogDao.getTotal(map);
+		return blogMapper.getTotal(map);
 	}
 
 	public UBlog findById(String id) {
-		return blogDao.findById(id);
+		return blogMapper.findById(id);
 	}
 
 	public Integer update(UBlog blog) {
-		return blogDao.update(blog);
+		return blogMapper.update(blog);
 	}
 
 	public UBlog getLastBlog(String id) {
-		return blogDao.getLastBlog(id);
+		return blogMapper.getLastBlog(id);
 	}
 
 	public UBlog getNextBlog(String id) {
-		return blogDao.getNextBlog(id);
+		return blogMapper.getNextBlog(id);
 	}
 
 	public Integer add(UBlog blog) {
 		blog.setBlogid(UUID.randomUUID().toString());
-		return blogDao.add(blog);
+		
+		return blogMapper.add(blog);
 	}
 
 	public Integer delete(String id) {
-		return blogDao.delete(id);
+		return blogMapper.delete(id);
 	}
 
 	public Integer getBlogByTypeId(String typeId) {
-		return blogDao.getBlogByTypeId(typeId);
+		return blogMapper.getBlogByTypeId(typeId);
 	}
 
 	

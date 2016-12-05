@@ -27,4 +27,6 @@ public interface UScoreMapper {
     int updateByPrimaryKeySelective(UScore record);
 
     int updateByPrimaryKey(UScore record);
+
+	int update(UScore score);
 }

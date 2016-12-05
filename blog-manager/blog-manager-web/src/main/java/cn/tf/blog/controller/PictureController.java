@@ -24,9 +24,8 @@ public class PictureController {
 	public String  pictureUpload(MultipartFile  uploadFile){
 		
 		Map result=pictureService.uploadPicture(uploadFile);
-		System.out.println(result);
-		//把result转换为json格式的字符串
 		
+		//把result转换为json格式的字符串
 		String json=JsonUtils.objectToJson(result);
 		 
 		return json;
@@ -37,13 +36,24 @@ public class PictureController {
 	public String  pictureUpload1(MultipartFile  uploadFile){
 		
 		Map result=pictureService.uploadPicture(uploadFile);
-		System.out.println(result);
-		//把result转换为json格式的字符串
 		
+		//把result转换为json格式的字符串
 		String json=JsonUtils.objectToJson(result);
 		 
 		return json;
 	}
-
+	
+	
+	@RequestMapping("/user/blogger/pic/upload")
+	@ResponseBody
+	public String  pictureUpload2(MultipartFile  uploadFile){
+		
+		Map result=pictureService.uploadPicture(uploadFile);
+		
+		//把result转换为json格式的字符串
+		String json=JsonUtils.objectToJson(result);
+		 
+		return json;
+	}
 
 }

@@ -13,7 +13,7 @@ public class UUser {
 
     private String sign;
 
-    private String imagePath;
+    private String image;
 
     private String email;
 
@@ -66,12 +66,12 @@ public class UUser {
 		this.sign = sign;
 	}
 
-	public String getImagePath() {
-		return imagePath;
+	public String getImage() {
+		return image;
 	}
 
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public String getEmail() {

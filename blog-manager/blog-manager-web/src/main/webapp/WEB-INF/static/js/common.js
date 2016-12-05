@@ -57,11 +57,14 @@ var TT = TAOTAO = {
     },
     
     init : function(data){
+    	
+   
     	// 初始化图片上传组件
     	this.initPicUpload(data);
-    	// 初始化选择类目组件
-    	this.initItemCat(data);
+
     },
+    
+    
     // 初始化图片上传组件
     initPicUpload : function(data){
     	$(".picFileUpload").each(function(i,e){

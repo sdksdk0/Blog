@@ -7,7 +7,7 @@
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="nickName" property="nickName" jdbcType="VARCHAR" />
     <result column="sign" property="sign" jdbcType="VARCHAR" />
-    <result column="imagePath" property="imagePath" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="createTime" property="createtime" jdbcType="DATE" />
@@ -75,7 +75,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    userId, username, password, nickName, sign, imagePath, email, phone, createTime, 
+    userId, username, password, nickName, sign, image, email, phone, createTime, 
     state
   </sql>
   <sql id="Blob_Column_List" >
@@ -131,11 +131,11 @@
   </delete>
   <insert id="insert" parameterType="cn.tf.blog.po.UUser" >
     insert into u_user (userId, username, password, 
-      nickName, sign, imagePath, 
+      nickName, sign, image, 
       email, phone, createTime, 
       state, proFile)
     values (#{userId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{nickName,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, #{imagePath,jdbcType=VARCHAR}, 
+      #{nickName,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{createtime,jdbcType=DATE}, 
       #{state,jdbcType=CHAR}, #{proFile,jdbcType=LONGVARCHAR})
   </insert>
@@ -157,8 +157,8 @@
       <if test="sign != null" >
         sign,
       </if>
-      <if test="imagePath != null" >
-        imagePath,
+      <if test="image != null" >
+        image,
       </if>
       <if test="email != null" >
         email,
@@ -192,8 +192,8 @@
       <if test="sign != null" >
         #{sign,jdbcType=VARCHAR},
       </if>
-      <if test="imagePath != null" >
-        #{imagePath,jdbcType=VARCHAR},
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
       </if>
       <if test="email != null" >
         #{email,jdbcType=VARCHAR},
@@ -236,8 +236,8 @@
       <if test="record.sign != null" >
         sign = #{record.sign,jdbcType=VARCHAR},
       </if>
-      <if test="record.imagePath != null" >
-        imagePath = #{record.imagePath,jdbcType=VARCHAR},
+      <if test="record.image != null" >
+        image = #{record.image,jdbcType=VARCHAR},
       </if>
       <if test="record.email != null" >
         email = #{record.email,jdbcType=VARCHAR},
@@ -266,7 +266,7 @@
       password = #{record.password,jdbcType=VARCHAR},
       nickName = #{record.nickName,jdbcType=VARCHAR},
       sign = #{record.sign,jdbcType=VARCHAR},
-      imagePath = #{record.imagePath,jdbcType=VARCHAR},
+      image = #{record.image,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       createTime = #{record.createtime,jdbcType=DATE},
@@ -283,7 +283,7 @@
       password = #{record.password,jdbcType=VARCHAR},
       nickName = #{record.nickName,jdbcType=VARCHAR},
       sign = #{record.sign,jdbcType=VARCHAR},
-      imagePath = #{record.imagePath,jdbcType=VARCHAR},
+      image = #{record.image,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       createTime = #{record.createtime,jdbcType=DATE},
@@ -307,8 +307,8 @@
       <if test="sign != null" >
         sign = #{sign,jdbcType=VARCHAR},
       </if>
-      <if test="imagePath != null" >
-        imagePath = #{imagePath,jdbcType=VARCHAR},
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
       </if>
       <if test="email != null" >
         email = #{email,jdbcType=VARCHAR},
@@ -334,7 +334,7 @@
       password = #{password,jdbcType=VARCHAR},
       nickName = #{nickName,jdbcType=VARCHAR},
       sign = #{sign,jdbcType=VARCHAR},
-      imagePath = #{imagePath,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       createTime = #{createtime,jdbcType=DATE},
@@ -348,7 +348,7 @@
       password = #{password,jdbcType=VARCHAR},
       nickName = #{nickName,jdbcType=VARCHAR},
       sign = #{sign,jdbcType=VARCHAR},
-      imagePath = #{imagePath,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       createTime = #{createtime,jdbcType=DATE},

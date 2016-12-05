@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="nickName" column="nickName"/>
 		<result property="sign" column="sign"/>
 		<result property="proFile" column="proFile"/>
-		<result property="imagePath" column="imagePath"/>
+		<result property="image" column="image"/>
 	</resultMap>
 	
 	<select id="find"  parameterType="String"   resultMap="BloggerResult">
@@ -37,8 +37,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="proFile!=null and proFile!='' ">
 				proFile=#{proFile},
 			</if>
-			<if test="imagePath!=null and imagePath!='' ">
-				imagePath=#{imagePath}
+			<if test="image!=null and image!='' ">
+				image=#{image}
 			</if>
 		</set>
 		where username=#{username}

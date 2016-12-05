@@ -125,7 +125,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       username, state, content
       )
     values (#{blogid,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
-     now(), #{clickhit,jdbcType=VARCHAR}, #{replyhit,jdbcType=VARCHAR}, 
+      #{releasedate,jdbcType=DATE}, #{clickhit,jdbcType=VARCHAR}, #{replyhit,jdbcType=VARCHAR}, 
       #{blogtypeid,jdbcType=VARCHAR}, #{typeid,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, 
       #{username,jdbcType=VARCHAR}, 1, #{content,jdbcType=LONGVARBINARY}
       )

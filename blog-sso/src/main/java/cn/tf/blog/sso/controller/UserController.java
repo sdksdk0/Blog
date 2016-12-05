@@ -1,5 +1,7 @@
 package cn.tf.blog.sso.controller;
 
+import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,11 +21,14 @@ import com.sun.xml.internal.xsom.impl.scd.Iterators.Map;
 
 import net.sf.json.JSONObject;
 
+import cn.tf.blog.po.UScore;
 import cn.tf.blog.po.UUser;
 import cn.tf.blog.common.util.ExceptionUtil;
 import cn.tf.blog.common.util.ResponseUtil;
 import cn.tf.blog.common.util.TaotaoResult;
+
 import cn.tf.blog.sso.dao.JedisClient;
+import cn.tf.blog.sso.service.ScoreService;
 import cn.tf.blog.sso.service.UserService;
 
 
@@ -34,6 +39,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ScoreService scoreService;
+	
 	@Autowired
 	private JedisClient jedisClient;
 	
@@ -89,6 +97,18 @@ public class UserController {
 	public TaotaoResult   createUser(HttpServletRequest request, UUser user,HttpSession session){ 
 		try {
 			TaotaoResult result = userService.createUser(request,user,session);
+			
+			
+			//创建用户后为用户激活创建积分系统
+			
+			UScore score=new UScore();
+
+			score.setScoreid(UUID.randomUUID().toString());
+			score.setUsername(user.getUsername());
+			score.setScore(score.getScore());
+			
+			scoreService.add(score);
+			
 
 			return result;
 		} catch (Exception e) {
@@ -106,7 +126,7 @@ public class UserController {
 		
 		if(((String) srcActiveCode).intern()==activeCode.intern()){
 			if(userService.activeUser(usId)){
-				
+
 				return "/login";
 			}
 		}

@@ -85,6 +85,8 @@ public class UserServiceImpl implements UserService {
 				.getBytes()));
 
 		userMapper.insert(user);
+		
+
 
 		session.setAttribute("userId",user.getUserId());
 		

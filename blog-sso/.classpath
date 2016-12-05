@@ -23,8 +23,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="jsp"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/json.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -36,5 +34,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/json.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

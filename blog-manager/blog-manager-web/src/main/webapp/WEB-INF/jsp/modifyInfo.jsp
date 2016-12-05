@@ -66,7 +66,9 @@
 	    	 <tr>
 	   			<td>个人头像：</td>
 	   			<td> <a href="javascript:void(0)" class="easyui-linkbutton picFileUpload">上传图片</a>
-	                 <input type="hidden" name="image"/><!-- <input type="file" id="imagePath" name="imagePath" style="width: 400px;"/>  --></td>
+	                 <input type="hidden" name="image"    id="image" /><!-- <input type="file" id="imagePath" name="imagePath" style="width: 400px;"/>  -->
+	   				 <img  src=""   id="userImg" />
+	   			</td>
 	   		</tr> 
 	   			<tr>
 	   			<td>邮箱：</td>
@@ -116,6 +118,7 @@
                 	$("#nickName").val(result.nickName);
                 	$("#sign").val(result.sign);
                 	$("#nickName").val(result.nickName);
+                	$("#userImg").attr("src",result.image);
        				UE.getEditor('proFile').setContent(result.proFile);
                 }
             }
@@ -131,10 +134,13 @@
 		//创建富文本编辑器
 		//itemAddEditor = TAOTAO.createEditor("#form1 [name=proFile]");
 		//初始化类目选择和图片上传器
+		
 		TAOTAO.init({fun:function(node){
 			//根据商品的分类id取商品 的规格模板，生成规格信息。
 			TAOTAO.changeItemParam(node, "form1");
 		}});
+		
+		
 	});
 	
 </script>
