@@ -14,9 +14,9 @@ public class UBlog {
 
     private Date releasedate;
 
-    private String clickhit;
+    private Integer clickhit;
 
-    private String replyhit;
+    private Integer replyhit;
 
     private String blogtypeid;
 
@@ -117,23 +117,21 @@ public class UBlog {
         this.releasedate = releasedate;
     }
 
-    public String getClickhit() {
-        return clickhit;
-    }
+   
 
-    public void setClickhit(String clickhit) {
-        this.clickhit = clickhit == null ? null : clickhit.trim();
-    }
-
-    public String getReplyhit() {
-        return replyhit;
-    }
-
-    public void setReplyhit(String replyhit) {
-        this.replyhit = replyhit == null ? null : replyhit.trim();
-    }
-
-    public String getBlogtypeid() {
+    public Integer getClickhit() {
+		return clickhit;
+	}
+	public void setClickhit(Integer clickhit) {
+		this.clickhit = clickhit;
+	}
+	public Integer getReplyhit() {
+		return replyhit;
+	}
+	public void setReplyhit(Integer replyhit) {
+		this.replyhit = replyhit;
+	}
+	public String getBlogtypeid() {
         return blogtypeid;
     }
 

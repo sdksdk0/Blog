@@ -9,8 +9,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    <result column="title" property="title" jdbcType="VARCHAR" />
 		    <result column="summary" property="summary" jdbcType="VARCHAR" />
 		    <result column="releaseDate" property="releasedate" jdbcType="DATE" />
-		    <result column="clickHit" property="clickhit" jdbcType="VARCHAR" />
-		    <result column="replyHit" property="replyhit" jdbcType="VARCHAR" />
+		    <result column="clickHit" property="clickhit" jdbcType="INTEGER" />
+		    <result column="replyHit" property="replyhit" jdbcType="INTEGER" />
 		    <result column="blogtypeId" property="blogtypeid" jdbcType="VARCHAR" />
 		    <result column="typeId" property="typeid" jdbcType="VARCHAR" />
 		    <result column="keyWord" property="keyword" jdbcType="VARCHAR" />
@@ -108,11 +108,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where blogId=#{blogid}
 	</update>
 	
-	<select id="getLastBlog" parameterType="Integer" resultMap="BlogResult">
+	<select id="getLastBlog" parameterType="String" resultMap="BlogResult">
 		SELECT * FROM u_blog WHERE blogId&lt;#{blogId} ORDER BY blogId DESC LIMIT 1
 	</select>
 	
-	<select id="getNextBlog" parameterType="Integer" resultMap="BlogResult">
+	<select id="getNextBlog" parameterType="String" resultMap="BlogResult">
 		SELECT * FROM u_blog WHERE blogId&gt;#{blogId} ORDER BY blogId ASC LIMIT 1
 	</select>
 	
@@ -125,7 +125,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       username, state, content
       )
     values (#{blogid,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
-      #{releasedate,jdbcType=DATE}, #{clickhit,jdbcType=VARCHAR}, #{replyhit,jdbcType=VARCHAR}, 
+      #{releasedate,jdbcType=DATE}, 0, 0, 
       #{blogtypeid,jdbcType=VARCHAR}, #{typeid,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, 
       #{username,jdbcType=VARCHAR}, 1, #{content,jdbcType=LONGVARBINARY}
       )
