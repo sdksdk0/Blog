@@ -18,6 +18,7 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/static/js/jquery.cookie.js"></script>	
 <script type="text/javascript">
+
 	var url;
 
 	function openTab(text, url, iconCls) {

@@ -133,7 +133,7 @@ public class BlogAdminController {
 			scoreService.update(score);
 			
 			//添加到redis中
-			redisService.addBlog(blog);
+			//redisService.addBlog(blog);
 			
 			
 		}else{
@@ -141,8 +141,12 @@ public class BlogAdminController {
 			resultTotal=blogService.update(blog);
 			blogIndex.updateIndex(blog); // 更新博客索引
 			
+			
+			
 			//添加到redis中
-			redisService.addBlog(blog);
+			UBlog uBlog = blogService.findById(blog.getBlogid());
+			uBlog.setContent(new String(blog.getContent().getBytes("iso-8859-1"),"utf-8"));
+			redisService.addBlog(uBlog);
 		}
 		JSONObject result=new JSONObject();
 		if(resultTotal>0){

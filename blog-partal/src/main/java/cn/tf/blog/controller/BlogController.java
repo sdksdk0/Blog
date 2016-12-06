@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.tf.blog.common.util.StringUtil;
+import cn.tf.blog.dao.JedisClient;
 import cn.tf.blog.po.UBlog;
 import cn.tf.blog.po.UBlogtype;
 import cn.tf.blog.po.ULink;
@@ -26,6 +27,7 @@ import cn.tf.blog.service.BlogTypeService;
 import cn.tf.blog.service.BloggerService;
 import cn.tf.blog.service.CommentService;
 import cn.tf.blog.service.LinkService;
+import cn.tf.blog.service.RedisService;
 
 
 /**
@@ -49,6 +51,8 @@ public class BlogController {
 	private BlogTypeService blogTypeService;
 	@Autowired
 	private LinkService linkService;
+	@Autowired
+	private RedisService redisService;
 
 	
 	
@@ -65,7 +69,20 @@ public class BlogController {
 	@RequestMapping("/articles/{username}/{blogid}")
 	public ModelAndView details(@PathVariable("username") String username,@PathVariable("blogid") String blogid,HttpServletRequest request)throws Exception{
 		ModelAndView mav=new ModelAndView();
-		UBlog blog=blogService.findById(blogid);
+		
+		UBlog blog=null;
+		//向redis数据库中查询是否存在该数据，如果存在就直接从redis中获取，如果不存在就把数据从mysql数据库中查出来然后再存到redis中
+		blog = redisService.getUBlog(blogid);
+		if(blog==null ){
+			//说明缓存中没有数据
+			blog=blogService.findById(blogid);	
+			
+			//把数据存进去
+			blog.setContent(new String(blog.getContent().getBytes("iso-8859-1"),"utf-8"));
+			redisService.addBlog(blog);
+		}
+		
+	
 		String keyWords=blog.getKeyword();
 		if(StringUtil.isNotEmpty(keyWords)){
 			String arr[]=keyWords.split(" ");
@@ -116,7 +133,18 @@ public class BlogController {
 	@RequestMapping("/articles/{blogid}")
 	public ModelAndView details(@PathVariable("blogid") String blogid,HttpServletRequest request)throws Exception{
 		ModelAndView mav=new ModelAndView();
-		UBlog blog=blogService.findById(blogid);
+
+		UBlog blog=null;
+		//向redis数据库中查询是否存在该数据，如果存在就直接从redis中获取，如果不存在就把数据从mysql数据库中查出来然后再存到redis中
+		blog = redisService.getUBlog(blogid);
+		if(blog==null ){
+			//说明缓存中没有数据
+			blog=blogService.findById(blogid);	
+			
+			//把数据存进去
+			blog.setContent(new String(blog.getContent().getBytes("iso-8859-1"),"utf-8"));
+			redisService.addBlog(blog);
+		}
 		String keyWords=blog.getKeyword();
 		if(StringUtil.isNotEmpty(keyWords)){
 			String arr[]=keyWords.split(" ");

@@ -1,9 +1,11 @@
 package cn.tf.blog.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.tf.blog.common.util.JsonUtils;
+import cn.tf.blog.common.util.TaotaoResult;
 import cn.tf.blog.dao.JedisClient;
 
 import cn.tf.blog.po.UBlog;
@@ -31,12 +33,37 @@ public class RedisServiceImpl implements RedisService{
 		
 		return 0;
 	}
+	
+	
+	
+	
 
 
 	@Override
 	public void deleteBlog(String blogid) {
 		
 		jedisClient.del("BLOG_REDIS_ITEM_KEY :" + blogid);
+	}
+
+
+
+
+
+
+	@Override
+	public UBlog getUBlog(String blogid) {
+		try {
+			String json = jedisClient.get("BLOG_REDIS_ITEM_KEY :" + blogid);
+			
+			if (!StringUtils.isBlank(json)) {
+				// 把json转换为pojo
+				UBlog blog = JsonUtils.jsonToPojo(json, UBlog.class);
+				return blog;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

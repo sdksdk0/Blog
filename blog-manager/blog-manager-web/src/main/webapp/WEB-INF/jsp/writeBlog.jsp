@@ -82,6 +82,7 @@
  
 
 <script type="text/javascript">
+
 	var itemAddEditor ;
 	//页面初始化完毕后执行此方法
 	$(function(){
