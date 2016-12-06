@@ -5,7 +5,7 @@
 <head>
 <base href="/sso/" >
 <meta charset="utf-8">
-<title>用户注册|窝窝团</title>
+<title>博客云-遇见最好的你</title>
 <link rel="stylesheet" href="css/basic.css" />
 <link href="css/autoemail.css" type="text/css" rel="stylesheet" />
 <script  type="text/javascript"  src="js/jquery-1.12.4.js"></script>

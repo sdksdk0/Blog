@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       content, commentDate, state
       )
     values (#{commentid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{blogid,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, now(), 0}
+      #{content,jdbcType=VARCHAR}, now(), 0
       )
 	</insert>
 	

@@ -2,6 +2,7 @@ package cn.tf.blog.sso.controller;
 
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -140,13 +141,14 @@ public class UserController {
 	
 	
 	//接收表单，包含用户名和密码
-	@RequestMapping(value="/login",method=RequestMethod.POST)
+	@RequestMapping(value="/login")
 	@ResponseBody
 	public  TaotaoResult userLogin(String username,String password,
 			HttpServletRequest  request,HttpServletResponse response){
+	
 		try {
 			TaotaoResult result = userService.userLogin(username, password,request,response);
-
+			
 			return result;
 		} catch (Exception e) {	
 			e.printStackTrace();
