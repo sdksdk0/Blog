@@ -29,8 +29,8 @@ public class BlogServiceImpl implements BlogService{
 	private BlogMapper blogMapper;
 
 	
-	public List<UBlog> countList() {
-		return blogMapper.countList();
+	public List<UBlog> countList(String username) {
+		return blogMapper.countList(username);
 	}
 
 	public List<UBlog> list(Map<String, Object> map) {

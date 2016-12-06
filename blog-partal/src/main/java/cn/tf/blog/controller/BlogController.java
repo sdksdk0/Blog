@@ -17,11 +17,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.tf.blog.common.util.StringUtil;
 import cn.tf.blog.po.UBlog;
+import cn.tf.blog.po.UBlogtype;
+import cn.tf.blog.po.ULink;
 import cn.tf.blog.po.UUser;
 import cn.tf.blog.service.BlogIndex;
 import cn.tf.blog.service.BlogService;
+import cn.tf.blog.service.BlogTypeService;
 import cn.tf.blog.service.BloggerService;
 import cn.tf.blog.service.CommentService;
+import cn.tf.blog.service.LinkService;
 
 
 /**
@@ -41,6 +45,12 @@ public class BlogController {
 	
 	@Autowired
 	private BloggerService  bloggerService;
+	@Autowired
+	private BlogTypeService blogTypeService;
+	@Autowired
+	private LinkService linkService;
+
+	
 	
 	// 博客索引
 	private BlogIndex blogIndex=new BlogIndex();
@@ -82,8 +92,20 @@ public class BlogController {
 		UUser user = bloggerService.find(username);
 		mav.addObject("user", user);
 		
-		//
+		//按日期分类
+		List<UBlog> countList = blogService.countList(username);
+		mav.addObject("countList", countList);
 		
+		//按日志类别分
+		List<UBlogtype> blogTypeCountList = blogTypeService.countList(username);
+		mav.addObject("blogTypeCountList",blogTypeCountList);
+		
+		
+		//友情链接
+		Map<String,Object> linkmap=new HashMap<String,Object>();
+		linkmap.put("username", username);
+		List<ULink> linkList = linkService.list(linkmap);
+		mav.addObject("linkList",linkList);
 		
 		mav.setViewName("mainTemp");
 		return mav;
@@ -119,20 +141,29 @@ public class BlogController {
 		
 		//根据博客id查询博主信息
 		
+		String username=blog.getUsername();
+		//根据博主的名字查询博主信息
+		UUser user = bloggerService.find(username);
+		mav.addObject("user", user);
 		
+		//按日期分类
+		List<UBlog> countList = blogService.countList(username);
+		mav.addObject("countList", countList);
 		
+		//按日志类别分
+		List<UBlogtype> blogTypeCountList = blogTypeService.countList(username);
+		mav.addObject("blogTypeCountList",blogTypeCountList);
 		
+		//友情链接
+		Map<String,Object> linkmap=new HashMap<String,Object>();
+		linkmap.put("username", username);
+		List<ULink> linkList = linkService.list(linkmap);
+		mav.addObject("linkList",linkList);
 		
+
 		mav.setViewName("mainTemp");
 		return mav;
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -158,7 +189,7 @@ public class BlogController {
 		mav.addObject("q",q);
 		mav.addObject("resultTotal",blogList.size());
 		mav.addObject("pageTitle","搜索关键字'"+q+"'结果页面_博客云");
-		mav.setViewName("mainTemp");
+		mav.setViewName("index");
 		return mav;
 	}
 	

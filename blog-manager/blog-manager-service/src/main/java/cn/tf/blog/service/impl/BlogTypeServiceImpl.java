@@ -26,8 +26,8 @@ public class BlogTypeServiceImpl implements BlogTypeService{
 	@Resource
 	private BlogTypeDao blogTypeDao;
 	
-	public List<UBlogtype> countList() {
-		return blogTypeDao.countList();
+	public List<UBlogtype> countList(String username) {
+		return blogTypeDao.countList(username);
 	}
 
 	public List<UBlogtype> list(Map<String, Object> map) {

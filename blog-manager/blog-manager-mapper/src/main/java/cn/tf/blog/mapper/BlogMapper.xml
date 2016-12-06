@@ -18,14 +18,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    <result column="state" property="state" jdbcType="CHAR" />
 		    <result column="stypeName" property="stypeName" jdbcType="VARCHAR" />
 		    <result column="utypeName" property="utypeName" jdbcType="VARCHAR" />
-		
+		    
 	</resultMap>  
 	 <resultMap id="ResultMapWithBLOBs" type="cn.tf.blog.po.UBlog" extends="BlogResult" >
     <result column="content" property="content" jdbcType="LONGVARBINARY" />
   </resultMap>
 	  
-	<select id="countList"  resultMap="BlogResult">
-		SELECT DATE_FORMAT(releaseDate,'%Y年%m月') AS releaseDateStr ,COUNT(*) AS blogCount  FROM u_blog GROUP BY DATE_FORMAT(releaseDate,'%Y年%m月') ORDER BY DATE_FORMAT(releaseDate,'%Y年%m月') DESC
+	<select id="countList"  parameterType="String"   resultMap="BlogResult">
+		SELECT DATE_FORMAT(releaseDate,'%Y年%m月') AS releaseDateStr ,COUNT(*) AS blogCount,username  FROM u_blog  
+		WHERE username=#{username}	
+	GROUP BY DATE_FORMAT(releaseDate,'%Y年%m月') ORDER BY DATE_FORMAT(releaseDate,'%Y年%m月') DESC	
 	</select>
 	
 	<select id="list" parameterType="Map" resultMap="BlogResult">
@@ -35,8 +37,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    <if test="title!=null and title!='' ">
 				and b.title like #{title}
 			</if>
-			<if test="typeId!=null and typeId!='' ">
-				and b.typeId = #{typeId}
+			<if test="blogtypeid!=null and blogtypeid!='' ">
+				and  t.blogtypeId  = #{blogtypeid}
 			</if>
 			<if test="releaseDateStr!=null and releaseDateStr!='' ">
 				and DATE_FORMAT(releaseDate,'%Y年%m月') = #{releaseDateStr}
@@ -58,8 +60,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    <if test="title!=null and title!='' ">
 				and title like #{title}  
 			</if>
-			<if test="typeId!=null and typeId!='' ">
-				and typeId = #{typeId} 
+			<if test="blogtypeid!=null and blogtypeid!='' ">
+				and  blogtypeId  = #{blogtypeid}
 			</if>
 			<if test="releaseDateStr!=null and releaseDateStr!='' ">
 				and DATE_FORMAT(releaseDate,'%Y年%m月') = #{releaseDateStr}

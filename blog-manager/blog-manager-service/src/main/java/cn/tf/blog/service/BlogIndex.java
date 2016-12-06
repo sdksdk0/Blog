@@ -76,6 +76,7 @@ public class BlogIndex {
 		IndexWriter writer=getWriter();
 		Document doc=new Document();
 		doc.add(new StringField("id",String.valueOf(blog.getBlogid()),Field.Store.YES));
+		doc.add(new StringField("username",String.valueOf(blog.getUsername()),Field.Store.YES));
 		doc.add(new TextField("title",blog.getTitle(),Field.Store.YES));
 		doc.add(new StringField("releaseDate",DateUtil.formatDate(new Date(), "yyyy-MM-dd"),Field.Store.YES));
 		doc.add(new TextField("content",blog.getContentNoTag(),Field.Store.YES));
@@ -92,6 +93,7 @@ public class BlogIndex {
 		IndexWriter writer=getWriter();
 		Document doc=new Document();
 		doc.add(new StringField("id",String.valueOf(blog.getBlogid()),Field.Store.YES));
+		doc.add(new StringField("username",String.valueOf(blog.getUsername()),Field.Store.YES));
 		doc.add(new TextField("title",blog.getTitle(),Field.Store.YES));
 		doc.add(new StringField("releaseDate",DateUtil.formatDate(new Date(), "yyyy-MM-dd"),Field.Store.YES));
 		doc.add(new TextField("content",blog.getContentNoTag(),Field.Store.YES));
@@ -128,8 +130,13 @@ public class BlogIndex {
 		Query query=parser.parse(q);
 		QueryParser parser2=new QueryParser("content",analyzer);
 		Query query2=parser2.parse(q);
+		
+
+		
 		booleanQuery.add(query,BooleanClause.Occur.SHOULD);
 		booleanQuery.add(query2,BooleanClause.Occur.SHOULD);
+		
+		
 		TopDocs hits=is.search(booleanQuery.build(), 100);
 		QueryScorer scorer=new QueryScorer(query);  
 		Fragmenter fragmenter = new SimpleSpanFragmenter(scorer);  
@@ -141,9 +148,15 @@ public class BlogIndex {
 			Document doc=is.doc(scoreDoc.doc);
 			UBlog blog=new UBlog();
 			blog.setBlogid(doc.get(("id")));
+			
+			blog.setUsername(doc.get("username"));
+			
 			blog.setReleaseDateStr(doc.get(("releaseDate")));
+			
 			String title=doc.get("title");
 			String content=StringEscapeUtils.escapeHtml(doc.get("content"));
+
+			
 			if(title!=null){
 				TokenStream tokenStream = analyzer.tokenStream("title", new StringReader(title));
 				String hTitle=highlighter.getBestFragment(tokenStream, title);

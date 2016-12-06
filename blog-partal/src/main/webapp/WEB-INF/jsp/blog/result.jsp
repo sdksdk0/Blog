@@ -16,7 +16,7 @@
 					  	  <li style="margin-bottom: 20px">
 						  	<span class="title"><a href="${pageContext.request.contextPath}/blog/articles/${blog.blogid}.html" target="_blank">${blog.title }</a></span>
 						  	<span class="summary">摘要 :${blog.content }...</span>
-						  	<span class="link"><a href="${pageContext.request.contextPath}/blog/articles/${blog.blogid}.html">http://blog.tianfang1314.cn/blog/articles/${blog.username }/${blog.blogid}.html</a>&nbsp;&nbsp;&nbsp;&nbsp;发布日期：${blog.releaseDateStr }</span>
+						  	<span class="link"><a href="${pageContext.request.contextPath}/blog/articles/${blog.blogid}.html">http://blog.tianfang1314.cn/blog/articles/${blog.blogid}.html</a>&nbsp;&nbsp;&nbsp;&nbsp;发布日期：${blog.releaseDateStr }</span>
 						  </li>
 						</c:forEach>
 					</c:otherwise>

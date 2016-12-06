@@ -13,8 +13,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
 	<select id="countList" resultMap="BlogTypeResult">
-		SELECT t2.blogtypeId,t2.typeName,COUNT(t1.blogtypeId) AS blogCount FROM u_blog t1 RIGHT JOIN u_blogType t2 ON t1.blogtypeId=t2.blogtypeId GROUP BY t2.typeName ORDER BY t2.orderNo
-		where username=#{username}
+		SELECT t2.blogtypeId,t2.typeName,COUNT(t1.blogtypeId) AS blogCount,t1.username as username  FROM u_blog t1 RIGHT JOIN u_blogType t2 ON t1.blogtypeId=t2.blogtypeId 
+			where t1.username=#{username}
+		GROUP BY t2.typeName ORDER BY t2.orderNo
+	
 
 	</select>
 	

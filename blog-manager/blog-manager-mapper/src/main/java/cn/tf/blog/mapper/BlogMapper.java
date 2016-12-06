@@ -18,7 +18,7 @@ public interface BlogMapper {
 	 * 根据日期月份分组查询
 	 * @return
 	 */
-	public List<UBlog> countList();
+	public List<UBlog> countList(String username);
 	
 	/**
 	 * 分页查询博客

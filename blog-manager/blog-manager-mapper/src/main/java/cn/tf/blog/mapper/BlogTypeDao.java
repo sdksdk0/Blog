@@ -16,9 +16,10 @@ public interface BlogTypeDao {
 
 	/**
 	 * 查询所有博客类型 以及对应的博客数量
+	 * @param username 
 	 * @return
 	 */
-	public List<UBlogtype> countList();
+	public List<UBlogtype> countList(String username);
 	
 	/**
 	 * 通过id查询博客类型

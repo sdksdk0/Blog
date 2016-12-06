@@ -16,9 +16,10 @@ public interface BlogService {
 
 	/**
 	 * 根据日期月份分组查询
+	 * @param username 
 	 * @return
 	 */
-	public List<UBlog> countList(); 
+	public List<UBlog> countList(String username); 
 	
 	/**
 	 * 分页查询博客
