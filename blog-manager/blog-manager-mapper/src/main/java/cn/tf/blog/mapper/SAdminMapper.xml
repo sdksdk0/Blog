@@ -10,7 +10,7 @@
     <result column="imagePath" property="imagepath" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="createTime" property="createtime" jdbcType="DATE" />
+    <result column="createTime" property="createtime" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="cn.tf.blog.po.SAdmin" extends="BaseResultMap" >
     <result column="profile" property="profile" jdbcType="LONGVARCHAR" />

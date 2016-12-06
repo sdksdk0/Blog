@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    <id column="blogId" property="blogid" jdbcType="VARCHAR" />
 		    <result column="title" property="title" jdbcType="VARCHAR" />
 		    <result column="summary" property="summary" jdbcType="VARCHAR" />
-		    <result column="releaseDate" property="releasedate" jdbcType="DATE" />
+		    <result column="releaseDate" property="releasedate" />
 		    <result column="clickHit" property="clickhit" jdbcType="INTEGER" />
 		    <result column="replyHit" property="replyhit" jdbcType="INTEGER" />
 		    <result column="blogtypeId" property="blogtypeid" jdbcType="VARCHAR" />

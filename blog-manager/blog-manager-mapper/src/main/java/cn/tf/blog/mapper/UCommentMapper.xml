@@ -6,7 +6,7 @@
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="blogId" property="blogid" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="VARCHAR" />
-    <result column="commentDate" property="commentdate" jdbcType="DATE" />
+    <result column="commentDate" property="commentdate"  />
     <result column="state" property="state" jdbcType="CHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >

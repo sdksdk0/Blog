@@ -28,9 +28,9 @@
 	<!-- 拦截器配置 -->
 <!-- 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/comment/**"/>
-			<bean class="cn.tf.blog.interceptor.LoginInterceptor"></bean>
+			<mvc:mapping path="/comment/save"/>
+			<bean class="cn.tf.blog.partal.intercepter.LoginInterceptor"></bean>
 		</mvc:interceptor>
-	</mvc:interceptors>  -->
-	
+	</mvc:interceptors>  
+	 -->
 </beans>

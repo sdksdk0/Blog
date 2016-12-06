@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    <result column="username" property="username" jdbcType="VARCHAR" />
 	    <result column="blogId" property="blogid" jdbcType="VARCHAR" />
 	    <result column="content" property="content" jdbcType="VARCHAR" />
-	    <result column="commentDate" property="commentdate" jdbcType="DATE" />
+	    <result column="commentDate" property="commentdate" />
 	    <result column="state" property="state" jdbcType="CHAR" />
 	    <result column="title" property="title" jdbcType="VARCHAR" />
 	</resultMap>

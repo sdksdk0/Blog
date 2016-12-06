@@ -19,13 +19,14 @@
 					  		&nbsp;&nbsp;
 				  		</c:forEach>
 				  	</span>
-				  	<span class="info">发表于 <fmt:formatDate value="${blog.releasedate }" type="date" pattern="yyyy-MM-dd HH:mm"/> 阅读(${blog.clickhit}) 评论(${blog.replyhit}) </span>
+				  	<span class="info">发表于 <fmt:formatDate value="${blog.releasedate }" type="date" pattern="yyyy-MM-dd HH:mm:ss"/> 阅读(${blog.clickhit}) 评论(${blog.replyhit}) </span>
 				  </li>
 				  <hr style="height:5px;border:none;border-top:1px dashed gray;padding-bottom:  10px;" />
 			  </c:forEach>
 			</ul>
 		</div>
    </div>
+  
 
 <div>
 	<nav>

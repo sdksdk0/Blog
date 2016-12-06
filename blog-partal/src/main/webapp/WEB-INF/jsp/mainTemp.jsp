@@ -47,13 +47,13 @@
 			<div class="data_list">
 				<div class="data_list_title">
 					<img src="${pageContext.request.contextPath}/static/images/user_icon.png"/>
-					博主信息
+					<a href="${pageContext.request.contextPath}/userlist?username=${user.username}"   >博主信息</a>
 				</div>
 				<div class="user_image">
-					<img src="${user.image }"/>
+					<a href="${pageContext.request.contextPath}/userlist?username=${user.username}"   ><img src="${user.image }"/></a>
 				</div>
-				<div class="nickName">${user.nickName }</div>
-				<div class="userSign">(${user.sign })</div>
+				<div class="nickName"><a href="${pageContext.request.contextPath}/userlist?username=${user.username}"   >${user.nickName }</a></div>
+				<div class="userSign"><a href="${pageContext.request.contextPath}/userlist?username=${user.username}"   >(${user.sign })</a></div>
 			</div>
 			
 			<div class="data_list">
@@ -64,7 +64,7 @@
 				<div class="datas">
 					<ul>
 						<c:forEach var="blogTypeCount" items="${blogTypeCountList }">
-							<li><span><a href="${pageContext.request.contextPath}/index.html?blogtypeid=${blogTypeCount.blogtypeId }&username=${blogTypeCount.username}">${blogTypeCount.typeName }(${blogTypeCount.blogCount })</a></span></li>
+							<li><span><a href="${pageContext.request.contextPath}/userlist?blogtypeid=${blogTypeCount.blogtypeId }&username=${blogTypeCount.username}">${blogTypeCount.typeName }(${blogTypeCount.blogCount })</a></span></li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -78,7 +78,7 @@
 				<div class="datas">
 					<ul>
 						<c:forEach var="blogCount" items="${countList }">
-							<li><span><a href="${pageContext.request.contextPath}/index.html?releaseDateStr=${blogCount.releaseDateStr }&username=${blogCount.username}">${blogCount.releaseDateStr }(${blogCount.blogCount })</a></span></li>
+							<li><span><a href="${pageContext.request.contextPath}/userlist?releaseDateStr=${blogCount.releaseDateStr }&username=${blogCount.username}">${blogCount.releaseDateStr }(${blogCount.blogCount })</a></span></li>
 						</c:forEach>
 					</ul>
 				</div>

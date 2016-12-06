@@ -29,12 +29,30 @@
 		var _ticket = $.cookie("TT_TOKEN_USER");
 		var username=$.cookie("cusername");
 		
+		
 		if (!_ticket) {
 			//alert("请登录！");
 			tipShow("#loginAlert");
 
 		} else if (content == null || content == '') {
 			alert("请输入评论内容！");
+		}else if(username==null || username==''){
+			username=$("#cusername").val();
+			$.post("${pageContext.request.contextPath}/comment/save", {
+				'content' : content,
+				'blogid' : '${blog.blogid}',
+				'username':username
+			}, function(result) {
+				if (result.success) {
+					$("#content").val('');
+					alert("评论已提交成功，审核通过后显示！");
+					window.location.reload();
+					
+				} else {
+					alert(result.errorInfo);
+				}
+			}, "json");
+		
 		} else {
 
 			$.post("${pageContext.request.contextPath}/comment/save", {
@@ -43,8 +61,10 @@
 				'username':username
 			}, function(result) {
 				if (result.success) {
+					$("#content").val('');
 					alert("评论已提交成功，审核通过后显示！");
 					window.location.reload();
+					
 				} else {
 					alert(result.errorInfo);
 				}
@@ -85,9 +105,6 @@
 			}
 		});
 		
-		
-		
-
 	}
 </script>
 <div class="data_list">
@@ -164,20 +181,20 @@
 						<c:when test="${status.index<10 }">
 							<div class="comment">
 								<span><font>${status.index+1
-										}楼&nbsp;&nbsp;&nbsp;&nbsp;${comment.username }：</font>${comment.content
+										}楼&nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/userlist?username=${comment.username }"   >${comment.username }</a>：</font>${comment.content
 									}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<fmt:formatDate
 										value="${comment.commentdate }" type="date"
-										pattern="yyyy-MM-dd HH:mm" />&nbsp;]</span>
+										pattern="yyyy-MM-dd HH:mm:ss" />&nbsp;]</span>
 							</div>
 						</c:when>
 						<c:otherwise>
 							<div class="otherComment">
 								<div class="comment">
 									<span><font>${status.index+1
-											}楼&nbsp;&nbsp;&nbsp;&nbsp;${comment.username }：</font>${comment.content
+											}楼&nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/userlist?username=${comment.username }"   >${comment.username }</a>：</font>${comment.content
 										}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<fmt:formatDate
 											value="${comment.commentdate }" type="date"
-											pattern="yyyy-MM-dd HH:mm" />&nbsp;]</span>
+											pattern="yyyy-MM-dd HH:mm:ss" />&nbsp;]</span>
 								</div>
 							</div>
 						</c:otherwise>
@@ -239,7 +256,7 @@
 	</div>
 </div>
 
-
+<input type="hidden" id="cusername" value="${user.username }"  />
 
 
 

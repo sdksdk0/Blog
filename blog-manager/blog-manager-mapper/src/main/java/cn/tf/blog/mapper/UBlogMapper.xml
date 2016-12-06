@@ -5,7 +5,7 @@
     <id column="blogId" property="blogid" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="summary" property="summary" jdbcType="VARCHAR" />
-    <result column="releaseDate" property="releasedate" jdbcType="DATE" />
+    <result column="releaseDate" property="releasedate" />
     <result column="clickHit" property="clickhit" jdbcType="VARCHAR" />
     <result column="replyHit" property="replyhit" jdbcType="VARCHAR" />
     <result column="blogtypeId" property="blogtypeid" jdbcType="VARCHAR" />
