@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.tf.blog.common.pojo.PageBean;
 import cn.tf.blog.common.util.PageUtil;
 import cn.tf.blog.common.util.StringUtil;
+import cn.tf.blog.po.SType;
 import cn.tf.blog.po.UBlog;
 import cn.tf.blog.po.UBlogtype;
 import cn.tf.blog.po.ULink;
@@ -28,6 +29,7 @@ import cn.tf.blog.service.BlogService;
 import cn.tf.blog.service.BlogTypeService;
 import cn.tf.blog.service.BloggerService;
 import cn.tf.blog.service.LinkService;
+import cn.tf.blog.service.STypeService;
 
 
 
@@ -48,6 +50,8 @@ public class UserController {
 	private BlogTypeService blogTypeService;
 	@Autowired
 	private LinkService linkService;
+	@Autowired
+	private STypeService typeService;
 	
 	/**
 	 * 请求主页
@@ -63,8 +67,7 @@ public class UserController {
 		if(StringUtil.isEmpty(page)){
 			page="1";
 		}
-		
-		
+
 		
 		PageBean pageBean=new PageBean(Integer.parseInt(page),10);
 		Map<String,Object> map=new HashMap<String,Object>();
@@ -130,5 +133,66 @@ public class UserController {
 		return mav;
 	}
 
+	
+	/**
+	 * 请求主页
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/adminlist")
+	public ModelAndView index1(@RequestParam(value="page",required=false)String page,
+			@RequestParam(value="typeid",required=false)String typeid,
+			HttpServletRequest request)throws Exception{
+		ModelAndView mav=new ModelAndView();
+		if(StringUtil.isEmpty(page)){
+			page="1";
+		}
+
+
+		PageBean pageBean=new PageBean(Integer.parseInt(page),10);
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("start", pageBean.getStart());
+		map.put("size", pageBean.getPageSize());
+		map.put("typeid", typeid);
+		
+		
+		
+		List<UBlog> blogList=blogService.list(map);
+		for(UBlog blog:blogList){
+			List<String> imagesList=blog.getImagesList();
+			String blogInfo=blog.getContent();
+			Document doc=Jsoup.parse(blogInfo);
+			Elements jpgs=doc.select("img[src$=.jpg]"); //　查找扩展名是jpg的图片
+			for(int i=0;i<jpgs.size();i++){
+				Element jpg=jpgs.get(i);
+				imagesList.add(jpg.toString());
+				if(i==2){
+					break;
+				}
+			}
+		}
+		mav.addObject("blogList", blogList);
+		StringBuffer param=new StringBuffer(); // 查询参数
+		if(StringUtil.isNotEmpty(typeid)){
+			param.append("typeid="+typeid);
+		}
+
+		
+		mav.addObject("pageCode",PageUtil.genPagination(request.getContextPath()+"/adminlist", blogService.getTotal(map), Integer.parseInt(page), 10, param.toString()));
+		mav.addObject("mainPage", "blog/list.jsp");
+		mav.addObject("pageTitle","博客云");
+		
+		//类别
+		List<SType> typeList = typeService.typelist();
+		mav.addObject("typeList",typeList);
+				
+		
+		
+		mav.setViewName("index");
+		return mav;
+	}
+	
+	
+	
 
 }

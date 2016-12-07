@@ -164,11 +164,12 @@ body {
 						博客分类
 					</div>
 					<div class="datas">
-						
+						<ul>
+						<c:forEach var="type" items="${typeList }">
+							<li><span><a href="${pageContext.request.contextPath}/adminlist?typeid=${type.typeid }">${type.typename }</a></span></li>
+						</c:forEach>
+					</ul>
 					</div>
-					
-					
-					
 					
 				</div>
 				

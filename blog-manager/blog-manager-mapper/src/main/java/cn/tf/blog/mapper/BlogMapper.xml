@@ -49,6 +49,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="state!=null and state!='' ">
 				 and  b.state=#{state}
 			</if>
+			<if test="typeid!=null and typeid!='' ">
+				 and  s.typeid=#{typeid}
+			</if>
 			
 		</where>
 		  order by releaseDate desc
@@ -74,6 +77,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>   
 			<if test="state!=null and state!='' ">
 				 and  state=#{state}
+			</if>
+			<if test="typeid!=null and typeid!='' ">
+				 and  typeid=#{typeid}
 			</if>
 			
 		</where>

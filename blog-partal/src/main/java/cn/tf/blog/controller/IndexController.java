@@ -20,9 +20,12 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.tf.blog.common.pojo.PageBean;
 import cn.tf.blog.common.util.PageUtil;
 import cn.tf.blog.common.util.StringUtil;
+import cn.tf.blog.po.SType;
 import cn.tf.blog.po.UBlog;
+import cn.tf.blog.po.UBlogtype;
 import cn.tf.blog.service.BlogService;
 import cn.tf.blog.service.RedisService;
+import cn.tf.blog.service.STypeService;
 
 
 
@@ -37,9 +40,9 @@ public class IndexController {
 
 	@Resource
 	private BlogService blogService;
-	@Autowired
-	private RedisService redisService;
 	
+	@Autowired
+	private STypeService typeService;
 	
 	/**
 	 * 请求主页
@@ -68,10 +71,6 @@ public class IndexController {
 			map.put("releaseDateStr", new String(releaseDateStr.getBytes("iso-8859-1"),"utf-8"));
 		}
 		map.put("username", username);
-		
-		//从redis中读取列表
-		//List<UBlog> redisList=redisService.getUBlogList(map);
-		
 		
 		
 		List<UBlog> blogList=blogService.list(map);
@@ -103,6 +102,14 @@ public class IndexController {
 		mav.addObject("pageCode",PageUtil.genPagination(request.getContextPath()+"/index.html", blogService.getTotal(map), Integer.parseInt(page), 10, param.toString()));
 		mav.addObject("mainPage", "blog/list.jsp");
 		mav.addObject("pageTitle","博客云");
+		
+		//类别
+		List<SType> typeList = typeService.typelist();
+		mav.addObject("typeList",typeList);
+		
+		
+		
+		
 		mav.setViewName("index");
 		return mav;
 	}
