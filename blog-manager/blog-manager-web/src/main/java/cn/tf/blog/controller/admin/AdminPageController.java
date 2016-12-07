@@ -1,4 +1,4 @@
-package cn.tf.blog.controller;
+package cn.tf.blog.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,18 +7,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class PageController {
+public class AdminPageController {
 	
-	//打开首页
-	@RequestMapping("/")
-	public String showIndex(){
-		return "index";
-	}
+
 	
-	//展示其他页面
-	@RequestMapping("/user/{page}")
+	//去管理员界面
+	@RequestMapping("/admin")
 	public String showPage(@PathVariable String page){
-		return page;
+		return "admin/main";
+	}
+	//展示其他页面
+	@RequestMapping("/admin/{page}")
+	public String showOtherPage(@PathVariable String page){
+		return "admin/"+page;
 	}
 
 	

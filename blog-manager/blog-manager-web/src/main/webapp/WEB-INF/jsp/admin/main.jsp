@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>博客系统后台管理页面-博客云</title>
+<title>博客系统管理员页面-博客云</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"
@@ -38,7 +38,7 @@
 
 	function openPasswordModifyDialog() {
 		$("#dlg").dialog("open").dialog("setTitle", "修改密码");
-		url = "http://localhost:8087/sso/user/modifyPassword?id=${user.userId}";
+		url = "http://localhost:8087/sso/admin/modifyPassword?id=${admin.adminid}";
 	}
 
 	function modifyPassword() {
@@ -87,17 +87,17 @@
 	function logout() {
 		$.messager.confirm("系统提示", "您确定要退出系统吗？", function(r) {
 			if (r) {
-				var _ticket = $.cookie("TT_TOKEN_USER");
+				var _ticket = $.cookie("TT_TOKEN_ADMIN");
 				if (!_ticket) {
 					return;
 				}
 				$.ajax({
-					url : "http://localhost:8087/sso/user/logout/" + _ticket,
+					url : "http://localhost:8087/sso/admin/logout/" + _ticket,
 					dataType : "jsonp",
 					type : "GET",
 					success : function(data) {
 						if (data.status == 200) {
-							location = "http://localhost:8087/sso/page/login";
+							location = "http://localhost:8087/sso/page/admin/login";
 						}
 					}
 				});
@@ -115,7 +115,7 @@
 				<td width="50%"><img alt="logo"
 					src="${pageContext.request.contextPath}/static/images/logo.png.png">
 				</td>
-				<td valign="bottom" align="right" width="50%"><font size="3">&nbsp;&nbsp;<strong>欢迎：</strong>${user.username
+				<td valign="bottom" align="right" width="50%"><font size="3">&nbsp;&nbsp;<strong>欢迎：</strong>${admin.username
 						}
 				</font></td>
 			</tr>
@@ -174,16 +174,14 @@
 			<div title="个人信息管理" data-options="iconCls:'icon-grxx'"
 				style="padding:10px">
 				<a
-					href="javascript:openTab('修改个人信息','user/modifyInfo','icon-grxxxg')"
+					href="javascript:openTab('修改个人信息','admin/modifyInfo','icon-grxxxg')"
 					class="easyui-linkbutton"
 					data-options="plain:true,iconCls:'icon-grxxxg'"
 					style="width: 150px;">修改个人信息</a>
 			</div>
 			<div title="系统管理" data-options="iconCls:'icon-system'"
 				style="padding:10px">
-				<a href="javascript:openTab('友情链接管理','user/linkManage','icon-link')"
-					class="easyui-linkbutton"
-					data-options="plain:true,iconCls:'icon-link'" style="width: 150px">友情链接管理</a>
+				
 				<a href="javascript:openPasswordModifyDialog()"
 					class="easyui-linkbutton"
 					data-options="plain:true,iconCls:'icon-modifyPassword'"
@@ -207,8 +205,8 @@
 			<table cellspacing="8px">
 				<tr>
 					<td>用户名：</td>
-					<td><input type="text" id="userName" name="userName"
-						readonly="readonly" value="${user.username }" style="width: 200px" /></td>
+					<td><input type="text" id="userName" name="username"
+						readonly="readonly" value="${admin.username }" style="width: 200px" /></td>
 				</tr>
 				<tr>
 					<td>新密码：</td>

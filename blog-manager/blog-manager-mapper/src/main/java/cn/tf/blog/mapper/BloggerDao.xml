@@ -5,43 +5,61 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="cn.tf.blog.mapper.BloggerDao">
 
 	<resultMap type="cn.tf.blog.po.UUser" id="BloggerResult">
-		<result property="userId" column="userId"/>
-		<result property="username" column="username"/>
-		<result property="password" column="password"/>
-		<result property="nickName" column="nickName"/>
-		<result property="sign" column="sign"/>
-		<result property="proFile" column="proFile"/>
-		<result property="image" column="image"/>
+		<result property="userId" column="userId" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="nickName" column="nickName" />
+		<result property="sign" column="sign" />
+		<result property="proFile" column="proFile" />
+		<result property="image" column="image" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+
+
 	</resultMap>
-	
-	<select id="find"  parameterType="String"   resultMap="BloggerResult">
-		select * from u_user where username=#{username}
+
+	<select id="find" parameterType="String" resultMap="BloggerResult">
+		select * from
+		u_user where username=#{username}
 	</select>
-	
+
 	<select id="getByUserName" parameterType="String" resultMap="BloggerResult">
 		select * from u_user where username=#{username}
 	</select>
-	
-	<update id="update"  parameterType="cn.tf.blog.po.UUser">
+
+	<update id="update" parameterType="cn.tf.blog.po.UUser">
 		update u_user
 		<set>
-			<if test="password!=null and password!='' ">
-				password=#{password},
+
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
 			</if>
-			<if test="nickName!=null and nickName!='' ">
-				nickName=#{nickName},
+			<if test="nickName != null">
+				nickName = #{nickName,jdbcType=VARCHAR},
 			</if>
-			<if test="sign!=null and sign!='' ">
-				sign=#{sign},
+			<if test="sign != null">
+				sign = #{sign,jdbcType=VARCHAR},
 			</if>
-			<if test="proFile!=null and proFile!='' ">
-				proFile=#{proFile},
+			<if test="image != null">
+				image = #{image,jdbcType=VARCHAR},
 			</if>
-			<if test="image!=null and image!='' ">
-				image=#{image}
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				createTime = #{createtime},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=CHAR},
+			</if>
+			<if test="proFile != null">
+				proFile = #{proFile},
 			</if>
 		</set>
 		where username=#{username}
 	</update>
-	
+
 </mapper> 

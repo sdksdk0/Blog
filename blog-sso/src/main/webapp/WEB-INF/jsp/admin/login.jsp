@@ -208,8 +208,7 @@ a {
 </head>
 <body>
 	<DIV class="top_div"></DIV>
-	<form action="${pageContext.request.contextPath}/blogger/login.do"
-		method="post" onsubmit="return checkForm()">
+	<form id="formlogin" method="post" onsubmit="return false;">
 		<DIV
 			style="background: rgb(255, 255, 255); margin: -100px auto auto; border: 1px solid rgb(231, 231, 231); border-image: none; width: 400px; height: 200px; text-align: center;">
 			<DIV style="width: 165px; height: 96px; position: absolute;">
@@ -217,25 +216,24 @@ a {
 				<DIV class="initial_left_hand" id="left_hand"></DIV>
 				<DIV class="initial_right_hand" id="right_hand"></DIV>
 			</DIV>
+			
 			<P style="padding: 30px 0px 10px; position: relative;">
-				<SPAN class="u_logo"></SPAN> <INPUT id="userName" name="userName"
-					class="ipt" type="text" placeholder="请输入用户名"
-					value="${blogger.userName }">
+				<SPAN class="u_logo"></SPAN> <INPUT id="userName" name="username"
+					class="ipt" type="text" placeholder="请输入用户名"">
 			</P>
 			<P style="position: relative;">
 				<SPAN class="p_logo"></SPAN> <INPUT id="password" name="password"
-					class="ipt" type="password" placeholder="请输入密码"
-					value="${blogger.password }">
+					class="ipt" type="password" placeholder="请输入密码"">
 			</P>
 			<DIV
 				style="height: 50px; line-height: 50px; margin-top: 30px; border-top-color: rgb(231, 231, 231); border-top-width: 1px; border-top-style: solid;">
 				<P style="margin: 0px 35px 20px 45px;">
-					<SPAN style="float: left;">博客系统</SPAN> <span><font
-						color="red" id="error">${errorInfo }</font></span> <SPAN
-						style="float: right;"> <input type="submit"
+					<SPAN style="float: left;"></SPAN> <span><font color="red"
+						id="error">${errorInfo }</font></span> <SPAN style="float: right;">
+						<input type="button" id="loginsubmit"
 						style="background: rgb(0, 142, 173); padding: 7px 10px; border-radius: 4px; border: 1px solid rgb(26, 117, 152); border-image: none; color: rgb(255, 255, 255); font-weight: bold;"
-						value="登录" />
-					</SPAN>
+						value="管理员登录" />
+					
 				</P>
 			</DIV>
 		</DIV>
@@ -249,5 +247,61 @@ a {
 	</div>
 
 	</div>
+
+	<script type="text/javascript">
+		var redirectUrl = "${redirect}";
+		var LOGIN = {
+			checkInput : function() {
+				if ($("#userName").val() == "") {
+					$("#error").html("用户名不能为空");
+					$("#userName").focus();
+					return false;
+				}
+				if ($("#password").val() == "") {
+					$("#error").html("密码不能为空");
+					$("#password").focus();
+					return false;
+				}
+				return true;
+			},
+			doLogin : function() {
+				$
+						.post(
+								"/sso/admin/login",
+								$("#formlogin").serialize(),
+								function(data) {
+									if (data.status == 200) {
+										//alert("登录成功！");
+										if (redirectUrl == "") {
+											location.href = "http://localhost:8083/manager/admin/main";
+										} else {
+											location.href = redirectUrl;
+										}
+									} else {
+										$("#error").html(
+												"登录失败，原因是:"
+														+ data.msg
+																.substr(0, 50));
+
+										$("#loginname").select();
+									}
+								});
+			},
+			login : function() {
+				if (this.checkInput()) {
+					this.doLogin();
+				}
+			}
+
+		};
+		$(function() {
+			$("#loginsubmit").click(function() {
+				LOGIN.login();
+			});
+
+	
+
+		});
+	</script>
 </body>
 </html>

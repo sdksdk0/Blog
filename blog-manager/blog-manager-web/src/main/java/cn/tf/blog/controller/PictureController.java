@@ -19,7 +19,7 @@ public class PictureController {
 	@Autowired
 	private PictureService  pictureService;
 	
-	@RequestMapping("/pic/upload")
+	@RequestMapping("/user/pic/upload")
 	@ResponseBody
 	public String  pictureUpload(MultipartFile  uploadFile){
 		
@@ -47,6 +47,18 @@ public class PictureController {
 	@RequestMapping("/user/blogger/pic/upload")
 	@ResponseBody
 	public String  pictureUpload2(MultipartFile  uploadFile){
+		
+		Map result=pictureService.uploadPicture(uploadFile);
+		
+		//把result转换为json格式的字符串
+		String json=JsonUtils.objectToJson(result);
+		 
+		return json;
+	}
+	
+	@RequestMapping("/admin/pic/upload")
+	@ResponseBody
+	public String  pictureadmin(MultipartFile  uploadFile){
 		
 		Map result=pictureService.uploadPicture(uploadFile);
 		

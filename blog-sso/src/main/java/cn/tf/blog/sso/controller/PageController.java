@@ -19,15 +19,12 @@ public class PageController {
 		model.addAttribute("redirect",redirect);
 		return "login";
 	}
-	@RequestMapping("/admin/register")
-	public String showAdminRegister(){
-		return "admin/register";
-	}
+
 	
 	
 	@RequestMapping("/admin/login")
 	public String showAdminLogin(String redirect,Model model){
-		System.out.println("admin");
+		
 		//model.addAttribute("redirect",redirect);
 		return "admin/login";
 	}

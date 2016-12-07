@@ -13,7 +13,7 @@ public class SAdmin {
 
     private String sign;
 
-    private String imagepath;
+    private String image;
 
     private String email;
 
@@ -63,15 +63,17 @@ public class SAdmin {
         this.sign = sign == null ? null : sign.trim();
     }
 
-    public String getImagepath() {
-        return imagepath;
-    }
 
-    public void setImagepath(String imagepath) {
-        this.imagepath = imagepath == null ? null : imagepath.trim();
-    }
 
-    public String getEmail() {
+    public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getEmail() {
         return email;
     }
 

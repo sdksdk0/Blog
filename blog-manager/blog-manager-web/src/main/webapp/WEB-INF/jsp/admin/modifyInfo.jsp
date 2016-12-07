@@ -24,18 +24,18 @@
 <script type="text/javascript">
 	
 	function submitData(){
-		var nickName=$("#nickName").val();
+		var nickname=$("#nickName").val();
 		var sign=$("#sign").val();
-		var proFile=UE.getEditor('proFile').getContent();
+		var profile=UE.getEditor('proFile').getContent();
 		
-		if(nickName==null || nickName==''){
+		if(nickname==null || nickname==''){
 			alert("请输入昵称！");
 		}else if(sign==null || sign==''){
 			alert("请输入个性签名！");
-		}else if(proFile==null || proFile==''){
+		}else if(profile==null || profile==''){
 			alert("请输入个性简介！");
 		} else{
-			$("#pF").val(proFile);
+			$("#pF").val(profile);
 			$('#form1').submit();
 		}
 	}
@@ -46,22 +46,22 @@
 </head>
 <body style="margin: 10px">
 <div id="p" class="easyui-panel" title="修改个人信息" style="padding: 10px">
-	<form id="form1" action="${pageContext.request.contextPath}/user/blogger/save" method="post">
+	<form id="form1" action="${pageContext.request.contextPath}/admin/blogger/save" method="post">
 	 	<table cellspacing="20px">
 	   		<tr>
 	   			<td width="80px">用户名：</td>
 	   			<td>
-	   				<input type="hidden" id="userId" name="userId" value="${user.userId }"/>
-	   				<input type="text" id="username" name="username" value="${user.username }"  style="width: 200px;"  readonly="readonly"/>
+	   				<input type="hidden" id="userId" name="userId" value="${admin.adminid }"/>
+	   				<input type="text" id="username" name="username" value="${admin.username }"  style="width: 200px;"  readonly="readonly"/>
 	   			</td>
 	   		</tr>
 	   		<tr>
 	   			<td>昵称：</td>
-	   			<td><input type="text" id="nickName" name="nickName"  style="width: 200px;"/></td>
+	   			<td><input type="text" id="nickName" name="nickname"   value="${admin.nickname }" style="width: 200px;"/></td>
 	   		</tr>
 	   		<tr>
 	   			<td>个性签名：</td>
-	   			<td><input type="text" id="sign" name="sign" value="${user.sign }" style="width: 400px;"/></td>
+	   			<td><input type="text" id="sign" name="sign" value="${admin.sign }" style="width: 400px;"/></td>
 	   		</tr>
 	    	 <tr>
 	   			<td>个人头像：</td>
@@ -76,13 +76,13 @@
 	   		</tr>
 	   		<tr>
 	   			<td>电话：</td>
-	   			<td><input type="text" id="phone" name="phone"    style="width: 400px;"/> </td>
+	   			<td><input type="text" id="phone" name="phone"     style="width: 400px;"/> </td>
 	   		</tr>
 	   		<tr>
 	   			<td valign="top">个人简介：</td>
 	   			<td>
 					   <script id="proFile" type="text/plain" style="width:100%;height:300px;"></script>
-					   <input type="hidden" id="pF" name="proFile"/>
+					   <input type="hidden" id="pF" name="profile"/>
 	   			</td>
 	   			
 	   		</tr>
@@ -108,19 +108,19 @@
 
     ue.addListener("ready",function(){
         //通过ajax请求数据
-        UE.ajax.request("${pageContext.request.contextPath}/user/blogger/find?username=${user.username}",
+        UE.ajax.request("${pageContext.request.contextPath}/admin/blogger/find?username=${admin.username}",
             {
                 method:"post",
                 async : false,  
                 data:{},
                 onsuccess:function(result){
                 	result = eval("(" + result.responseText + ")");  
-                	$("#nickName").val(result.nickName);
+                	$("#nickName").val(result.nickname);
                 	$("#sign").val(result.sign);
                 	$("#userImg").attr("src",result.image);
                 	$("#email").val(result.email);
                 	$("#phone").val(result.phone);
-       				UE.getEditor('proFile').setContent(result.proFile);
+       				UE.getEditor('proFile').setContent(result.profile);
                 }
             }
         );

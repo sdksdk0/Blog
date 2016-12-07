@@ -275,7 +275,7 @@ a {
 									if (data.status == 200) {
 										//alert("登录成功！");
 										if (redirectUrl == "") {
-											location.href = "http://localhost:8083/manager/main";
+											location.href = "http://localhost:8083/manager/user/main";
 										} else {
 											location.href = redirectUrl;
 										}

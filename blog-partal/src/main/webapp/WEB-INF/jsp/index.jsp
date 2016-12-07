@@ -117,7 +117,7 @@ body {
 						src="${pageContext.request.contextPath}/static/img/register.gif" /></a>
 				</div>
 				<div id="before">
-					<a href="http://localhost:8083/manager/main" target="_blank">个人中心
+					<a href="http://localhost:8083/manager/user/main" target="_blank">个人中心
 						| <img
 						src="${pageContext.request.contextPath}/static/img/home.png" />
 					</a>
