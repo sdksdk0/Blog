@@ -118,7 +118,11 @@ public class UserServiceImpl implements UserService {
 			//发送激活邮件
 			return TaotaoResult.build(400, "账号未激活");
 		}
-		
+		//被冻结了
+		if(user.getState().equalsIgnoreCase("2")){
+			//发送激活邮件
+			return TaotaoResult.build(400, "账号被冻结");
+		}
 		
 		// 生成token
 		String token = UUID.randomUUID().toString();

@@ -63,7 +63,7 @@ public class IndexController {
 		map.put("start", pageBean.getStart());
 		map.put("size", pageBean.getPageSize());
 		map.put("blogtypeid", blogtypeid);
-		
+		map.put("state", 1);
 		if(releaseDateStr!="" && releaseDateStr!=null){
 			map.put("releaseDateStr", new String(releaseDateStr.getBytes("iso-8859-1"),"utf-8"));
 		}

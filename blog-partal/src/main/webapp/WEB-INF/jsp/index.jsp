@@ -52,30 +52,30 @@
 	function ajaxlogin() {
 		tipShow("#loginAlert");
 	}
-	
+
 	function loginAjax() {
 		var redirectUrl = "${redirect}";
 		var username = $("#username").val();
 		var password = $("#password").val();
-		
+
 		$.cookie('cusername', username);
 
 		$.ajax({
-			url : "http://localhost:8087/sso/user/login?r="+Math.random(),
+			url : "http://localhost:8087/sso/user/login?r=" + Math.random(),
 			type : "post",
-			dataType:'JSONP',
+			dataType : 'JSONP',
 			data : {
 				username : username,
 				password : password,
 			},
 			success : function(data) {
-				
+
 				if (data.status == 200) {
 					//隐藏掉登录框
 					$("#error").text("");
 					tipHide("#loginAlert");
 					window.location.reload();
-				} 
+				}
 			},
 			error : function(data) {
 				$("#error").text("用户名或密码错误");
@@ -83,10 +83,8 @@
 				window.location.reload();
 			}
 		});
-		
+
 	}
-	
-	
 </script>
 
 <style type="text/css">
@@ -95,6 +93,19 @@ body {
 	padding-bottom: 40px;
 	height: 1200px;
 }
+
+#content{
+	font-size:14px;
+	letter-spacing:5px; 
+	text-decoration:underline ;
+	white-space:nowrap;   /* 强制文本在一行显示 */
+	white-space:nowrap;   /* 强制文本在一行显示 */
+	overflow:hidden;    /*  超出部分隐藏 */
+	text-overflow:ellipsis;  /*  加省略号  */
+   list-style-type:circle;
+}
+
+
 </style>
 </head>
 <body>
@@ -110,18 +121,97 @@ body {
 
 			<div class="col-md-3">
 
-				<div id="after">
-					<a href="javascript:void(0)" onclick="ajaxlogin();"><img
-						src="${pageContext.request.contextPath}/static/img/login.gif" /></a>
-					| <a href="http://localhost:8087/sso/page/register" target="_blank"><img
-						src="${pageContext.request.contextPath}/static/img/register.gif" /></a>
+				<div class="data_list">
+					<div class="data_list_title">
+						<img
+							src="${pageContext.request.contextPath}/static/images/byType_icon.png" />
+						用户信息
+					</div>
+
+					<div id="after">
+						<a href="javascript:void(0)" onclick="ajaxlogin();"><img
+							src="${pageContext.request.contextPath}/static/img/login.gif" /></a>
+						| <a href="http://localhost:8087/sso/page/register"
+							target="_blank"><img
+							src="${pageContext.request.contextPath}/static/img/register.gif" /></a>
+					</div>
+					<div id="before">
+						<a href="http://localhost:8083/manager/user/main" target="_blank">个人中心
+							| <img
+							src="${pageContext.request.contextPath}/static/img/home.png" />
+						</a>
+					</div>
 				</div>
-				<div id="before">
-					<a href="http://localhost:8083/manager/user/main" target="_blank">个人中心
-						| <img
-						src="${pageContext.request.contextPath}/static/img/home.png" />
-					</a>
+
+
+				<div class="data_list">
+					<div class="data_list_title">
+						<img
+							src="${pageContext.request.contextPath}/static/images/byType_icon.png" />
+						系统公告
+					</div>
+					<div class="datas">
+						<div	style="background-color:white;width:85%;"
+							id="myContent">
+						</div>
+					</div>
 				</div>
+				
+				<div class="data_list">
+					<div class="data_list_title">
+						<img
+							src="${pageContext.request.contextPath}/static/images/list_icon.png" />
+						博客分类
+					</div>
+					<div class="datas">
+						
+					</div>
+					
+					
+					
+					
+				</div>
+				
+				<div class="data_list">
+					<div class="data_list_title">
+						<img
+							src="${pageContext.request.contextPath}/static/images/list_icon.png" />
+						最新用户
+					</div>
+					<div class="datas">
+						
+					</div>
+				</div>
+				
+						<div class="data_list">
+					<div class="data_list_title">
+						<img
+							src="${pageContext.request.contextPath}/static/images/list_icon.png" />
+						热门博客
+					</div>
+					<div class="datas">
+						
+					</div>
+				</div>
+				
+				<div class="data_list">
+					<div class="data_list_title">
+						<img
+							src="${pageContext.request.contextPath}/static/images/byType_icon.png" />
+						发帖指南
+					</div>
+					<div class="datas">
+						<li>CloudBlog是一个专注于解决编程问题，提高开发技能的社区。</li>
+						<li>独立思考、自由探索</li>
+						<li>发布的内容和互联网、编程开发、产品设计有关</li>
+						<li>标题能准确描述的内容，不要发重复的内容</li>
+						<li>保持友善，禁止任何形式的广告、SEO 推广</li>
+						
+					</div>
+				</div>
+				
+
+
 
 
 			</div>
@@ -163,6 +253,15 @@ body {
 
 	</div>
 </div>
+<<script type="text/javascript">
+
+	var ws=new WebSocket('ws://localhost:8083/manager/websocket/news');
+	ws.onmessage=function(msg){
+		var data=$.parseJSON(msg.data);
+		$("#myContent").append(data.content);
+		
+	}
+</script>
 
 
 

@@ -1,5 +1,10 @@
 package cn.tf.blog.mapper;
 
+import java.util.List;
+import java.util.Map;
+
+
+
 import cn.tf.blog.po.UUser;
 
 
@@ -28,4 +33,8 @@ public interface BloggerDao {
 	 * @return
 	 */
 	public Integer update(UUser blogger);
+
+	public List<UUser> list(Map<String, Object> map);
+
+	public Long getTotal(Map<String, Object> map);
 }

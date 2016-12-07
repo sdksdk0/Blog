@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>博客管理页面</title>
+<title>用户管理页面</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/themes/icon.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/jquery.min.js"></script>
@@ -13,93 +13,74 @@
 
 <script type="text/javascript">
 
-	function formatBlogType(val,row){
-		return val.typeName;
-	}
-	
-	function formatTitle(val,row){
-		return "<a target='_blank' href='http://localhost:8085/blog/articles/"+row.username+"/"+row.blogid+".html'>"+val+"</a>"
-	}
-	
-	function searchBlog(){
-		$("#dg").datagrid('load',{
-			"title":$("#s_title").val() 
-		});
-	}
-	
-	function deleteBlog(){
+	function commentReview(state){
 		var selectedRows=$("#dg").datagrid("getSelections");
 		if(selectedRows.length==0){
-			 $.messager.alert("系统提示","请选择要删除的数据！");
+			 $.messager.alert("系统提示","请选择要冻结的数据！");
 			 return;
 		 }
 		 var strIds=[];
 		 for(var i=0;i<selectedRows.length;i++){
-			 strIds.push(selectedRows[i].blogid);
+			 strIds.push(selectedRows[i].userId);
 		 }
 		 var ids=strIds.join(",");
-		 $.messager.confirm("系统提示","您确定要删除这<font color=red>"+selectedRows.length+"</font>条数据吗？",function(r){
-				if(r){
-					$.post("${pageContext.request.contextPath}/user/blog/delete",{ids:ids},function(result){
-						if(result.success){
-							 $.messager.alert("系统提示","数据已成功删除！");
-							 $("#dg").datagrid("reload");
-						}else{
-							$.messager.alert("系统提示","数据删除失败！");
-						}
-					},"json");
-				} 
-	   });
+		$.messager.confirm("系统提示","您确定要审核这<font color=red>"+selectedRows.length+"</font>条信息吗？",function(r){
+			if(r){
+				$.post("${pageContext.request.contextPath}/admin/user/delete",{ids:ids,state:state},function(result){
+					if(result.success){
+						 $.messager.alert("系统提示","提交成功！");
+						 $("#dg").datagrid("reload");
+					}else{
+						$.messager.alert("系统提示","提交失败！");
+					}
+				},"json");
+			} 
+  	   });
+	}
+
+	
+		
+	function formatBlogusername(val,row){
+		return "<a target='_blank' href='http://localhost:8085/userlist?username="+row.username + "'>"+row.username+"</a>";			
+
 	}
 	
 	
-	function openBlogModifyTab(){
-		 var selectedRows=$("#dg").datagrid("getSelections");
-		 if(selectedRows.length!=1){
-			 $.messager.alert("系统提示","请选择一个要修改的博客！");
-			 return;
-		 }
-		 var row=selectedRows[0];
-		 window.parent.openTab('修改博客','user/blog/toUpdate?username=${user.username}&blogid='+row.blogid,'icon-writeblog');
-	}
-	
-		 function formatState(val,row){
-		if(val==1){
+	function formatState(val,row){
+		if(val==0){
+			return "<font color='red' >未激活</font>";
+		}else if(val==1){
 			return "正常";
-		}else if(val==0){
+		}else if(val==2){
 			return "<font color='red' >已冻结</font>";
-		}else{
-			return "<font color='red' >未知</font>";
 		}
 	}
-	
+
 </script>
 </head>
 <body style="margin: 1px">
-<table id="dg" title="博客管理" class="easyui-datagrid"
+<table id="dg" title="用户状态管理" class="easyui-datagrid"
    fitColumns="true" pagination="true" rownumbers="true"
-   url="${pageContext.request.contextPath}/user/blog/list?username=${user.username}" fit="true" toolbar="#tb">
+   url="${pageContext.request.contextPath}/admin/user/list" fit="true" toolbar="#tb">
    <thead>
    	<tr>
    		<th field="cb" checkbox="true" align="center"></th>
-   		<th field="blogid" width="50" align="center">编号</th>
-   		<th field="title" width="200" align="center" formatter="formatTitle">标题</th>
-   		<th field="releasedate" width="50" align="center">发布日期</th>
-   		<th field="utypeName" width="50" align="center" >博客类别</th>
-   		<th field="stypeName" width="50" align="center">大类</th>
-   		<th field="state" width="50" align="center" formatter="formatState" >状态</th>
+   		<th field="userId" width="20" align="center">编号</th>
+   		<th field="username" width="200" align="center"  formatter="formatBlogusername">用户名</th>
+   		<th field="nickName" width="100" align="center" >昵称</th>
+   		<th field="createtime" width="100" align="center" >创建日期</th>
+   		<th field="state" width="200" align="center"  formatter="formatState">状态</th>
+   		
    	</tr>
    </thead>
  </table>
  <div id="tb">
  	<div>
- 		<a href="javascript:openBlogModifyTab()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
- 		<a href="javascript:deleteBlog()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+ 		<a href="javascript:commentReview(2)" class="easyui-linkbutton" iconCls="icon-ok" plain="true">冻结</a>
+ 		<a href="javascript:commentReview(1)" class="easyui-linkbutton" iconCls="icon-no" plain="true">解冻</a>
  	</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
- 	<div>
- 		&nbsp;标题：&nbsp;<input type="text" id="s_title" size="20" onkeydown="if(event.keyCode==13) searchBlog()"/>
- 		<a href="javascript:searchBlog()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>
- 	</div>
  </div>
+ 
+ 
 </body>
 </html>

@@ -82,4 +82,6 @@ public interface BlogService {
 	 * @return
 	 */
 	public Integer getBlogByTypeId(String  id);
+
+	public void update(String blogid, String state);
 }

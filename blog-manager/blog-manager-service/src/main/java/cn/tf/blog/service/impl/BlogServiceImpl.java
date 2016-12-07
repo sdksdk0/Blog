@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.tf.blog.mapper.BlogMapper;
+import cn.tf.blog.mapper.UBlogMapper;
 import cn.tf.blog.po.UBlog;
 import cn.tf.blog.service.BlogService;
 
@@ -27,6 +28,8 @@ public class BlogServiceImpl implements BlogService{
 
 	@Resource
 	private BlogMapper blogMapper;
+	@Autowired
+	private UBlogMapper  blMapper;
 
 	
 	public List<UBlog> countList(String username) {
@@ -71,6 +74,15 @@ public class BlogServiceImpl implements BlogService{
 
 	public Integer getBlogByTypeId(String typeId) {
 		return blogMapper.getBlogByTypeId(typeId);
+	}
+
+	@Override
+	public void update(String blogid,String state) {
+		UBlog blog=new UBlog();
+		blog.setBlogid(blogid);
+		blog.setState(state);
+		
+		blMapper.updateByPrimaryKeySelective(blog);
 	}
 
 	

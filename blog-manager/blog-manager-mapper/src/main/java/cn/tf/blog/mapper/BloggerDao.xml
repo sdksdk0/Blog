@@ -5,22 +5,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="cn.tf.blog.mapper.BloggerDao">
 
 	<resultMap type="cn.tf.blog.po.UUser" id="BloggerResult">
-		<result property="userId" column="userId" />
-		<result property="username" column="username" />
-		<result property="password" column="password" />
-		<result property="nickName" column="nickName" />
-		<result property="sign" column="sign" />
-		<result property="proFile" column="proFile" />
-		<result property="image" column="image" />
-		<result column="email" property="email" jdbcType="VARCHAR" />
-		<result column="phone" property="phone" jdbcType="VARCHAR" />
-
-
+		<id column="userId" property="userId" jdbcType="VARCHAR" />
+	    <result column="username" property="username" jdbcType="VARCHAR" />
+	    <result column="password" property="password" jdbcType="VARCHAR" />
+	    <result column="nickName" property="nickName" jdbcType="VARCHAR" />
+	    <result column="sign" property="sign" jdbcType="VARCHAR" />
+	    <result column="image" property="image" jdbcType="VARCHAR" />
+	    <result column="email" property="email" jdbcType="VARCHAR" />
+	    <result column="phone" property="phone" jdbcType="VARCHAR" />
+	    <result column="createTime" property="createtime" />
+	    <result column="state" property="state" jdbcType="CHAR" />
 	</resultMap>
 
+
+	<select id="list" parameterType="map"  resultMap="BloggerResult">
+		select * from   u_user  
+		<if test="start!=null and size!=null">
+			limit #{start},#{size}
+		</if>
+	</select>
+	<select id="getTotal" parameterType="map" resultType="Long">
+		select count(*) from  u_user  
+	</select>
+
 	<select id="find" parameterType="String" resultMap="BloggerResult">
-		select * from
-		u_user where username=#{username}
+		select * from   u_user  	where username=#{username}
+
 	</select>
 
 	<select id="getByUserName" parameterType="String" resultMap="BloggerResult">

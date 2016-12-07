@@ -3,6 +3,8 @@ package cn.tf.blog.mapper;
 import cn.tf.blog.po.SType;
 import cn.tf.blog.po.STypeExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface STypeMapper {
@@ -27,5 +29,9 @@ public interface STypeMapper {
     int updateByPrimaryKeySelective(SType record);
 
     int updateByPrimaryKey(SType record);
+
+	List<SType> list(Map<String, Object> map);
+
+	Long getTotal(Map<String, Object> map);
 
 }

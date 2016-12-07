@@ -38,7 +38,6 @@ public class AdminerController {
 	/** 
 	 * 修改博主信息
 	 * @param file1
-	 * @param blogger
 	 * @param request
 	 * @param response
 	 * @return

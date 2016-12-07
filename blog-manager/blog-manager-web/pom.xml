@@ -118,6 +118,14 @@
 				<artifactId>jedis</artifactId>
 				<version>${jedis.version}</version>
 			</dependency>
+			
+				<!-- websocket -->
+			<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-websocket</artifactId>
+				<version>4.1.3.RELEASE</version>
+			</dependency>
 		
 		
 	</dependencies>

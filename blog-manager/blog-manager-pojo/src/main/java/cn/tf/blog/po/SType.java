@@ -6,8 +6,20 @@ public class SType {
     private String typename;
 
     private String orderno;
+    
+    private String state;
+    
+    
 
-    public String getTypeid() {
+    public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getTypeid() {
         return typeid;
     }
 

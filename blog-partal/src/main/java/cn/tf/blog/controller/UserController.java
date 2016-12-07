@@ -126,9 +126,6 @@ public class UserController {
 		List<ULink> linkList = linkService.list(linkmap);
 		mav.addObject("linkList",linkList);
 		
-		
-		
-		
 		mav.setViewName("mainTemp");
 		return mav;
 	}

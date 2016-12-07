@@ -99,6 +99,7 @@ public class AdminServiceImpl implements AdminService {
 			return TaotaoResult.build(400, "用户名或密码错误");
 		}
 		
+		
 		// 生成token
 		String token = UUID.randomUUID().toString();
 		// 把用户信息写入redis

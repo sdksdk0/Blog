@@ -1,5 +1,10 @@
 package cn.tf.blog.service;
 
+import java.util.List;
+import java.util.Map;
+
+
+
 import cn.tf.blog.po.UUser;
 
 
@@ -29,4 +34,10 @@ public interface BloggerService {
 	 * @return
 	 */
 	public Integer update(UUser blogger);
+
+	public List<UUser> list(Map<String, Object> map);
+
+	public Long getTotal(Map<String, Object> map);
+
+	public void delete(String userId, String state);
 }

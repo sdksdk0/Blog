@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  
 	<select id="countList"  parameterType="String"   resultMap="BlogResult">
 		SELECT DATE_FORMAT(releaseDate,'%Y年%m月') AS releaseDateStr ,COUNT(*) AS blogCount,username  FROM u_blog  
-		WHERE username=#{username}	
+		WHERE username=#{username}	and state=1
 	GROUP BY DATE_FORMAT(releaseDate,'%Y年%m月') ORDER BY DATE_FORMAT(releaseDate,'%Y年%m月') DESC	
 	</select>
 	
@@ -45,6 +45,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			<if test="username!=null and username!='' ">
 				 and  b.username=#{username}
+			</if>
+			<if test="state!=null and state!='' ">
+				 and  b.state=#{state}
 			</if>
 			
 		</where>
@@ -69,12 +72,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="username!=null and username!=''  ">
 					 AND  username=#{username} 
 			</if>   
+			<if test="state!=null and state!='' ">
+				 and  state=#{state}
+			</if>
 			
 		</where>
+		
 	</select>
 	
 	<select id="findById" parameterType="String" resultMap="BlogResult">
 		select * from u_blog where blogId=#{blogId}
+		
 	</select>
 	
 	<update id="update" parameterType="cn.tf.blog.po.UBlog">
@@ -111,11 +119,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<select id="getLastBlog" parameterType="String" resultMap="BlogResult">
-		SELECT * FROM u_blog WHERE blogId&lt;#{blogId} ORDER BY blogId DESC LIMIT 1
+		SELECT * FROM u_blog WHERE blogId&lt;#{blogId} and state=1   ORDER BY blogId DESC LIMIT 1
 	</select>
 	
 	<select id="getNextBlog" parameterType="String" resultMap="BlogResult">
-		SELECT * FROM u_blog WHERE blogId&gt;#{blogId} ORDER BY blogId ASC LIMIT 1
+		SELECT * FROM u_blog WHERE blogId&gt;#{blogId} and state=1   ORDER BY blogId ASC LIMIT 1
 	</select>
 	
 

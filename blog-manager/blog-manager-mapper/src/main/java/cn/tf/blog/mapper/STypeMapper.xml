@@ -5,6 +5,7 @@
     <id column="typeId" property="typeid" jdbcType="VARCHAR" />
     <result column="typeName" property="typename" jdbcType="VARCHAR" />
     <result column="orderNo" property="orderno" jdbcType="VARCHAR" />
+    <result column="state" property="state"  />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -98,9 +99,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.tf.blog.po.SType" >
-    insert into s_type (typeId, typeName, orderNo
+    insert into s_type (typeId, typeName, orderNo,state
       )
-    values (#{typeid,jdbcType=VARCHAR}, #{typename,jdbcType=VARCHAR}, #{orderno,jdbcType=VARCHAR}
+    values (#{typeid,jdbcType=VARCHAR}, #{typename,jdbcType=VARCHAR}, #{orderno,jdbcType=VARCHAR},1
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.tf.blog.po.SType" >
@@ -169,16 +170,31 @@
       <if test="orderno != null" >
         orderNo = #{orderno,jdbcType=VARCHAR},
       </if>
+      <if test="state != null" >
+        state = #{state}
+      </if>
     </set>
     where typeId = #{typeid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.tf.blog.po.SType" >
     update s_type
     set typeName = #{typename,jdbcType=VARCHAR},
-      orderNo = #{orderno,jdbcType=VARCHAR}
+      orderNo = #{orderno,jdbcType=VARCHAR},
+      state=#{state}
     where typeId = #{typeid,jdbcType=VARCHAR}
   </update>
   
+  
+  <select id="list" parameterType="map" resultMap="BaseResultMap">
+		select * from s_type  
+		<if test="start!=null and size!=null">
+			limit #{start},#{size}
+		</if>
+	</select>
+	
+	<select id="getTotal" parameterType="map" resultType="Long">
+		select count(*) from s_type
+	</select>
   
   
 </mapper>
