@@ -43,8 +43,13 @@
 		if(val==''){
 			return "<font color='red'>该博客已被删除！</font>";
 		}else{
-			return "<a target='_blank' href='${pageContext.request.contextPath}/blog/articles/"+row.blogid+".html'>"+row.title+"</a>";			
+			return "<a target='_blank' href='http://localhost:8085/blog/articles/"+row.blogid+".html'>"+row.title+"</a>";			
 		}
+	}
+	
+	function formatBlogusername(val,row){
+		return "<a target='_blank' href='http://localhost:8085/userlist?username="+row.username + "'>"+row.username+"</a>";			
+
 	}
 	
 	function formatState(val,row){
@@ -68,7 +73,7 @@
    		<th field="cb" checkbox="true" align="center"></th>
    		<th field="commentid" width="20" align="center">编号</th>
    		<th field="title" width="200" align="center"  formatter="formatBlogTitle">博客标题</th>
-   		<th field="username" width="100" align="center">评论者用户名</th>
+   		<th field="username" width="100" align="center"  formatter="formatBlogusername">评论者用户名</th>
    		<th field="content" width="200" align="center">评论内容</th>
    		<th field="commentdate" width="50" align="center">评论日期</th>
    		<th field="state" width="50" align="center" formatter="formatState">评论状态</th>

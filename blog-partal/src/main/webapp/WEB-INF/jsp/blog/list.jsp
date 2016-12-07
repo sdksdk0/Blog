@@ -12,7 +12,7 @@
 			  	  <li style="margin-bottom: 30px">
 				  	<span class="date"><a href="${pageContext.request.contextPath}/blog/articles/${blog.username}/${blog.blogid}.html"><fmt:formatDate value="${blog.releasedate }" type="date" pattern="yyyy年MM月dd日"/></a></span>
 				  	<span class="title"><a href="${pageContext.request.contextPath}/blog/articles/${blog.username}/${blog.blogid}.html">${blog.title }</a></span>
-				  	<span class="summary">&nbsp;&nbsp; ${blog.summary }...</span>
+				  	<span class="summary">&nbsp;&nbsp; <a href="${pageContext.request.contextPath}/blog/articles/${blog.username}/${blog.blogid}.html">${blog.summary }...</a></span>
 				  	<span class="img">
 				  		<c:forEach var="image" items="${blog.imagesList }">
 					  		<a href="${pageContext.request.contextPath}/blog/articles/${blog.username}/${blog.blogid}.html">${image }</a>

@@ -78,8 +78,8 @@ public class BlogController {
 			blog=blogService.findById(blogid);	
 			
 			//把数据存进去
-			blog.setContent(new String(blog.getContent().getBytes("iso-8859-1"),"utf-8"));
-			redisService.addBlog(blog);
+			//blog.setContent(new String(blog.getContent().getBytes("iso-8859-1"),"utf-8"));
+			//redisService.addBlog(blog);
 		}
 		
 	
@@ -91,11 +91,17 @@ public class BlogController {
 			mav.addObject("keyWords",null);			
 		}
 		
+		blog.setClickhit(blog.getClickhit()+1); // 博客点击次数加1
+		
+		redisService.addBlog(blog);
+		
+		
 		blog.setContent(new String(blog.getContent().getBytes("iso-8859-1"),"utf-8"));
 		
 		mav.addObject("blog", blog);
-		blog.setClickhit(blog.getClickhit()+1); // 博客点击次数加1
 		blogService.update(blog);
+		
+		
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("blogid", blogid);
 		map.put("state", 1); // 查询审核通过的评论
@@ -136,14 +142,14 @@ public class BlogController {
 
 		UBlog blog=null;
 		//向redis数据库中查询是否存在该数据，如果存在就直接从redis中获取，如果不存在就把数据从mysql数据库中查出来然后再存到redis中
+		
+		
 		blog = redisService.getUBlog(blogid);
+
 		if(blog==null ){
 			//说明缓存中没有数据
 			blog=blogService.findById(blogid);	
 			
-			//把数据存进去
-			blog.setContent(new String(blog.getContent().getBytes("iso-8859-1"),"utf-8"));
-			redisService.addBlog(blog);
 		}
 		String keyWords=blog.getKeyword();
 		if(StringUtil.isNotEmpty(keyWords)){
@@ -152,13 +158,17 @@ public class BlogController {
 		}else{
 			mav.addObject("keyWords",null);			
 		}
+		blog.setClickhit(blog.getClickhit()+1); // 博客点击次数加1
+		redisService.addBlog(blog);
+		
+		
 		
 		blog.setContent(new String(blog.getContent().getBytes("iso-8859-1"),"utf-8"));
 		
 		
 		mav.addObject("blog", blog);
-		blog.setClickhit(blog.getClickhit()+1); // 博客点击次数加1
 		blogService.update(blog);
+		
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("blogid", blogid);
 		map.put("state", 1); // 查询审核通过的评论

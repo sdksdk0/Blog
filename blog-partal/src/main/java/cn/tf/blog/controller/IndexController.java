@@ -11,6 +11,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,7 @@ import cn.tf.blog.common.util.PageUtil;
 import cn.tf.blog.common.util.StringUtil;
 import cn.tf.blog.po.UBlog;
 import cn.tf.blog.service.BlogService;
+import cn.tf.blog.service.RedisService;
 
 
 
@@ -35,6 +37,8 @@ public class IndexController {
 
 	@Resource
 	private BlogService blogService;
+	@Autowired
+	private RedisService redisService;
 	
 	
 	/**
@@ -64,6 +68,12 @@ public class IndexController {
 			map.put("releaseDateStr", new String(releaseDateStr.getBytes("iso-8859-1"),"utf-8"));
 		}
 		map.put("username", username);
+		
+		//从redis中读取列表
+		//List<UBlog> redisList=redisService.getUBlogList(map);
+		
+		
+		
 		List<UBlog> blogList=blogService.list(map);
 		for(UBlog blog:blogList){
 			List<String> imagesList=blog.getImagesList();

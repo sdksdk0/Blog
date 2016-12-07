@@ -1,5 +1,8 @@
 package cn.tf.blog.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,19 +38,11 @@ public class RedisServiceImpl implements RedisService{
 	}
 	
 	
-	
-	
-
-
 	@Override
 	public void deleteBlog(String blogid) {
 		
 		jedisClient.del("BLOG_REDIS_ITEM_KEY :" + blogid);
 	}
-
-
-
-
 
 
 	@Override
@@ -63,6 +58,13 @@ public class RedisServiceImpl implements RedisService{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+
+	@Override
+	public List<UBlog> getUBlogList(Map<String, Object> map) {
+		
 		return null;
 	}
 

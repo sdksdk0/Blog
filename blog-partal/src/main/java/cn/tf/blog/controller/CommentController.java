@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,7 @@ import cn.tf.blog.po.UBlog;
 import cn.tf.blog.po.UComment;
 import cn.tf.blog.service.BlogService;
 import cn.tf.blog.service.CommentService;
+import cn.tf.blog.service.RedisService;
 
 
 
@@ -35,6 +37,8 @@ public class CommentController {
 	
 	@Resource
 	private BlogService blogService;
+	@Autowired
+	private RedisService redisService;
 	
 	/**
 	 * 添加或者修改评论
@@ -57,8 +61,10 @@ public class CommentController {
 				// 该博客的回复次数加1
 				UBlog blog=blogService.findById(blogid);
 				blog.setReplyhit(blog.getReplyhit()+1);
-				blog.setContent(new String(blog.getContent().getBytes("iso-8859-1"),"utf-8"));
-				blogService.update(blog);
+				//blog.setContent(new String(blog.getContent().getBytes("iso-8859-1"),"utf-8"));
+				redisService.addBlog(blog);
+				
+				//blogService.update(blog);
 			}else{
 				
 			}
