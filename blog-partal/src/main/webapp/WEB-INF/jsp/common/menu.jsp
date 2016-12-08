@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript">
 	function checkData(){
 		var q=document.getElementById("q").value.trim();
@@ -10,6 +11,26 @@
 			return true;
 		}
 	}
+	
+	//ajax请求，动态导航栏
+	$(function(){
+		
+		 $.ajax("${pageContext.request.contextPath}/typelist",
+            {
+                method:"post",
+                async : false,  
+                data:{},
+                onsuccess:function(result){
+                	
+                }
+            }
+        );
+	
+	});
+	
+	
+	
+	
 </script>
 <div class="row">
 	<div class="col-md-12" style="padding-top: 10px">
@@ -24,18 +45,22 @@
 		        <span class="icon-bar"></span>
 		      </button>
 		      <a class="navbar-brand" href="${pageContext.request.contextPath}/index.html"><font color="black"><strong>首页</strong></font></a>
+		     
 		    </div>
 
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
-		      <ul class="nav navbar-nav">
-		        <!-- <li><a href="#"><font color="black"><strong>Java1234官网</strong></font></a></li> -->
-		        <!-- <li><a href="#"><font color="black"><strong>Java学习路线图</strong></font></a></li> -->
-		        <!-- <li><a href="#"><font color="red"><strong>Java1234 VIP项目</strong></font></a></li> -->
-		        <li><a href="${pageContext.request.contextPath}/download"><font color="black"><strong>安卓开发</strong></font></a></li>
-		        <li><a href="${pageContext.request.contextPath}/download"><font color="black"><strong>云计算</strong></font></a></li>
-		        <li><a href="${pageContext.request.contextPath}/download"><font color="black"><strong>JAVAEE</strong></font></a></li>
-		          <li><a href="${pageContext.request.contextPath}/download"><font color="black"><strong>Linux系统</strong></font></a></li>
+		      <ul class="nav navbar-nav"  id="typelist">
+		       
+		         <li><a href="${pageContext.request.contextPath}/mall"><font color="black"><strong>积分商城</strong></font></a></li>
+		        <c:forEach var="type" items="${typeList }">
+							<li><a href="${pageContext.request.contextPath}/adminlist?typeid=${type.typeid }"><font color="black"><strong>${type.typename }</strong></font></a></li>
+				</c:forEach>
+		        
+		        
+		        
+		        
+		       
 		      </ul>
 		      <form action="${pageContext.request.contextPath}/blog/q.html" class="navbar-form navbar-right" role="search" method="post" onsubmit="return checkData()">
 		        <div class="form-group" >

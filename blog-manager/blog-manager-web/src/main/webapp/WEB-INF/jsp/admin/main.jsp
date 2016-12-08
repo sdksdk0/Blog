@@ -156,6 +156,25 @@
 					data-options="plain:true,iconCls:'icon-bklb'" style="width: 150px;">博客类别信息管理</a>
 					
 			</div>
+			<div title="积分商城管理" data-options="iconCls:'icon-system'"
+				style="padding:10px">
+				<a
+					href="javascript:openTab('商品类别管理','admin/ItemType','icon-grxxxg')"
+					class="easyui-linkbutton"
+					data-options="plain:true,iconCls:'icon-grxxxg'"
+					style="width: 150px;">商品类别管理</a>
+				<a
+					href="javascript:openTab('添加商品','admin/addItem','icon-grxxxg')"
+					class="easyui-linkbutton"
+					data-options="plain:true,iconCls:'icon-grxxxg'"
+					style="width: 150px;">添加商品</a>
+					
+			 	<a
+					href="javascript:openTab('管理商品','admin/modifyInfo','icon-grxxxg')"
+					class="easyui-linkbutton"
+					data-options="plain:true,iconCls:'icon-grxxxg'"
+					style="width: 150px;">管理商品</a>
+			</div>
 	
 			
 			<div title="个人信息管理" data-options="iconCls:'icon-system'"

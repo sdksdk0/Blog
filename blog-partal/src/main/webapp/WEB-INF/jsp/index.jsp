@@ -43,7 +43,6 @@
 			$("#before").hide();
 
 		} else {
-
 			$("#before").show();
 			$("#after").hide();
 		}
