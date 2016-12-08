@@ -57,14 +57,11 @@ var TT = TAOTAO = {
     },
     
     init : function(data){
-    	
-   
     	// 初始化图片上传组件
     	this.initPicUpload(data);
-
+    	// 初始化选择类目组件
+    	this.initItemCat(data);
     },
-    
-    
     // 初始化图片上传组件
     initPicUpload : function(data){
     	$(".picFileUpload").each(function(i,e){
@@ -126,7 +123,7 @@ var TT = TAOTAO = {
     			    onOpen : function(){
     			    	var _win = this;
     			    	$("ul",_win).tree({
-    			    		url:'/item/cat/list',
+    			    		url:'/manager/item/cat/list',
     			    		animate:true,
     			    		onClick : function(node){
     			    			if($(this).tree("isLeaf",node.target)){
@@ -193,7 +190,7 @@ var TT = TAOTAO = {
     },
     
     changeItemParam : function(node,formId){
-    	$.getJSON("/item/param/query/itemcatid/" + node.id,function(data){
+    	$.getJSON("/manager/item/param/query/itemcatid/" + node.id,function(data){
 			  if(data.status == 200 && data.data){
 				 $("#"+formId+" .params").show();
 				 var paramData = JSON.parse(data.data.paramData);

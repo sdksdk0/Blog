@@ -22,6 +22,10 @@ public class AdminPageController {
 		return "admin/"+page;
 	}
 
-	
+	//展示其他页面
+	@RequestMapping("/admin/mall/{page}")
+	public String showOtherPage1(@PathVariable String page){
+		return "admin/mall/"+page;
+	}
    
 }

@@ -68,4 +68,16 @@ public class PictureController {
 		return json;
 	}
 
+	
+	@RequestMapping("/admin/mall/pic/upload")
+	@ResponseBody
+	public String  pictureadmin2(MultipartFile  uploadFile){
+		
+		Map result=pictureService.uploadPicture(uploadFile);
+		
+		//把result转换为json格式的字符串
+		String json=JsonUtils.objectToJson(result);
+		 
+		return json;
+	}
 }

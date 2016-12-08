@@ -158,22 +158,24 @@
 			</div>
 			<div title="积分商城管理" data-options="iconCls:'icon-system'"
 				style="padding:10px">
+				
 				<a
-					href="javascript:openTab('商品类别管理','admin/ItemType','icon-grxxxg')"
+					href="javascript:openTab('新增商品','admin/mall/item-add','icon-grxxxg')"
 					class="easyui-linkbutton"
 					data-options="plain:true,iconCls:'icon-grxxxg'"
-					style="width: 150px;">商品类别管理</a>
+					style="width: 150px;">新增商品</a>
 				<a
-					href="javascript:openTab('添加商品','admin/addItem','icon-grxxxg')"
+					href="javascript:openTab('查询商品','admin/mall/item-list','icon-grxxxg')"
 					class="easyui-linkbutton"
 					data-options="plain:true,iconCls:'icon-grxxxg'"
-					style="width: 150px;">添加商品</a>
-					
-			 	<a
-					href="javascript:openTab('管理商品','admin/modifyInfo','icon-grxxxg')"
+					style="width: 150px;">查询商品</a>
+				
+				<a
+					href="javascript:openTab('规格参数','admin/mall/item-param-list','icon-grxxxg')"
 					class="easyui-linkbutton"
 					data-options="plain:true,iconCls:'icon-grxxxg'"
-					style="width: 150px;">管理商品</a>
+					style="width: 150px;">规格参数</a>
+	
 			</div>
 	
 			
