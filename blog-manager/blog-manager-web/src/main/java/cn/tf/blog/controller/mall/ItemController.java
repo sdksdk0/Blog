@@ -1,5 +1,7 @@
 package cn.tf.blog.controller.mall;
 
+import net.sf.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -77,14 +79,28 @@ public class ItemController {
 	@RequestMapping("/rest/item/instock")
 	@ResponseBody
 	public TaotaoResult  instockItem(String ids){
-		return itemService.instockItem(ids);
+		
+		String[] idsStr = ids.split(",");
+		JSONObject result = new JSONObject();
+		for (int i = 0; i < idsStr.length; i++) {
+			itemService.instockItem((Long.parseLong(idsStr[i])));	
+		}
+
+		return TaotaoResult.ok();
 	}
 	
 	//上架
 	@RequestMapping("/rest/item/reshelf")
 	@ResponseBody
 	public TaotaoResult  reshelfItem(String ids){
-		return itemService.reshelfItem(ids);	
+		
+		String[] idsStr = ids.split(",");
+		JSONObject result = new JSONObject();
+		for (int i = 0; i < idsStr.length; i++) {
+			itemService.reshelfItem((Long.parseLong(idsStr[i])));	
+		}
+
+		return TaotaoResult.ok();
 	}
 
 }

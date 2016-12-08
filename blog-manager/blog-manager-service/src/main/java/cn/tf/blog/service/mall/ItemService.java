@@ -36,8 +36,8 @@ public interface  ItemService {
 	 * @param ids
 	 * @return
 	 */
-	TaotaoResult instockItem(String ids);
+	TaotaoResult instockItem(Long id);
 
 	//上架
-	TaotaoResult reshelfItem(String ids);
+	TaotaoResult reshelfItem(long id);
 }

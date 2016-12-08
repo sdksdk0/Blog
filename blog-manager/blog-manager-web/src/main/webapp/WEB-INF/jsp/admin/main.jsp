@@ -155,28 +155,13 @@
 					class="easyui-linkbutton"
 					data-options="plain:true,iconCls:'icon-bklb'" style="width: 150px;">博客类别信息管理</a>
 					
-			</div>
-			<div title="积分商城管理" data-options="iconCls:'icon-system'"
-				style="padding:10px">
-				
 				<a
-					href="javascript:openTab('新增商品','admin/mall/item-add','icon-grxxxg')"
+					href="javascript:openTab('积分商城','admin/mall/index','icon-grxxxg')"
 					class="easyui-linkbutton"
 					data-options="plain:true,iconCls:'icon-grxxxg'"
-					style="width: 150px;">新增商品</a>
-				<a
-					href="javascript:openTab('查询商品','admin/mall/item-list','icon-grxxxg')"
-					class="easyui-linkbutton"
-					data-options="plain:true,iconCls:'icon-grxxxg'"
-					style="width: 150px;">查询商品</a>
-				
-				<a
-					href="javascript:openTab('规格参数','admin/mall/item-param-list','icon-grxxxg')"
-					class="easyui-linkbutton"
-					data-options="plain:true,iconCls:'icon-grxxxg'"
-					style="width: 150px;">规格参数</a>
-	
-			</div>
+					style="width: 150px;">积分商城</a>
+					
+			</div>	
 	
 			
 			<div title="个人信息管理" data-options="iconCls:'icon-system'"

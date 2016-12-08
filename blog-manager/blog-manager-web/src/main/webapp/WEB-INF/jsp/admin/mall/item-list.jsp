@@ -1,21 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/themes/default/easyui.css" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/themes/icon.css" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/taotao.css" />
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common.js"></script>
 
 
 <table class="easyui-datagrid" id="itemList" title="商品列表" 
-       data-options="singleSelect:false,collapsible:true,pagination:true,url:'/manager/item/list',method:'get',pageSize:20,toolbar:toolbar">
+       data-options="singleSelect:false,collapsible:true,pagination:true,url:'/manager/item/list',method:'get',pageSize:10,toolbar:toolbar">
     <thead>
         <tr>
         	<th data-options="field:'ck',checkbox:true"></th>
         	<th data-options="field:'id',width:60">商品ID</th>
             <th data-options="field:'title',width:250">商品标题</th>
-            <th data-options="field:'cid',width:100">叶子类目</th>
             <th data-options="field:'sellPoint',width:150">卖点</th>
             <th data-options="field:'price',width:70,align:'right',formatter:TAOTAO.formatPrice">价格</th>
             <th data-options="field:'num',width:70,align:'right'">库存数量</th>
@@ -71,7 +63,7 @@
         			// 加载商品描述
         			$.getJSON('/manager/rest/item/query/item/desc/'+data.id,function(_data){
         				if(_data.status == 200){
-        					UM.getEditor('itemeEditDescEditor').setContent(_data.data.itemDesc, false);
+        					UM.getEditor('itemeEditDescEditor').setContent(_data.data.itemDesc, true);
         					itemEditEditor.html(_data.data.itemDesc);
         				}
         			});

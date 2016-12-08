@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,6 +67,7 @@ public class ItemServiceImpl implements ItemService{
 	public EUDResult getItemList(int page, int rows) {
 			TbItemExample example=new TbItemExample();
 			PageHelper.startPage(page, rows);
+			example.setOrderByClause("updated");
 			List<TbItem> list = itemMapper.selectByExample(example);
 	
 			EUDResult result=new EUDResult();
@@ -130,29 +132,9 @@ public class ItemServiceImpl implements ItemService{
 	//删除商品
 	@Override
 	public TaotaoResult deleteItem(String ids) {
+
+		
 		try {
-			String[] idsArray = ids.split(",");
-			List<Long> values = new ArrayList<Long>();
-			for(String id : idsArray) {
-				values.add(Long.parseLong(id));
-			}
-			TbItemExample e = new TbItemExample();
-			TbItemExample.Criteria c = e.createCriteria();
-			c.andIdIn(values);
-		
-			List<TbItem> list = itemMapper.selectByExample(e);
-			if(list!=null && list.size()>0){
-				TbItem item=list.get(0);
-				item.setStatus((byte)3);
-				itemMapper.updateByExample(item, e);
-			}
-			return TaotaoResult.ok();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-		
-		/*try {
 			String[] idsArray = ids.split(",");
 			List<Long> values = new ArrayList<Long>();
 			for(String id : idsArray) {
@@ -165,14 +147,14 @@ public class ItemServiceImpl implements ItemService{
 			
 			
 			TbItemDescExample de = new TbItemDescExample();
-			cn.tf.taotao.po.TbItemDescExample.Criteria dc = de.createCriteria();
+			cn.tf.blog.po.mall.TbItemDescExample.Criteria dc = de.createCriteria();
 			dc.andItemIdIn(values);
 			itemDescMapper.deleteByExample(de);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-		return TaotaoResult.ok(); */
+		return TaotaoResult.ok(); 
 	}
 
 
@@ -228,56 +210,31 @@ public class ItemServiceImpl implements ItemService{
 
 	//下架商品
 	@Override
-	public TaotaoResult instockItem(String ids) {
+	public TaotaoResult instockItem(Long id) {
 		
-		try {
-			String[] idsArray = ids.split(",");
-			List<Long> values = new ArrayList<Long>();
-			for(String id : idsArray) {
-				values.add(Long.parseLong(id));
-			}
-			TbItemExample e = new TbItemExample();
-			TbItemExample.Criteria c = e.createCriteria();
-			c.andIdIn(values);
 		
-			List<TbItem> list = itemMapper.selectByExample(e);
-			if(list!=null && list.size()>0){
-				TbItem item=list.get(0);
-				item.setStatus((byte)2);
-				itemMapper.updateByExample(item, e);
-			}
+			TbItem item=new TbItem();
+			item.setId(id);
+			item.setStatus((byte)2);
+			
+			itemMapper.updateByPrimaryKeySelective(item);
+			
 			return TaotaoResult.ok();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+		
 		
 	}
 
 
 
 	@Override
-	public TaotaoResult reshelfItem(String ids) {
-		try {
-			String[] idsArray = ids.split(",");
-			List<Long> values = new ArrayList<Long>();
-			for(String id : idsArray) {
-				values.add(Long.parseLong(id));
-			}
-			TbItemExample e = new TbItemExample();
-			TbItemExample.Criteria c = e.createCriteria();
-			c.andIdIn(values);
-			List<TbItem> list = itemMapper.selectByExample(e);
-			if(list!=null && list.size()>0){
-				TbItem item=list.get(0);
-				item.setStatus((byte)1);
-				itemMapper.updateByExample(item, e);
-			}
-			return TaotaoResult.ok();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+	public TaotaoResult reshelfItem(long id) {
+		TbItem item=new TbItem();
+		item.setId(id);
+		item.setStatus((byte)1);
+		
+		itemMapper.updateByPrimaryKeySelective(item);
+		
+		return TaotaoResult.ok();
 	}
 	
 
