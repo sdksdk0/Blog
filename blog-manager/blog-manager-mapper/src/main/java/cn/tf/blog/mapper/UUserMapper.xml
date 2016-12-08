@@ -10,7 +10,7 @@
     <result column="image" property="image" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="createTime" property="createtime" jdbcType="DATE" />
+    <result column="createTime" property="createtime" />
     <result column="state" property="state" jdbcType="CHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="cn.tf.blog.po.UUser" extends="BaseResultMap" >
@@ -136,7 +136,7 @@
       state, proFile)
     values (#{userId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{nickName,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{createtime,jdbcType=DATE}, 
+      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{createtime}, 
       #{state,jdbcType=CHAR}, #{proFile,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.tf.blog.po.UUser" >
@@ -202,7 +202,7 @@
         #{phone,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null" >
-        #{createtime,jdbcType=DATE},
+        #{createtime},
       </if>
       <if test="state != null" >
         #{state,jdbcType=CHAR},
@@ -246,7 +246,7 @@
         phone = #{record.phone,jdbcType=VARCHAR},
       </if>
       <if test="record.createtime != null" >
-        createTime = #{record.createtime,jdbcType=DATE},
+        createTime = #{record.createtime},
       </if>
       <if test="record.state != null" >
         state = #{record.state,jdbcType=CHAR},
@@ -269,7 +269,7 @@
       image = #{record.image,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
-      createTime = #{record.createtime,jdbcType=DATE},
+      createTime = #{record.createtime},
       state = #{record.state,jdbcType=CHAR},
       proFile = #{record.proFile,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
@@ -286,7 +286,7 @@
       image = #{record.image,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
-      createTime = #{record.createtime,jdbcType=DATE},
+      createTime = #{record.createtime},
       state = #{record.state,jdbcType=CHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -317,7 +317,7 @@
         phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null" >
-        createTime = #{createtime,jdbcType=DATE},
+        createTime = #{createtime},
       </if>
       <if test="state != null" >
         state = #{state,jdbcType=CHAR},
@@ -337,7 +337,7 @@
       image = #{image,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
-      createTime = #{createtime,jdbcType=DATE},
+      createTime = #{createtime},
       state = #{state,jdbcType=CHAR},
       proFile = #{proFile,jdbcType=LONGVARCHAR}
     where userId = #{userId,jdbcType=VARCHAR}
@@ -351,7 +351,7 @@
       image = #{image,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
-      createTime = #{createtime,jdbcType=DATE},
+      createTime = #{createtime},
       state = #{state,jdbcType=CHAR}
     where userId = #{userId,jdbcType=VARCHAR}
   </update>
@@ -362,6 +362,12 @@
     where userId = #{userId,jdbcType=VARCHAR}
   
   </update>
+  
+	<select id="finduUserByTime"  resultMap="BaseResultMap" >
+		SELECT * FROM u_user  ORDER  BY  createTime  DESC limit  9
+	</select>
+  
+  
 
  
   

@@ -29,4 +29,7 @@ public interface UScoreMapper {
     int updateByPrimaryKey(UScore record);
 
 	int update(UScore score);
+
+	UScore findByUsername(String username);
+
 }

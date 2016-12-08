@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import cn.tf.blog.common.util.ResponseUtil;
 import cn.tf.blog.po.UBlog;
 import cn.tf.blog.po.UComment;
+import cn.tf.blog.po.UScore;
 import cn.tf.blog.service.BlogService;
 import cn.tf.blog.service.CommentService;
 import cn.tf.blog.service.RedisService;
+import cn.tf.blog.service.ScoreService;
+import cn.tf.blog.service.impl.ScoreServiceImpl;
 
 
 
@@ -39,6 +42,8 @@ public class CommentController {
 	private BlogService blogService;
 	@Autowired
 	private RedisService redisService;
+	@Autowired
+	private ScoreService scoreService;
 	
 	/**
 	 * 添加或者修改评论
@@ -57,6 +62,16 @@ public class CommentController {
 			comment.setUsername(username);
 			if(comment.getCommentid()==null){
 				comment.setCommentid(UUID.randomUUID().toString());
+				
+				
+				//去积分查询积分是否大于200，若大于200则不需要审核
+				UScore  score=scoreService.findByUsername(username);
+				if(score.getScore()>200){
+					comment.setState(1+"");	
+				}else{
+					comment.setState(0+"");
+				}
+				
 				resultTotal=commentService.add(comment);
 				// 该博客的回复次数加1
 				UBlog blog=blogService.findById(blogid);

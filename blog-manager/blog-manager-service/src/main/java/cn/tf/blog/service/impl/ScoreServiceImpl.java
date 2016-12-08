@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import cn.tf.blog.mapper.UScoreMapper;
 import cn.tf.blog.po.UScore;
+import cn.tf.blog.po.UScoreExample;
 import cn.tf.blog.service.ScoreService;
 
 @Service
@@ -23,6 +24,11 @@ public class ScoreServiceImpl implements ScoreService{
 	public int update(UScore score) {
 		return scoreMapper.update(score);
 		
+	}
+
+	@Override
+	public UScore findByUsername(String username) {
+		return scoreMapper.findByUsername(username);
 	}
 	
 	

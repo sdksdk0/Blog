@@ -49,4 +49,8 @@ public interface CommentService {
 	 * @return
 	 */
 	public Integer delete(String id);
+	
+
+	public List<UComment> findCommentByTime(Map<String,Object> map);
+	
 }

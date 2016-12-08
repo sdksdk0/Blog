@@ -49,5 +49,7 @@ public interface CommentMapper {
 	 */
 	public Integer delete(String id);
 	
+	List<UComment>  findCommentByTime(Map<String,Object> map);
+	
 	
 }

@@ -23,9 +23,13 @@ import cn.tf.blog.common.util.StringUtil;
 import cn.tf.blog.po.SType;
 import cn.tf.blog.po.UBlog;
 import cn.tf.blog.po.UBlogtype;
+import cn.tf.blog.po.UComment;
+import cn.tf.blog.po.UUser;
 import cn.tf.blog.service.BlogService;
+import cn.tf.blog.service.CommentService;
 import cn.tf.blog.service.RedisService;
 import cn.tf.blog.service.STypeService;
+import cn.tf.blog.service.UserService;
 
 
 
@@ -43,6 +47,16 @@ public class IndexController {
 	
 	@Autowired
 	private STypeService typeService;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private CommentService commentService;
+	
+	//打开首页
+	@RequestMapping("/")
+	public String showIndex(){
+		return "redirect:/index";
+	}
 	
 	/**
 	 * 请求主页
@@ -107,7 +121,15 @@ public class IndexController {
 		List<SType> typeList = typeService.typelist();
 		mav.addObject("typeList",typeList);
 		
+		//查询最新注册的用户
+		List<UUser> userList=userService.finduUserByTime();
+		mav.addObject("userList",userList);
 		
+		//最新评论
+		
+		Map<String,Object> map1=new HashMap<String,Object>();
+		List<UComment> commentList = commentService.findCommentByTime(map1);
+		mav.addObject("commentList",commentList);
 		
 		
 		mav.setViewName("index");

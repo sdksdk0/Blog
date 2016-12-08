@@ -23,13 +23,16 @@ import cn.tf.blog.common.util.StringUtil;
 import cn.tf.blog.po.SType;
 import cn.tf.blog.po.UBlog;
 import cn.tf.blog.po.UBlogtype;
+import cn.tf.blog.po.UComment;
 import cn.tf.blog.po.ULink;
 import cn.tf.blog.po.UUser;
 import cn.tf.blog.service.BlogService;
 import cn.tf.blog.service.BlogTypeService;
 import cn.tf.blog.service.BloggerService;
+import cn.tf.blog.service.CommentService;
 import cn.tf.blog.service.LinkService;
 import cn.tf.blog.service.STypeService;
+import cn.tf.blog.service.UserService;
 
 
 
@@ -52,6 +55,11 @@ public class UserController {
 	private LinkService linkService;
 	@Autowired
 	private STypeService typeService;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private CommentService commentService;
+	
 	
 	/**
 	 * 请求主页
@@ -123,6 +131,14 @@ public class UserController {
 		mav.addObject("blogTypeCountList",blogTypeCountList);
 		
 		
+		//最新评论
+		Map<String,Object> map1=new HashMap<String,Object>();
+		map1.put("username", username);
+		List<UComment> commentList = commentService.findCommentByTime(map1);
+		mav.addObject("commentList",commentList);
+		
+		
+		
 		//友情链接
 		Map<String,Object> linkmap=new HashMap<String,Object>();
 		linkmap.put("username", username);
@@ -135,7 +151,7 @@ public class UserController {
 
 	
 	/**
-	 * 请求主页
+	 * 管理员
 	 * @return
 	 * @throws Exception
 	 */
@@ -186,13 +202,22 @@ public class UserController {
 		List<SType> typeList = typeService.typelist();
 		mav.addObject("typeList",typeList);
 				
+		//查询最新注册的用户
+		List<UUser> userList=userService.finduUserByTime();
+		mav.addObject("userList",userList);
 		
+		//最新评论
+		Map<String,Object> map1=new HashMap<String,Object>();
+		List<UComment> commentList = commentService.findCommentByTime(map1);
+		mav.addObject("commentList",commentList);
 		
 		mav.setViewName("index");
 		return mav;
 	}
 	
+
 	
+
 	
 
 }

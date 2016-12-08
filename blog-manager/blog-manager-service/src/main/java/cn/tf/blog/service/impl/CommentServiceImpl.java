@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.tf.blog.mapper.CommentMapper;
@@ -24,6 +25,7 @@ public class CommentServiceImpl implements CommentService{
 	@Resource
 	private CommentMapper commentDao;
 	
+	
 	public int add(UComment comment) {
 		return commentDao.add(comment);
 	}
@@ -42,6 +44,12 @@ public class CommentServiceImpl implements CommentService{
 
 	public int update(UComment comment) {
 		return commentDao.update(comment);
+	}
+
+	@Override
+	public List<UComment> findCommentByTime(Map<String,Object> map) {
+		
+		return commentDao.findCommentByTime(map);
 	}
 
 }

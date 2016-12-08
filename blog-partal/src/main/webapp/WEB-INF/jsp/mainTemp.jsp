@@ -85,6 +85,27 @@
 			</div>
 			
 			<div class="data_list">
+					<div class="data_list_title"  style="clear:both;">
+						<img
+							src="${pageContext.request.contextPath}/static/images/list_icon.png" />
+						最新评论
+					</div>
+					<div class="datas">
+						<ul>
+						<c:forEach var="comment" items="${commentList }">
+							<li><span><a href="${pageContext.request.contextPath}/userlist?username=${comment.username }">${comment.username }</a>:
+								评论了:<a href="${pageContext.request.contextPath}/blog/articles/${comment.username}/${comment.blogid}.html">${comment.title }</a>
+								: ${comment.content }
+							</span></li>
+						</c:forEach>
+					</ul>
+					</div>
+				</div>
+			
+			
+			
+			
+			<div class="data_list">
 				<div class="data_list_title">
 					<img src="${pageContext.request.contextPath}/static/images/link_icon.png"/>
 					友情链接

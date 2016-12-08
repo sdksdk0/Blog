@@ -1,10 +1,14 @@
 package cn.tf.blog.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import cn.tf.blog.common.util.HttpClientUtil;
 import cn.tf.blog.common.util.TaotaoResult;
+import cn.tf.blog.mapper.UUserMapper;
 import cn.tf.blog.po.UUser;
 import cn.tf.blog.service.UserService;
 
@@ -12,6 +16,10 @@ import cn.tf.blog.service.UserService;
 
 @Service
 public class UserServiceImpl implements  UserService{
+	
+	
+	@Autowired
+	private UUserMapper userMapper;
 
 	@Value("${SSO_BASE_URL}")
 	public String SSO_BASE_URL;
@@ -47,6 +55,12 @@ public class UserServiceImpl implements  UserService{
 		}
 		
 		return null;
+	}
+
+
+	@Override
+	public List<UUser> finduUserByTime() {
+		return userMapper.finduUserByTime();
 	}
 
 

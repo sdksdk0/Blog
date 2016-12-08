@@ -105,7 +105,6 @@ body {
    list-style-type:circle;
 }
 
-
 </style>
 </head>
 <body>
@@ -168,7 +167,7 @@ body {
 						<c:forEach var="type" items="${typeList }">
 							<li><span><a href="${pageContext.request.contextPath}/adminlist?typeid=${type.typeid }">${type.typename }</a></span></li>
 						</c:forEach>
-					</ul>
+						</ul>
 					</div>
 					
 				</div>
@@ -180,18 +179,36 @@ body {
 						最新用户
 					</div>
 					<div class="datas">
+						<div style="height:200px;">
+							
+								<c:forEach var="user" items="${userList }">
+									
+											<a href="${pageContext.request.contextPath}/userlist?username=${user.username}"   >
+											
+												<img src="${user.image }"  alt="无图片"  title="${user.username}"  style="width:60px;height:60px; border-radius:50%; overflow:hidden;float:left;">
 						
+											</a>
+							</c:forEach>
+						
+						</div>
 					</div>
 				</div>
 				
-						<div class="data_list">
-					<div class="data_list_title">
+				<div class="data_list">
+					<div class="data_list_title"  style="clear:both;">
 						<img
 							src="${pageContext.request.contextPath}/static/images/list_icon.png" />
-						热门博客
+						最新评论
 					</div>
 					<div class="datas">
-						
+						<ul>
+						<c:forEach var="comment" items="${commentList }">
+							<li><span><a href="${pageContext.request.contextPath}/userlist?username=${comment.username }">${comment.username }</a>:
+								评论了:<a href="${pageContext.request.contextPath}/blog/articles/${comment.username}/${comment.blogid}.html">${comment.title }</a>
+								: ${comment.content }
+							</span></li>
+						</c:forEach>
+					</ul>
 					</div>
 				</div>
 				

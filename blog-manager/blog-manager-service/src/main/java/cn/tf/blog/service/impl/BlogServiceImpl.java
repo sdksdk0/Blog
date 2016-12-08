@@ -52,12 +52,12 @@ public class BlogServiceImpl implements BlogService{
 		return blogMapper.update(blog);
 	}
 
-	public UBlog getLastBlog(String id) {
-		return blogMapper.getLastBlog(id);
+	public UBlog getLastBlog(String blogid) {
+		return blogMapper.getLastBlog(blogid);
 	}
 
-	public UBlog getNextBlog(String id) {
-		return blogMapper.getNextBlog(id);
+	public UBlog getNextBlog(String blogid) {
+		return blogMapper.getNextBlog(blogid);
 	}
 
 	public Integer add(UBlog blog) {

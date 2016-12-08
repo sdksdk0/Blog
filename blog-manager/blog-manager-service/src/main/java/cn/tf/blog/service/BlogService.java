@@ -50,17 +50,17 @@ public interface BlogService {
 	
 	/**
 	 * 获取上一个博客
-	 * @param id
+	 * @param blogid
 	 * @return
 	 */
-	public UBlog getLastBlog(String id);
+	public UBlog getLastBlog(String blogid);
 	
 	/**
 	 * 获取下一个博客
-	 * @param id
+	 * @param map
 	 * @return
 	 */
-	public UBlog getNextBlog(String id);
+	public UBlog getNextBlog(String blogid);
 	
 	/**
 	 * 添加博客信息

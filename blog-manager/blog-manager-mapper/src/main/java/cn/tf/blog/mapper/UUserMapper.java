@@ -35,6 +35,8 @@ public interface UUserMapper {
     int updateByPrimaryKey(UUser record);
 
 	boolean updateStatus(String userid);
+	
+	List<UUser>  finduUserByTime();
 
 
 	

@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       content, commentDate, state
       )
     values (#{commentid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{blogid,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, now(), 0
+      #{content,jdbcType=VARCHAR}, now(), #{state}
       )
 	</insert>
 	
@@ -68,4 +68,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="String">
 		delete from u_comment where commentId=#{commentid}
 	</delete>
+	
+	<select id="findCommentByTime"  parameterType="Map"   resultMap="CommentResult">
+		SELECT c.*,u.title  AS title  FROM    u_blog u    LEFT JOIN  u_comment c ON  c.blogId=u.blogId WHERE  c.state=1 
+		
+			<if test="username!=null and username!='' ">
+				and c.username=#{username}
+			</if>
+
+		  ORDER BY c.commentDate   DESC LIMIT 10
+		
+	</select>
+	
+	
 </mapper> 

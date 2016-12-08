@@ -17,8 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.tf.blog.common.util.StringUtil;
 import cn.tf.blog.dao.JedisClient;
+import cn.tf.blog.po.SType;
 import cn.tf.blog.po.UBlog;
 import cn.tf.blog.po.UBlogtype;
+import cn.tf.blog.po.UComment;
 import cn.tf.blog.po.ULink;
 import cn.tf.blog.po.UUser;
 import cn.tf.blog.service.BlogIndex;
@@ -28,12 +30,14 @@ import cn.tf.blog.service.BloggerService;
 import cn.tf.blog.service.CommentService;
 import cn.tf.blog.service.LinkService;
 import cn.tf.blog.service.RedisService;
-
+import cn.tf.blog.service.STypeService;
+import cn.tf.blog.service.UserService;
 
 /**
  * 博客Controller层
+ * 
  * @author Administrator
- *
+ * 
  */
 @Controller
 @RequestMapping("/blog")
@@ -41,243 +45,304 @@ public class BlogController {
 
 	@Resource
 	private BlogService blogService;
-	
+
 	@Resource
 	private CommentService commentService;
-	
+
 	@Autowired
-	private BloggerService  bloggerService;
+	private BloggerService bloggerService;
 	@Autowired
 	private BlogTypeService blogTypeService;
 	@Autowired
 	private LinkService linkService;
 	@Autowired
 	private RedisService redisService;
+	@Autowired
+	private STypeService typeService;
+	@Autowired
+	private UserService userService;
 
-	
-	
+
 	// 博客索引
-	private BlogIndex blogIndex=new BlogIndex();
-	
-	
-	
+	private BlogIndex blogIndex = new BlogIndex();
+
 	/**
 	 * 请求博客详细信息
+	 * 
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/articles/{username}/{blogid}")
-	public ModelAndView details(@PathVariable("username") String username,@PathVariable("blogid") String blogid,HttpServletRequest request)throws Exception{
-		ModelAndView mav=new ModelAndView();
-		
-		UBlog blog=null;
-		//向redis数据库中查询是否存在该数据，如果存在就直接从redis中获取，如果不存在就把数据从mysql数据库中查出来然后再存到redis中
+	public ModelAndView details(@PathVariable("username") String username,
+			@PathVariable("blogid") String blogid, HttpServletRequest request)
+			throws Exception {
+		ModelAndView mav = new ModelAndView();
+
+		UBlog blog = null;
+		// 向redis数据库中查询是否存在该数据，如果存在就直接从redis中获取，如果不存在就把数据从mysql数据库中查出来然后再存到redis中
 		blog = redisService.getUBlog(blogid);
-		if(blog==null ){
-			//说明缓存中没有数据
-			blog=blogService.findById(blogid);	
-			
-			//把数据存进去
-			//blog.setContent(new String(blog.getContent().getBytes("iso-8859-1"),"utf-8"));
-			//redisService.addBlog(blog);
+		if (blog == null) {
+			// 说明缓存中没有数据
+			blog = blogService.findById(blogid);
+
+			// 把数据存进去
+			// blog.setContent(new
+			// String(blog.getContent().getBytes("iso-8859-1"),"utf-8"));
+			// redisService.addBlog(blog);
 		}
-		
-	
-		String keyWords=blog.getKeyword();
-		if(StringUtil.isNotEmpty(keyWords)){
-			String arr[]=keyWords.split(" ");
-			mav.addObject("keyWords",StringUtil.filterWhite(Arrays.asList(arr)));			
-		}else{
-			mav.addObject("keyWords",null);			
+
+		String keyWords = blog.getKeyword();
+		if (StringUtil.isNotEmpty(keyWords)) {
+			String arr[] = keyWords.split(" ");
+			mav.addObject("keyWords",
+					StringUtil.filterWhite(Arrays.asList(arr)));
+		} else {
+			mav.addObject("keyWords", null);
 		}
-		
-		blog.setClickhit(blog.getClickhit()+1); // 博客点击次数加1
-		
+
+		blog.setClickhit(blog.getClickhit() + 1); // 博客点击次数加1
+
 		redisService.addBlog(blog);
-		
-		
-		blog.setContent(new String(blog.getContent().getBytes("iso-8859-1"),"utf-8"));
-		
+
+		blog.setContent(new String(blog.getContent().getBytes("iso-8859-1"),
+				"utf-8"));
+
 		mav.addObject("blog", blog);
 		blogService.update(blog);
-		
-		
-		Map<String,Object> map=new HashMap<String,Object>();
+
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("blogid", blogid);
 		map.put("state", 1); // 查询审核通过的评论
-		mav.addObject("commentList", commentService.list(map)); 
-		mav.addObject("pageCode", this.genUpAndDownPageCode(blogService.getLastBlog(blogid),blogService.getNextBlog(blogid),request.getSession().getServletContext().getContextPath()));
+		mav.addObject("commentList", commentService.list(map));
+		mav.addObject("pageCode", this.genUpAndDownPageCode(
+				blogService.getLastBlog(blogid),
+				blogService.getNextBlog(blogid), request.getSession()
+						.getServletContext().getContextPath()));
 		mav.addObject("mainPage", "blog/view.jsp");
-		mav.addObject("pageTitle",blog.getTitle()+"_博客云");
-		
-		
-		//根据博主的名字查询博主信息
+		mav.addObject("pageTitle", blog.getTitle() + "_博客云");
+
+		// 根据博主的名字查询博主信息
 		UUser user = bloggerService.find(username);
 		mav.addObject("user", user);
-		
-		//按日期分类
+
+		// 按日期分类
 		List<UBlog> countList = blogService.countList(username);
 		mav.addObject("countList", countList);
-		
-		//按日志类别分
+
+		// 按日志类别分
 		List<UBlogtype> blogTypeCountList = blogTypeService.countList(username);
-		mav.addObject("blogTypeCountList",blogTypeCountList);
+		mav.addObject("blogTypeCountList", blogTypeCountList);
 		
 		
-		//友情链接
-		Map<String,Object> linkmap=new HashMap<String,Object>();
+		//最新评论
+		Map<String,Object> map1=new HashMap<String,Object>();
+		map1.put("username", username);
+		List<UComment> commentList = commentService.findCommentByTime(map1);
+		mav.addObject("commentList",commentList);
+		
+
+		// 友情链接
+		Map<String, Object> linkmap = new HashMap<String, Object>();
 		linkmap.put("username", username);
 		List<ULink> linkList = linkService.list(linkmap);
-		mav.addObject("linkList",linkList);
-		
+		mav.addObject("linkList", linkList);
+
 		mav.setViewName("mainTemp");
 		return mav;
 	}
-	
-	
-	//不带用户名的详情
+
+	// 不带用户名的详情
 	@RequestMapping("/articles/{blogid}")
-	public ModelAndView details(@PathVariable("blogid") String blogid,HttpServletRequest request)throws Exception{
-		ModelAndView mav=new ModelAndView();
+	public ModelAndView details(@PathVariable("blogid") String blogid,
+			HttpServletRequest request) throws Exception {
+		ModelAndView mav = new ModelAndView();
 
-		UBlog blog=null;
-		//向redis数据库中查询是否存在该数据，如果存在就直接从redis中获取，如果不存在就把数据从mysql数据库中查出来然后再存到redis中
-		
-		
+		UBlog blog = null;
+		// 向redis数据库中查询是否存在该数据，如果存在就直接从redis中获取，如果不存在就把数据从mysql数据库中查出来然后再存到redis中
+
 		blog = redisService.getUBlog(blogid);
 
-		if(blog==null ){
-			//说明缓存中没有数据
-			blog=blogService.findById(blogid);	
-			
+		if (blog == null) {
+			// 说明缓存中没有数据
+			blog = blogService.findById(blogid);
+
 		}
-		String keyWords=blog.getKeyword();
-		if(StringUtil.isNotEmpty(keyWords)){
-			String arr[]=keyWords.split(" ");
-			mav.addObject("keyWords",StringUtil.filterWhite(Arrays.asList(arr)));			
-		}else{
-			mav.addObject("keyWords",null);			
+		String keyWords = blog.getKeyword();
+		if (StringUtil.isNotEmpty(keyWords)) {
+			String arr[] = keyWords.split(" ");
+			mav.addObject("keyWords",
+					StringUtil.filterWhite(Arrays.asList(arr)));
+		} else {
+			mav.addObject("keyWords", null);
 		}
-		blog.setClickhit(blog.getClickhit()+1); // 博客点击次数加1
+		blog.setClickhit(blog.getClickhit() + 1); // 博客点击次数加1
 		redisService.addBlog(blog);
-		
-		
-		
-		blog.setContent(new String(blog.getContent().getBytes("iso-8859-1"),"utf-8"));
-		
-		
+
+		blog.setContent(new String(blog.getContent().getBytes("iso-8859-1"),
+				"utf-8"));
+
 		mav.addObject("blog", blog);
-		blogService.update(blog);
-		
-		Map<String,Object> map=new HashMap<String,Object>();
+		// blogService.update(blog);
+
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("blogid", blogid);
 		map.put("state", 1); // 查询审核通过的评论
-		mav.addObject("commentList", commentService.list(map)); 
-		mav.addObject("pageCode", this.genUpAndDownPageCode(blogService.getLastBlog(blogid),blogService.getNextBlog(blogid),request.getSession().getServletContext().getContextPath()));
+		mav.addObject("commentList", commentService.list(map));
+		mav.addObject("pageCode", this.genUpAndDownPageCode(
+				blogService.getLastBlog(blogid),
+				blogService.getNextBlog(blogid), request.getSession()
+						.getServletContext().getContextPath()));
 		mav.addObject("mainPage", "blog/view.jsp");
-		mav.addObject("pageTitle",blog.getTitle()+"_博客云");
-		
-		//根据博客id查询博主信息
-		
-		String username=blog.getUsername();
-		//根据博主的名字查询博主信息
+		mav.addObject("pageTitle", blog.getTitle() + "_博客云");
+
+		// 根据博客id查询博主信息
+
+		String username = blog.getUsername();
+		// 根据博主的名字查询博主信息
 		UUser user = bloggerService.find(username);
 		mav.addObject("user", user);
-		
-		//按日期分类
+
+		// 按日期分类
 		List<UBlog> countList = blogService.countList(username);
 		mav.addObject("countList", countList);
-		
-		//按日志类别分
+
+		// 按日志类别分
 		List<UBlogtype> blogTypeCountList = blogTypeService.countList(username);
-		mav.addObject("blogTypeCountList",blogTypeCountList);
+		mav.addObject("blogTypeCountList", blogTypeCountList);
 		
-		//友情链接
-		Map<String,Object> linkmap=new HashMap<String,Object>();
+		
+		//最新评论
+		Map<String,Object> map1=new HashMap<String,Object>();
+		map1.put("username", username);
+		List<UComment> commentList = commentService.findCommentByTime(map1);
+		mav.addObject("commentList",commentList);
+		
+
+		// 友情链接
+		Map<String, Object> linkmap = new HashMap<String, Object>();
 		linkmap.put("username", username);
 		List<ULink> linkList = linkService.list(linkmap);
-		mav.addObject("linkList",linkList);
-		
+		mav.addObject("linkList", linkList);
 
 		mav.setViewName("mainTemp");
 		return mav;
 	}
-	
-	
-	
-	
-	
+
 	/**
 	 * 根据关键字查询相关博客信息
+	 * 
 	 * @param q
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/q")
-	public ModelAndView search(@RequestParam(value="q",required=false)String q,@RequestParam(value="page",required=false)String page,HttpServletRequest request)throws Exception{
-		if(StringUtil.isEmpty(page)){
-			page="1";
+	public ModelAndView search(
+			@RequestParam(value = "q", required = false) String q,
+			@RequestParam(value = "page", required = false) String page,
+			HttpServletRequest request) throws Exception {
+		if (StringUtil.isEmpty(page)) {
+			page = "1";
 		}
-		ModelAndView mav=new ModelAndView();
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("mainPage", "blog/result.jsp");
-		List<UBlog> blogList=blogIndex.searchBlog(q.trim());
-		Integer toIndex=blogList.size()>=Integer.parseInt(page)*10?Integer.parseInt(page)*10:blogList.size();
-		mav.addObject("blogList",blogList.subList((Integer.parseInt(page)-1)*10, toIndex));
-		mav.addObject("pageCode",this.genUpAndDownPageCode(Integer.parseInt(page), blogList.size(), q,10,request.getSession().getServletContext().getContextPath()));
-		mav.addObject("q",q);
-		mav.addObject("resultTotal",blogList.size());
-		mav.addObject("pageTitle","搜索关键字'"+q+"'结果页面_博客云");
+		List<UBlog> blogList = blogIndex.searchBlog(q.trim());
+		Integer toIndex = blogList.size() >= Integer.parseInt(page) * 10 ? Integer
+				.parseInt(page) * 10 : blogList.size();
+		mav.addObject("blogList",
+				blogList.subList((Integer.parseInt(page) - 1) * 10, toIndex));
+		mav.addObject(
+				"pageCode",
+				this.genUpAndDownPageCode(Integer.parseInt(page),
+						blogList.size(), q, 10, request.getSession()
+								.getServletContext().getContextPath()));
+		mav.addObject("q", q);
+		mav.addObject("resultTotal", blogList.size());
+		mav.addObject("pageTitle", "搜索关键字'" + q + "'结果页面_博客云");
+
+		// 类别
+		List<SType> typeList = typeService.typelist();
+		mav.addObject("typeList", typeList);
+
+		// 查询最新注册的用户
+		List<UUser> userList = userService.finduUserByTime();
+		mav.addObject("userList", userList);
+
+		// 最新评论
+
+		Map<String,Object> map1=new HashMap<String,Object>();
+		List<UComment> commentList = commentService.findCommentByTime(map1);
+		mav.addObject("commentList", commentList);
+
 		mav.setViewName("index");
 		return mav;
 	}
-	
+
 	/**
 	 * 获取下一篇博客和下一篇博客代码
+	 * 
 	 * @param lastBlog
 	 * @param nextBlog
 	 * @return
 	 */
-	private String genUpAndDownPageCode(UBlog lastBlog,UBlog nextBlog,String projectContext){
-		StringBuffer pageCode=new StringBuffer();
-		if(lastBlog==null || lastBlog.getBlogid()==null){
+	private String genUpAndDownPageCode(UBlog lastBlog, UBlog nextBlog,
+			String projectContext) {
+		StringBuffer pageCode = new StringBuffer();
+		if (lastBlog == null || lastBlog.getBlogid() == null) {
 			pageCode.append("<p>上一篇：没有了</p>");
-		}else{
-			pageCode.append("<p>上一篇：<a href='"+projectContext+"/blog/articles/"+lastBlog.getUsername()+"/"+lastBlog.getBlogid()+".html'>"+lastBlog.getTitle()+"</a></p>");
+		} else {
+			pageCode.append("<p>上一篇：<a href='" + projectContext
+					+ "/blog/articles/" + lastBlog.getUsername() + "/"
+					+ lastBlog.getBlogid() + ".html'>" + lastBlog.getTitle()
+					+ "</a></p>");
 		}
-		if(nextBlog==null || nextBlog.getBlogid()==null){
+		if (nextBlog == null || nextBlog.getBlogid() == null) {
 			pageCode.append("<p>下一篇：没有了</p>");
-		}else{
-			pageCode.append("<p>下一篇：<a href='"+projectContext+"/blog/articles/"+nextBlog.getUsername()+"/"+nextBlog.getBlogid()+".html'>"+nextBlog.getTitle()+"</a></p>");
+		} else {
+			pageCode.append("<p>下一篇：<a href='" + projectContext
+					+ "/blog/articles/" + nextBlog.getUsername() + "/"
+					+ nextBlog.getBlogid() + ".html'>" + nextBlog.getTitle()
+					+ "</a></p>");
 		}
 		return pageCode.toString();
 	}
-	
+
 	/**
 	 * 获取上一页，下一页代码 查询博客用到
-	 * @param page 当前页
-	 * @param totalNum 总记录数
-	 * @param q 查询关键字
-	 * @param pageSize 每页大小
+	 * 
+	 * @param page
+	 *            当前页
+	 * @param totalNum
+	 *            总记录数
+	 * @param q
+	 *            查询关键字
+	 * @param pageSize
+	 *            每页大小
 	 * @param projectContext
 	 * @return
 	 */
-	private String genUpAndDownPageCode(Integer page,Integer totalNum,String q,Integer pageSize,String projectContext){
-		long totalPage=totalNum%pageSize==0?totalNum/pageSize:totalNum/pageSize+1;
-		StringBuffer pageCode=new StringBuffer();
-		if(totalPage==0){
+	private String genUpAndDownPageCode(Integer page, Integer totalNum,
+			String q, Integer pageSize, String projectContext) {
+		long totalPage = totalNum % pageSize == 0 ? totalNum / pageSize
+				: totalNum / pageSize + 1;
+		StringBuffer pageCode = new StringBuffer();
+		if (totalPage == 0) {
 			return "";
-		}else{
+		} else {
 			pageCode.append("<nav>");
 			pageCode.append("<ul class='pager' >");
-			if(page>1){
-				pageCode.append("<li><a href='"+projectContext+"/blog/q.html?page="+(page-1)+"&q="+q+"'>上一页</a></li>");
-			}else{
+			if (page > 1) {
+				pageCode.append("<li><a href='" + projectContext
+						+ "/blog/q.html?page=" + (page - 1) + "&q=" + q
+						+ "'>上一页</a></li>");
+			} else {
 				pageCode.append("<li class='disabled'><a href='#'>上一页</a></li>");
 			}
-			if(page<totalPage){
-				pageCode.append("<li><a href='"+projectContext+"/blog/q.html?page="+(page+1)+"&q="+q+"'>下一页</a></li>");				
-			}else{
-				pageCode.append("<li class='disabled'><a href='#'>下一页</a></li>");				
+			if (page < totalPage) {
+				pageCode.append("<li><a href='" + projectContext
+						+ "/blog/q.html?page=" + (page + 1) + "&q=" + q
+						+ "'>下一页</a></li>");
+			} else {
+				pageCode.append("<li class='disabled'><a href='#'>下一页</a></li>");
 			}
 			pageCode.append("</ul>");
 			pageCode.append("</nav>");

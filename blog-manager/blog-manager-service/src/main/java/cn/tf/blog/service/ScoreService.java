@@ -8,4 +8,6 @@ public interface ScoreService {
 
 	public int  update(UScore score);
 
+	public UScore findByUsername(String username);
+
 }

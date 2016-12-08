@@ -7,6 +7,8 @@ public class UScore {
 
     private String username;
 
+    private Integer money;
+
     public String getScoreid() {
         return scoreid;
     }
@@ -29,5 +31,13 @@ public class UScore {
 
     public void setUsername(String username) {
         this.username = username == null ? null : username.trim();
+    }
+
+    public Integer getMoney() {
+        return money;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
     }
 }
