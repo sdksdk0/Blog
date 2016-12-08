@@ -66,26 +66,15 @@ public class ItemParamServiceImpl implements ItemParamService {
 	// 分页查询
 	@Override
 	public EUDResult getItemList(int page, int rows) {
-		TbItemParamExample example = new TbItemParamExample();
-		TbItemCatExample example1 = new TbItemCatExample();
+	
 		PageHelper.startPage(page, rows);
 
 		EUDResult result = new EUDResult();
 
-		List<TbItemParam> list = itemParamMapper.selectByExample(example);
-		/*
-		 * if(list!=null && list.size()>0){ for (TbItemParam item : list) { Long
-		 * itemId = item.getItemCatId();
-		 * cn.tf.taotao.po.TbItemCatExample.Criteria createCriteria =
-		 * example1.createCriteria(); createCriteria.andIdEqualTo(itemId);
-		 * List<TbItemCat> list1 = itemCatMapper.selectByExample(example1);
-		 * 
-		 * result.setRows(list1);
-		 * 
-		 * }
-		 * 
-		 * }
-		 */
+		//组合查询
+		List<TbItemParam> list = itemParamMapper.selectAll();
+		
+		
 		result.setRows(list);
 
 		PageInfo<TbItemParam> pageInfo = new PageInfo<TbItemParam>(list);

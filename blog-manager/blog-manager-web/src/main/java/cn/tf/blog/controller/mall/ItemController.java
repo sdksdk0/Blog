@@ -70,8 +70,8 @@ public class ItemController {
 	//更新
 	@RequestMapping(value="/rest/item/update",method=RequestMethod.POST)
 	@ResponseBody
-	public TaotaoResult updateItem(TbItem item, TbItemDesc desc, TbItemParamItem itemParams){
-		TaotaoResult result=itemService.updateItem(item,desc,itemParams);
+	public TaotaoResult updateItem(TbItem item, TbItemDesc itemDesc, TbItemParamItem itemParams){
+		TaotaoResult result=itemService.updateItem(item,itemDesc,itemParams);
 		return result;
 	}
 	
