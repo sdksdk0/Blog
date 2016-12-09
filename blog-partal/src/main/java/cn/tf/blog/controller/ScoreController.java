@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -51,20 +52,26 @@ public class ScoreController {
 		score.setMoney(price);
 		score.setUsername(username);
 		
-		//scoreService.selectScore();
-		
-		int result=	scoreService.updateScore(score);
-		System.out.println(result);
-		
-		return result;
+		//通过用户名查询其账户下的积分数
+		List<UScore>  scorelist=scoreService.selectScore(username);
+		UScore uScore2 = scorelist.get(0);
+		if(uScore2.getMoney()<price){
+			return 0;
+		}else{
+			int result=	scoreService.updateScore(score);
+			return result;
+		}
+	
 	}
 	
 	
 	//去购买积分页面
-	@RequestMapping("/buy")
-	public ModelAndView showScore(Model model){
+	@RequestMapping("/buy/{itemId}")
+	public ModelAndView showItem(@PathVariable Long itemId, Model model) {
 		ModelAndView mav = new ModelAndView();
-		
+		ItemInfo item = itemPortalService.getItemById(itemId);
+
+		mav.addObject("item", item);
 		// 类别
 		List<SType> typeList = typeService.typelist();
 		model.addAttribute("typeList", typeList);
@@ -75,12 +82,12 @@ public class ScoreController {
 		// 最新评论
 		Map<String, Object> map1 = new HashMap<String, Object>();
 		List<UComment> commentList = commentService.findCommentByTime(map1);
+		mav.addObject("commentList", commentList);
 
 		mav.addObject("mainPage", "mall/score.jsp");
 		mav.setViewName("index");
 
 		return mav;
-		
 	}
 	
 	

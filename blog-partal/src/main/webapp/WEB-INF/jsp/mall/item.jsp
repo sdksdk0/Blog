@@ -152,42 +152,12 @@
 							<span class="star  sa0"></span> <a href="#comment"></a>
 						</div>
 					</li>
-					<!-- 商品评分-->
-					<li id="summary-stock" style="display: none;">
-						<div class="dt">配&nbsp;送&nbsp;至：</div>
-						<div class="dd">
-							<div id="store-selector" class="">
-								<div class="text">
-									<div></div>
-									<b></b>
-								</div>
-								<div class="content">
-									<span class="clr"></span>
-								</div>
-								<div class="close"
-									onclick="$('#store-selector').removeClass('hover')"></div>
-							</div>
-							<!--store-selector end-->
-							<div id="store-prompt"></div>
-							<!--store-prompt end--->
-						</div> <span class="clr"></span>
+			
+					<li id="summary-service" >
+						<div class="dt">物&#x3000;&#x3000;流：</div>
+						<div class="dd">无需物流, 系统自动发货。</div>
 					</li>
-					<li id="summary-service" class="hide">
-						<div class="dt">服&#x3000;&#x3000;务：</div>
-						<div class="dd">由 淘淘 发货并提供售后服务。</div>
-					</li>
-					<li id="summary-tips" class="hide">
-						<div class="dt">温馨提示：</div>
-						<div class="dd"></div>
-					</li>
-					<li id="summary-gifts" class="hide">
-						<div class="dt">赠&#x3000;&#x3000;品：</div>
-						<div class="dd"></div>
-					</li>
-					<li id="summary-promotion-extra" class="none">
-						<div class="dt">促销信息：</div>
-						<div class="dd"></div>
-					</li>
+					
 				</ul>
 				<!--summary end-->
 				<div id="brand-bar" clstag="shangpin|keycount|product|btn-coll">
@@ -227,8 +197,8 @@
 						} ];
 					</script>
 					<li id="choose-amount">
-						<div class="dt">购买数量：</div> <font color="black"><strong> 1 </strong></font>
-						<!-- <div class="dd">
+						<div class="dt">购买数量：</div> <font color="black"><strong>
+								1 </strong></font> <!-- <div class="dd">
 							<div class="wrap-input">
 								<a class="btn-reduce" href="javascript:;"
 									onclick="setAmount.reduce('#buy-num')">减少数量</a> <a
@@ -243,8 +213,8 @@
 						<div class="dd"></div></li>
 					<li id="choose-btns">
 						<div id="choose-btn-append" class="btn">
-							<a class="btn-append " id="InitCartUrl"
-								href="javascript:void(0)"  onclick="changScore(${item.price})"
+							<a class="btn-append " id="InitCartUrl" href="javascript:void(0)"
+								onclick="changScore(${item.price})"
 								clstag="shangpin|keycount|product|initcarturl">立即兑换<b></b></a>
 						</div>
 						<div id="choose-btn-easybuy" class="btn"></div>
@@ -303,13 +273,13 @@
 							</ul>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
 	</div>
-	<div >
-		<div >
+	<div>
+		<div>
 			<div id="product-detail" class="m m1" data-widget="tabs"
 				clstag="shangpin|keycount|product|detail">
 				<div class="mt">
@@ -318,7 +288,7 @@
 							data-widget="tab-item" class="curr"><a href="javascript:;">商品介绍</a></li>
 						<li clstag="shangpin|keycount|product|pcanshutab"
 							data-widget="tab-item"><a href="javascript:;">兑换结果</a></li>
-						
+
 					</ul>
 				</div>
 				<div class="mc" data-widget="tab-content" id="product-detail-1">
@@ -332,7 +302,7 @@
 				<div class="mc" data-widget="tab-content" id="product-detail-2">
 
 				</div>
-				
+
 				<div id="state">
 					<strong>权利声明：</strong><br />博客云上的所有商品信息、客户评价、商品咨询、网友讨论等内容，是博客云重要的经营资源，未经许可，禁止非法转载使用。
 					<p>
@@ -347,26 +317,26 @@
 
 		<span class="clr"></span>
 	</div>
-	
+
 	<div id="loginAlert" class="alt login" style="display:none">
-	<h2 class="h2">
-		<em title="登录">博客云用户登录</em><cite></cite>
-	</h2>
-	<a href="javascript:void(0);" id="loginAlertClose" class="close"
-		title="关闭"></a>
-	<div class="cont">
-		
+		<h2 class="h2">
+			<em title="登录">博客云用户登录</em><cite></cite>
+		</h2>
+		<a href="javascript:void(0);" id="loginAlertClose" class="close"
+			title="关闭"></a>
+		<div class="cont">
+
 			<ul class="uls form">
-				<li><font color="red" ><span id="error"></span></font></li>
+				<li><font color="red"><span id="error"></span></font></li>
 				<li><label>用户名：</label> <INPUT id="username" name="username"
 					class="ipt" type="text" placeholder="请输入用户名"">
-					</P></li>
+						</P></li>
 				<li><label>密码：</label> <INPUT id="password" name="password"
 					class="ipt" type="password" placeholder="请输入密码"">
-					</P></li>
-				<li><label>&nbsp;</label><input type="button" id="loginSubmit"  
-					class="hand btn66x23" value="登 录" onclick="loginAjax()"><a title="忘记密码？"
-					href="#">忘记密码？</a></li>
+						</P></li>
+				<li><label>&nbsp;</label><input type="button" id="loginSubmit"
+					class="hand btn66x23" value="登 录" onclick="loginAjax()"><a
+						title="忘记密码？" href="#">忘记密码？</a></li>
 				<br />
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
@@ -375,11 +345,11 @@
 					<a title="免费注册" href="http://localhost:8087/sso/page/register"
 					target="_blank">免费注册</a></li>
 			</ul>
-		
-	</div>
-</div>
 
-<input type="hidden" id="cusername" value="${user.username }"  />
+		</div>
+	</div>
+
+	<input type="hidden" id="cusername" value="${user.username }" />
 	<!-- footer start -->
 
 	<!-- footer end -->
@@ -446,9 +416,9 @@
 		
 	function changScore(price){
 		
-			var _ticket = $.cookie("TT_TOKEN_USER");
-			var username=$.cookie("cusername");
-			var itemId = "${item.id}";
+		var _ticket = $.cookie("TT_TOKEN_USER");
+		var username=$.cookie("cusername");
+		var itemId = "${item.id}";
 		
 		if (!_ticket) {
 			//alert("请登录！");
@@ -461,9 +431,15 @@
 			$.post("${pageContext.request.contextPath}/score/redure",{price:price,username:username},function(data){
 				if(data>0){
 					alert("兑换成功");
+					alert(itemId);
+					//给商品规格参数tab页绑定事件
+				$("#p-con-attr").bind("click", function() {
+
+					itemControl.getItemParam(itemId);
+				});
 				}else{
 					alert("积分不足，请充值");
-					location="score/buy";
+					location="/score/buy/148128583372196";
 				}
 			});
 		
@@ -473,13 +449,14 @@
 				
 				if(data>0){
 					alert("兑换成功,请在下面兑换结果查看");
-								
-				//给商品规格参数tab页绑定事件
-				itemControl.getItemParam(itemId);
+						
+					$("#p-con-attr").bind("click", function() {
+						itemControl.getItemParam(itemId);
+					});
 					
 				}else{
-					alert("积分不足，请充值");
-					
+					alert("K币不足，请充值");
+					location="/score/buy/148128583372196";
 				}
 			});
 		}

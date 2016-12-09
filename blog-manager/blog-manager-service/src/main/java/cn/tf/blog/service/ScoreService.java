@@ -1,6 +1,9 @@
 package cn.tf.blog.service;
 
-import cn.tf.blog.common.util.TaotaoResult;
+
+
+import java.util.List;
+
 import cn.tf.blog.po.UScore;
 
 public interface ScoreService {
@@ -13,5 +16,7 @@ public interface ScoreService {
 
 	//兑换积分
 	public int updateScore(UScore score);
+
+	public List<UScore> selectScore(String username);
 
 }

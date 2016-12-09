@@ -1,5 +1,7 @@
 package cn.tf.blog.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +9,7 @@ import cn.tf.blog.common.util.TaotaoResult;
 import cn.tf.blog.mapper.UScoreMapper;
 import cn.tf.blog.po.UScore;
 import cn.tf.blog.po.UScoreExample;
+import cn.tf.blog.po.UScoreExample.Criteria;
 import cn.tf.blog.service.ScoreService;
 
 @Service
@@ -41,6 +44,15 @@ public class ScoreServiceImpl implements ScoreService{
 			return 0;
 		}
 		
+	}
+
+	@Override
+	public List<UScore> selectScore(String username) {
+		UScoreExample example=new UScoreExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andUsernameEqualTo(username);
+		
+		return scoreMapper.selectByExample(example);
 	}
 	
 	

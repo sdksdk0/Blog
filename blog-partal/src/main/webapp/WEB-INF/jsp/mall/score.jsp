@@ -133,13 +133,13 @@
 				</script>
 				<ul id="summary">
 					<li id="summary-price">
-						<div class="dt">淘&nbsp;淘&nbsp;价：</div>
+						<div class="dt">商&nbsp;城&nbsp;价：</div>
 						<div class="dd">
 							<strong class="p-price" id="jd-price">￥<fmt:formatNumber
 									groupingUsed="false" maxFractionDigits="2"
 									minFractionDigits="2" value="${item.price / 100 }" />
 							</strong> <a id="notice-downp" href="#none" target="_blank"
-								clstag="shangpin|keycount|product|jiangjia">(降价通知)</a>
+								clstag="shangpin|keycount|product|jiangjia">元(降价通知)</a>
 						</div>
 					</li>
 					<li id="summary-market"><div class="dt">商品编号：</div>
@@ -172,22 +172,11 @@
 							<!--store-prompt end--->
 						</div> <span class="clr"></span>
 					</li>
-					<li id="summary-service" class="hide">
-						<div class="dt">服&#x3000;&#x3000;务：</div>
-						<div class="dd">由 淘淘 发货并提供售后服务。</div>
+					<li id="summary-service" >
+						<div class="dt">物&#x3000;&#x3000;流：</div>
+						<div class="dd">无需物流, 系统自动发货。</div>
 					</li>
-					<li id="summary-tips" class="hide">
-						<div class="dt">温馨提示：</div>
-						<div class="dd"></div>
-					</li>
-					<li id="summary-gifts" class="hide">
-						<div class="dt">赠&#x3000;&#x3000;品：</div>
-						<div class="dd"></div>
-					</li>
-					<li id="summary-promotion-extra" class="none">
-						<div class="dt">促销信息：</div>
-						<div class="dd"></div>
-					</li>
+					
 				</ul>
 				<!--summary end-->
 				<div id="brand-bar" clstag="shangpin|keycount|product|btn-coll">
@@ -243,8 +232,8 @@
 						<div class="dd"></div></li>
 					<li id="choose-btns">
 						<div id="choose-btn-append" class="btn">
-							<a class="btn-append " id="InitCartUrl"
-								href="/cart/add/${item.id}.html"
+							<a class="btn-append " id="InitCartUrl1"
+								href="/cart/add/${item.id}.html"  
 								clstag="shangpin|keycount|product|initcarturl">立即兑换<b></b></a>
 						</div>
 						<div id="choose-btn-easybuy" class="btn"></div>
