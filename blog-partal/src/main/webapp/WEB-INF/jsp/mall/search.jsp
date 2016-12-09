@@ -28,6 +28,8 @@
 <div class="w main">
 	<div class="crumb">全部结果&nbsp;&gt;&nbsp;<strong>"${query}"</strong>
 	
+	<a href="${pageContext.request.contextPath}/score/buy"  />购买积分</a>
+	
 	<div id="search-2013" style="float:right">
 			<div class="i-search ld">
 				<ul id="shelper" class="hide">

@@ -5,7 +5,7 @@
     <id column="scoreId" property="scoreid" jdbcType="VARCHAR" />
     <result column="score" property="score" jdbcType="INTEGER" />
     <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="money" property="money" jdbcType="INTEGER" />
+    <result column="money" property="money"  />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -101,8 +101,8 @@
   <insert id="insert" parameterType="cn.tf.blog.po.UScore" >
     insert into u_score (scoreId, score, username, 
       money)
-    values (#{scoreid,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
-      #{money,jdbcType=INTEGER})
+    values (#{scoreid,jdbcType=VARCHAR}, #{score}, #{username,jdbcType=VARCHAR}, 
+      #{money})
   </insert>
   <insert id="insertSelective" parameterType="cn.tf.blog.po.UScore" >
     insert into u_score
@@ -125,13 +125,13 @@
         #{scoreid,jdbcType=VARCHAR},
       </if>
       <if test="score != null" >
-        #{score,jdbcType=INTEGER},
+        #{score},
       </if>
       <if test="username != null" >
         #{username,jdbcType=VARCHAR},
       </if>
       <if test="money != null" >
-        #{money,jdbcType=INTEGER},
+        #{money},
       </if>
     </trim>
   </insert>
@@ -148,13 +148,13 @@
         scoreId = #{record.scoreid,jdbcType=VARCHAR},
       </if>
       <if test="record.score != null" >
-        score = #{record.score,jdbcType=INTEGER},
+        score = #{record.score},
       </if>
       <if test="record.username != null" >
         username = #{record.username,jdbcType=VARCHAR},
       </if>
       <if test="record.money != null" >
-        money = #{record.money,jdbcType=INTEGER},
+        money = #{record.money},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -164,9 +164,9 @@
   <update id="updateByExample" parameterType="map" >
     update u_score
     set scoreId = #{record.scoreid,jdbcType=VARCHAR},
-      score = #{record.score,jdbcType=INTEGER},
+      score = #{record.score},
       username = #{record.username,jdbcType=VARCHAR},
-      money = #{record.money,jdbcType=INTEGER}
+      money = #{record.money}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -175,22 +175,22 @@
     update u_score
     <set >
       <if test="score != null" >
-        score = #{score,jdbcType=INTEGER},
+        score = #{score},
       </if>
       <if test="username != null" >
         username = #{username,jdbcType=VARCHAR},
       </if>
       <if test="money != null" >
-        money = #{money,jdbcType=INTEGER},
+        money = #{money},
       </if>
     </set>
     where scoreId = #{scoreid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.tf.blog.po.UScore" >
     update u_score
-    set score = #{score,jdbcType=INTEGER},
+    set score = #{score},
       username = #{username,jdbcType=VARCHAR},
-      money = #{money,jdbcType=INTEGER}
+      money = #{money}
     where scoreId = #{scoreid,jdbcType=VARCHAR}
   </update>
   
@@ -203,6 +203,9 @@
   	select * from u_score  where username=#{username}
   </select>
   
+   <update id="updateScore"  parameterType="cn.tf.blog.po.UScore">
+ 	 	update  u_score set money=money-#{money}   WHERE username=#{username}
+  </update>
   
   
 </mapper>

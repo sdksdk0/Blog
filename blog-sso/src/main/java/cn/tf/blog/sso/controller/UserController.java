@@ -111,7 +111,7 @@ public class UserController {
 			score.setUsername(user.getUsername());
 			//创建用户奖励50个积分
 			score.setScore(50);
-			score.setMoney(0);
+			score.setMoney(Long.parseLong(0+""));
 			
 			scoreService.add(score);
 			

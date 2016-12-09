@@ -3,6 +3,7 @@ package cn.tf.blog.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.tf.blog.common.util.TaotaoResult;
 import cn.tf.blog.mapper.UScoreMapper;
 import cn.tf.blog.po.UScore;
 import cn.tf.blog.po.UScoreExample;
@@ -29,6 +30,17 @@ public class ScoreServiceImpl implements ScoreService{
 	@Override
 	public UScore findByUsername(String username) {
 		return scoreMapper.findByUsername(username);
+	}
+
+	@Override
+	public int updateScore(UScore score) {
+		try {
+			return scoreMapper.updateScore(score);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		
 	}
 	
 	

@@ -5,26 +5,31 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.tf.blog.common.util.TaotaoResult;
 import cn.tf.blog.po.SType;
 import cn.tf.blog.po.UComment;
+import cn.tf.blog.po.UScore;
 import cn.tf.blog.po.UUser;
 import cn.tf.blog.pojo.ItemInfo;
 import cn.tf.blog.service.CommentService;
 import cn.tf.blog.service.ItemPortalService;
 import cn.tf.blog.service.STypeService;
+import cn.tf.blog.service.ScoreService;
 import cn.tf.blog.service.UserService;
 
+//兑换积分
 @Controller
-public class ItemController {
-
+@RequestMapping("/score")
+public class ScoreController {
+	
+	@Autowired
+	private ScoreService scoreService;
 	@Autowired
 	private ItemPortalService itemPortalService;
 	@Autowired
@@ -34,15 +39,32 @@ public class ItemController {
 	@Autowired
 	private CommentService commentService;
 	
+	
+	//兑换K币
+	@RequestMapping("/redure")
+	@ResponseBody
+	public int changScore(Long id,Long price,String username){
+		
+		//判断积分是否足够
 
-	@RequestMapping("/item/{itemId}")
-	public ModelAndView showItem(@PathVariable Long itemId, Model model) {
+		UScore score=new UScore();
+		score.setMoney(price);
+		score.setUsername(username);
+		
+		//scoreService.selectScore();
+		
+		int result=	scoreService.updateScore(score);
+		System.out.println(result);
+		
+		return result;
+	}
+	
+	
+	//去购买积分页面
+	@RequestMapping("/buy")
+	public ModelAndView showScore(Model model){
 		ModelAndView mav = new ModelAndView();
-		ItemInfo item = itemPortalService.getItemById(itemId);
-
-		// System.out.println("title:"+item.getTitle());
-
-		mav.addObject("item", item);
+		
 		// 类别
 		List<SType> typeList = typeService.typelist();
 		model.addAttribute("typeList", typeList);
@@ -54,26 +76,14 @@ public class ItemController {
 		Map<String, Object> map1 = new HashMap<String, Object>();
 		List<UComment> commentList = commentService.findCommentByTime(map1);
 
-		mav.addObject("mainPage", "mall/item.jsp");
+		mav.addObject("mainPage", "mall/score.jsp");
 		mav.setViewName("index");
 
 		return mav;
+		
 	}
-
-	@RequestMapping(value = "/item/desc/{itemId}", produces = MediaType.TEXT_HTML_VALUE
-			+ ";charset=utf-8")
-	@ResponseBody
-	public String getItemDesc(@PathVariable Long itemId) {
-		String string = itemPortalService.getItemDescById(itemId);
-		return string;
-	}
-
-	@RequestMapping(value = "/item/param/{itemId}", produces = MediaType.TEXT_HTML_VALUE
-			+ ";charset=utf-8")
-	@ResponseBody
-	public String getItemParam(@PathVariable Long itemId) {
-		String string = itemPortalService.getItemParam(itemId);
-		return string;
-	}
+	
+	
+	
 
 }

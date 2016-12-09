@@ -52,7 +52,7 @@
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
 		      <ul class="nav navbar-nav"  id="typelist">
 		       
-		         <li><a href="${pageContext.request.contextPath}/mall?q=手机"><font color="black"><strong>积分商城</strong></font></a></li>
+		         <li><a href="${pageContext.request.contextPath}/mall?q=教程"><font color="black"><strong>积分商城</strong></font></a></li>
 		        <c:forEach var="type" items="${typeList }">
 							<li><a href="${pageContext.request.contextPath}/adminlist?typeid=${type.typeid }"><font color="black"><strong>${type.typename }</strong></font></a></li>
 				</c:forEach>

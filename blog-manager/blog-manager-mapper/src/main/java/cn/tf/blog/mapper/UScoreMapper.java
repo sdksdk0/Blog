@@ -1,5 +1,6 @@
 package cn.tf.blog.mapper;
 
+import cn.tf.blog.common.util.TaotaoResult;
 import cn.tf.blog.po.UScore;
 import cn.tf.blog.po.UScoreExample;
 import java.util.List;
@@ -31,5 +32,7 @@ public interface UScoreMapper {
 	int update(UScore score);
 
 	UScore findByUsername(String username);
+
+	int updateScore(UScore score);
 
 }

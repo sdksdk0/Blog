@@ -4502,15 +4502,7 @@ a.d-offline {
 	z-index: 1
 }
 
-#consult .consult-search b {
-	display: block;
-	width: 27px;
-	height: 26px;
-	background:
-		url(http://img12.360buyimg.com/da/jfs/t163/77/1625664074/3070/cc9ba07f/53b3d0b3N7016e736.png)
-		center center no-repeat;
-	margin-top: 2px
-}
+
 
 .root61 #consult .consult-search b {
 	display: none

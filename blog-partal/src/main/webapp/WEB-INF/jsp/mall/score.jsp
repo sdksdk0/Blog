@@ -133,7 +133,7 @@
 				</script>
 				<ul id="summary">
 					<li id="summary-price">
-						<div class="dt">K&nbsp;币&nbsp;：</div>
+						<div class="dt">淘&nbsp;淘&nbsp;价：</div>
 						<div class="dd">
 							<strong class="p-price" id="jd-price">￥<fmt:formatNumber
 									groupingUsed="false" maxFractionDigits="2"
@@ -244,7 +244,7 @@
 					<li id="choose-btns">
 						<div id="choose-btn-append" class="btn">
 							<a class="btn-append " id="InitCartUrl"
-								href="javascript:void(0)"  onclick="changScore(${item.price})"
+								href="/cart/add/${item.id}.html"
 								clstag="shangpin|keycount|product|initcarturl">立即兑换<b></b></a>
 						</div>
 						<div id="choose-btn-easybuy" class="btn"></div>
@@ -317,8 +317,15 @@
 						<li clstag="shangpin|keycount|product|pinfotab"
 							data-widget="tab-item" class="curr"><a href="javascript:;">商品介绍</a></li>
 						<li clstag="shangpin|keycount|product|pcanshutab"
-							data-widget="tab-item"><a href="javascript:;">兑换结果</a></li>
-						
+							data-widget="tab-item"><a href="javascript:;">规格参数</a></li>
+						<li clstag="shangpin|keycount|product|packlisttab"
+							data-widget="tab-item"><a href="javascript:;">包装清单</a></li>
+						<li clstag="shangpin|keycount|product|pingjiatab"
+							data-widget="tab-item"><a href="javascript:;">商品评价</a></li>
+						<li clstag="shangpin|keycount|product|psaleservice"
+							data-widget="tab-item"><a href="javascript:;">售后保障</a></li>
+						<li clstag="shangpin|keycount|product|zhinan"
+							data-widget='tab-item'><a href='javascript:;'>京博士</a></li>
 					</ul>
 				</div>
 				<div class="mc" data-widget="tab-content" id="product-detail-1">
@@ -332,7 +339,30 @@
 				<div class="mc" data-widget="tab-content" id="product-detail-2">
 
 				</div>
-				
+				<div class="mc  hide" data-widget="tab-content" id="product-detail-3">
+					<div class="item-detail">网盘地址×1、密码</div>
+				</div>
+				<div class="mc  hide" data-widget="tab-content"
+					id="product-detail-4"></div>
+				<div class="mc hide " data-widget="tab-content"
+					id="product-detail-5">
+					<div class="item-detail">
+						本产品全国联保，享受三包服务，质保期为：一年质保<br />本产品提供上门安装调试、提供上门检测和维修等售后服务，自收到商品之日起，如您所购买家电商品出现质量问题，请先联系厂家进行检测
+						，凭厂商提供的故障检测证明，在“我的淘淘-客户服务-返修退换货”页面提交退换申请，将有专业售后人员提供服务。淘淘承诺您：30天内可为您退货或换货，180天内无需修理直接换货，超过180天按国家三包规定享受服务。<br />您可以查询本品牌在各地售后服务中心的联系方式，<br />
+
+
+					</div>
+				</div>
+				<div id="product-detail-6" class="mc hide" data-widget="tab-content"></div>
+				<!--知识库二级标签、标题-->
+				<div id="promises">
+					<strong>服务承诺：</strong><br />
+					博客云向您保证所售商品均为正品行货，淘淘自营商品开具机打发票或电子发票。凭质保证书及淘淘发票，可享受全国联保服务（奢侈品、钟表除外；奢侈品、钟表由淘淘联系保修，享受法定三包售后服务），与您亲临商场选购的商品享受相同的质量保证。淘淘还为您提供具有竞争力的商品价格和<a
+						href="http://www.jd.com/help/kdexpress.aspx" target="_blank">运费政策</a>，请您放心购买！
+					<br />
+					<br />
+					注：因厂家会在没有任何提前通知的情况下更改产品包装、产地或者一些附件，本司不能确保客户收到的货物与商城图片、产地、附件说明完全一致。只能确保为原厂正货！并且保证与当时市场上同样主流新品一致。若本商城没有及时更新，请大家谅解！
+				</div>
 				<div id="state">
 					<strong>权利声明：</strong><br />博客云上的所有商品信息、客户评价、商品咨询、网友讨论等内容，是博客云重要的经营资源，未经许可，禁止非法转载使用。
 					<p>
@@ -347,39 +377,6 @@
 
 		<span class="clr"></span>
 	</div>
-	
-	<div id="loginAlert" class="alt login" style="display:none">
-	<h2 class="h2">
-		<em title="登录">博客云用户登录</em><cite></cite>
-	</h2>
-	<a href="javascript:void(0);" id="loginAlertClose" class="close"
-		title="关闭"></a>
-	<div class="cont">
-		
-			<ul class="uls form">
-				<li><font color="red" ><span id="error"></span></font></li>
-				<li><label>用户名：</label> <INPUT id="username" name="username"
-					class="ipt" type="text" placeholder="请输入用户名"">
-					</P></li>
-				<li><label>密码：</label> <INPUT id="password" name="password"
-					class="ipt" type="password" placeholder="请输入密码"">
-					</P></li>
-				<li><label>&nbsp;</label><input type="button" id="loginSubmit"  
-					class="hand btn66x23" value="登 录" onclick="loginAjax()"><a title="忘记密码？"
-					href="#">忘记密码？</a></li>
-				<br />
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-				<li class="alg_c dev gray"><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>还不是博客云会员？
-					<a title="免费注册" href="http://localhost:8087/sso/page/register"
-					target="_blank">免费注册</a></li>
-			</ul>
-		
-	</div>
-</div>
-
-<input type="hidden" id="cusername" value="${user.username }"  />
 	<!-- footer start -->
 
 	<!-- footer end -->
@@ -433,91 +430,16 @@
 		$(function() {
 			//取商品id
 			var itemId = "${item.id}";
-			
+			//给商品规格参数tab页绑定事件
+			$("#p-con-attr").bind("click", function() {
+
+				itemControl.getItemParam(itemId);
+			});
 			//延迟一秒加载商品描述信息
 			setTimeout(function() {
 				itemControl.getItemDesc(itemId);
 			}, 1000);
 		});
-		
-		
-		//兑换积分的处理
-		
-		
-	function changScore(price){
-		
-			var _ticket = $.cookie("TT_TOKEN_USER");
-			var username=$.cookie("cusername");
-			var itemId = "${item.id}";
-		
-		if (!_ticket) {
-			//alert("请登录！");
-			tipShow("#loginAlert");
-
-		} else if (content == null || content == '') {
-			alert("请输入评论内容！");
-		}else if(username==null || username==''){
-			username=$("#cusername").val();
-			$.post("${pageContext.request.contextPath}/score/redure",{price:price,username:username},function(data){
-				if(data>0){
-					alert("兑换成功");
-				}else{
-					alert("积分不足，请充值");
-					location="score/buy";
-				}
-			});
-		
-		} else {
-
-			$.post("${pageContext.request.contextPath}/score/redure",{price:price,username:username},function(data){
-				
-				if(data>0){
-					alert("兑换成功,请在下面兑换结果查看");
-								
-				//给商品规格参数tab页绑定事件
-				itemControl.getItemParam(itemId);
-					
-				}else{
-					alert("积分不足，请充值");
-					
-				}
-			});
-		}
-			
-		}
-		
-		
-		
-		function loginAjax() {
-		var redirectUrl = "${redirect}";
-		var username = $("#username").val();
-		var password = $("#password").val();
-		
-		$.cookie('cusername', username);
-
-		$.ajax({
-			url : "http://localhost:8087/sso/user/login?r="+Math.random(),
-			type : "post",
-			dataType:'JSONP',
-			data : {
-				username : username,
-				password : password,
-			},
-			success : function(data) {
-				
-				if (data.status == 200) {
-					//隐藏掉登录框
-					$("#error").text("");
-					tipHide("#loginAlert");
-				} 
-			},
-			error : function(data) {
-				$("#error").text("用户名或密码错误");
-				tipHide("#loginAlert");
-			}
-		});
-		
-	}
 	</script>
 </body>
 </html>

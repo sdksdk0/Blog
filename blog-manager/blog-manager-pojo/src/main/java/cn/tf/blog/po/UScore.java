@@ -7,7 +7,7 @@ public class UScore {
 
     private String username;
 
-    private Integer money;
+    private Long money;
 
     public String getScoreid() {
         return scoreid;
@@ -33,11 +33,11 @@ public class UScore {
         this.username = username == null ? null : username.trim();
     }
 
-    public Integer getMoney() {
+    public Long getMoney() {
         return money;
     }
 
-    public void setMoney(Integer money) {
-        this.money = money;
+    public void setMoney(Long price) {
+        this.money = price;
     }
 }
