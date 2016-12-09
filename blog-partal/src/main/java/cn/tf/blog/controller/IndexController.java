@@ -163,24 +163,12 @@ public class IndexController {
 	@RequestMapping("/mall")
 	public ModelAndView download(@RequestParam("q") String queryString,@RequestParam(defaultValue="1") Integer page,Model model) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("mainPage", "system/mall.jsp");
+		//mav.addObject("mainPage", "system/mall.jsp");
 		mav.addObject("pageTitle", "博客云");
 
 		// 类别
 		List<SType> typeList = typeService.typelist();
-		mav.addObject("typeList", typeList);
-
-		// 查询最新注册的用户
-		List<UUser> userList = userService.finduUserByTime();
-		mav.addObject("userList", userList);
-
-		// 最新评论
-
-		Map<String, Object> map1 = new HashMap<String, Object>();
-		List<UComment> commentList = commentService.findCommentByTime(map1);
-		mav.addObject("commentList", commentList);
-		
-		
+		model.addAttribute("typeList", typeList);
 		
 		if(queryString!=null){
 			try {
@@ -200,8 +188,8 @@ public class IndexController {
 		
 		
 
-		mav.addObject("mainPage", "search.jsp");
-		mav.setViewName("mall/index");
+		mav.addObject("mainPage", "mall/search.jsp");
+		mav.setViewName("mall");
 		return mav;
 	}
 

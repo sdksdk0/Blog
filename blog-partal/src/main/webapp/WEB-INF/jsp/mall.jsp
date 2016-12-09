@@ -63,9 +63,8 @@ body {
 		<jsp:include page="common/menu.jsp" />
 
 		<div class="row">
-			<div class="col-md-9">
+	
 				<jsp:include page="${mainPage }"></jsp:include>
-			</div>
 
 		</div>
 
