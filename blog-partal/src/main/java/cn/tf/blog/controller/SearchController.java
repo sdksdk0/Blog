@@ -16,6 +16,8 @@ import cn.tf.blog.service.SearchService;
 
 
 
+
+
 @Controller
 public class SearchController {
 	

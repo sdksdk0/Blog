@@ -85,15 +85,15 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    
-      order by created  desc  
- 
+    <if test="orderByClause != null" >
+      order by updated desc
+    </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from tb_item
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from tb_item

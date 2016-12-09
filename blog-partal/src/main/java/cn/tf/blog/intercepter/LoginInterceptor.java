@@ -1,4 +1,4 @@
-package cn.tf.blog.partal.intercepter;
+package cn.tf.blog.intercepter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

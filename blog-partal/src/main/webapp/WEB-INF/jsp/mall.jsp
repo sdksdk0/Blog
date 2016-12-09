@@ -27,6 +27,7 @@
 	src="${pageContext.request.contextPath}/static/js/com.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/css/style.css">
+
 <script>
 	var _hmt = _hmt || [];
 	(function() {

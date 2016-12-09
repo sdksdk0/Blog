@@ -54,6 +54,8 @@ public class IndexController {
 	private UserService userService;
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private SearchService  searchService;
 
 	// 打开首页
 	@RequestMapping("/")
@@ -157,8 +159,7 @@ public class IndexController {
 	}
 	
 	
-	@Autowired
-	private SearchService  searchService;
+	
 	
 	@RequestMapping("/mall")
 	public ModelAndView download(@RequestParam("q") String queryString,@RequestParam(defaultValue="1") Integer page,Model model) throws Exception {

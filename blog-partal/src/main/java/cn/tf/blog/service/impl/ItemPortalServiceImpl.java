@@ -13,12 +13,12 @@ import cn.tf.blog.common.util.TaotaoResult;
 import cn.tf.blog.po.mall.TbItemDesc;
 import cn.tf.blog.po.mall.TbItemParamItem;
 import cn.tf.blog.pojo.ItemInfo;
-import cn.tf.blog.service.ItemService;
+import cn.tf.blog.service.ItemPortalService;
 
 
 
 @Service
-public class ItemServiceImpl implements ItemService{
+public class ItemPortalServiceImpl implements ItemPortalService{
 
 	@Value("${ITEM_INFO_URL}")
 	private String ITEM_INFO_URL;
@@ -43,6 +43,8 @@ public class ItemServiceImpl implements ItemService{
 			String json=HttpClientUtil.doGet(REST_BASE_URL+ITEM_INFO_URL+itemId);
 			if(!StringUtils.isBlank(json)){
 				TaotaoResult taotaoResult = TaotaoResult.formatToPojo(json, ItemInfo.class);
+				
+			
 				if(taotaoResult.getStatus()==200){
 					ItemInfo item =(ItemInfo) taotaoResult.getData();
 					return item;	
@@ -114,7 +116,4 @@ public class ItemServiceImpl implements ItemService{
 		}
 		return null;
 	}
-
-
-
 }
