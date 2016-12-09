@@ -270,7 +270,7 @@ body {
 
 	</div>
 </div>
-<<script type="text/javascript">
+<script type="text/javascript">
 
 	var ws=new WebSocket('ws://localhost:8083/manager/websocket/news');
 	ws.onmessage=function(msg){

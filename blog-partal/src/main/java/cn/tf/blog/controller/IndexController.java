@@ -1,5 +1,6 @@
 package cn.tf.blog.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,10 +27,12 @@ import cn.tf.blog.po.UBlog;
 import cn.tf.blog.po.UBlogtype;
 import cn.tf.blog.po.UComment;
 import cn.tf.blog.po.UUser;
+import cn.tf.blog.pojo.SearchResult;
 import cn.tf.blog.service.BlogService;
 import cn.tf.blog.service.CommentService;
 import cn.tf.blog.service.RedisService;
 import cn.tf.blog.service.STypeService;
+import cn.tf.blog.service.SearchService;
 import cn.tf.blog.service.UserService;
 
 /**
@@ -141,8 +144,24 @@ public class IndexController {
 		return mav;
 	}
 
+
+	// 导航栏查询类别
+	@RequestMapping("/typelist")
+	public String typelist(Model model) {
+
+		// 类别
+		List<SType> typeList = typeService.typelist();
+		model.addAttribute("typeList", typeList);
+		return "common/menu";
+
+	}
+	
+	
+	@Autowired
+	private SearchService  searchService;
+	
 	@RequestMapping("/mall")
-	public ModelAndView download() throws Exception {
+	public ModelAndView download(@RequestParam("q") String queryString,@RequestParam(defaultValue="1") Integer page,Model model) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("mainPage", "system/mall.jsp");
 		mav.addObject("pageTitle", "博客云");
@@ -160,20 +179,31 @@ public class IndexController {
 		Map<String, Object> map1 = new HashMap<String, Object>();
 		List<UComment> commentList = commentService.findCommentByTime(map1);
 		mav.addObject("commentList", commentList);
+		
+		
+		
+		if(queryString!=null){
+			try {
+				queryString=new String(queryString.getBytes("iso8859-1"),"utf-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		SearchResult searchResult = searchService.search(queryString, page);
+		mav.addObject("query",queryString);
+		mav.addObject("totalPages",searchResult.getPageCount());
+		mav.addObject("itemList",searchResult.getItemList());
+		mav.addObject("page",page);
+		
+		
+		
+		
 
-		mav.setViewName("index");
+		mav.addObject("mainPage", "search.jsp");
+		mav.setViewName("mall/index");
 		return mav;
 	}
 
-	// 导航栏查询类别
-	@RequestMapping("/typelist")
-	public String typelist(Model model) {
-
-		// 类别
-		List<SType> typeList = typeService.typelist();
-		model.addAttribute("typeList", typeList);
-		return "common/menu";
-
-	}
 
 }

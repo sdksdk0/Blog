@@ -31,6 +31,7 @@
 		<jedis.version>2.7.2</jedis.version>
 		<solrj.version>4.10.3</solrj.version>
 		<mail.version>1.4.7</mail.version>
+		<solrj.version>4.10.3</solrj.version>
 	</properties>
 	<!-- 只定义依赖的版本，并不实际依赖 -->
 	<dependencyManagement>
@@ -297,6 +298,13 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-websocket</artifactId>
 				<version>4.1.3.RELEASE</version>
+			</dependency>
+			
+			<!-- solr客户端 -->
+			<dependency>
+				<groupId>org.apache.solr</groupId>
+				<artifactId>solr-solrj</artifactId>
+				<version>${solrj.version}</version>
 			</dependency>
 
 		</dependencies>
