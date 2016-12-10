@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,12 +15,17 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.tf.blog.common.pojo.PageBean;
+import cn.tf.blog.common.util.CookieUtils;
+import cn.tf.blog.common.util.ExceptionUtil;
 import cn.tf.blog.common.util.PageUtil;
 import cn.tf.blog.common.util.StringUtil;
+import cn.tf.blog.common.util.TaotaoResult;
 import cn.tf.blog.po.SType;
 import cn.tf.blog.po.UBlog;
 import cn.tf.blog.po.UBlogtype;
@@ -216,6 +222,32 @@ public class UserController {
 	}
 	
 
+	//用户登录控制
+	//接收表单，包含用户名和密码
+		@RequestMapping(value="/login",method=RequestMethod.POST)
+		@ResponseBody
+		public  TaotaoResult userLogin(String username,String password,
+				HttpServletRequest  request,HttpServletResponse response){
+		
+			try {
+				TaotaoResult result = userService.userLogin(username, password,request,response);
+				
+				if(result.getStatus()==200){
+					request.getSession().setAttribute("username", username);
+					CookieUtils.setCookie(request, response, "cusername", username);
+				}
+				
+				
+				
+				return result;
+			} catch (Exception e) {	
+				e.printStackTrace();
+				return TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
+			}
+		}
+	
+	
+	
 	
 
 	

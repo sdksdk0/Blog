@@ -152,12 +152,12 @@
 							<span class="star  sa0"></span> <a href="#comment"></a>
 						</div>
 					</li>
-			
-					<li id="summary-service" >
+
+					<li id="summary-service">
 						<div class="dt">物&#x3000;&#x3000;流：</div>
 						<div class="dd">无需物流, 系统自动发货。</div>
 					</li>
-					
+
 				</ul>
 				<!--summary end-->
 				<div id="brand-bar" clstag="shangpin|keycount|product|btn-coll">
@@ -370,6 +370,7 @@
 		src="${pageContext.request.contextPath}/static/mall/js/product.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/static/mall/js/iplocation_server.js"></script>
+
 	<script type="text/javascript">
 		var itemControl = {
 			param : {
@@ -460,38 +461,26 @@
 			
 		}
 		
-		
-		
-		function loginAjax() {
+	function loginAjax() {
 		var redirectUrl = "${redirect}";
 		var username = $("#username").val();
 		var password = $("#password").val();
 		
-		$.cookie('cusername', username);
-
-		$.ajax({
-			url : "http://localhost:8087/sso/user/login?r="+Math.random(),
-			type : "post",
-			dataType:'JSONP',
-			data : {
-				username : username,
-				password : password,
-			},
-			success : function(data) {
-				
-				if (data.status == 200) {
-					//隐藏掉登录框
-					$("#error").text("");
-					tipHide("#loginAlert");
-				} 
-			},
-			error : function(data) {
-				$("#error").text("用户名或密码错误");
-				tipHide("#loginAlert");
-			}
-		});
 		
+
+	 	$.post("${pageContext.request.contextPath}/login",{username : username,password : password},function(data){
+	 		
+	 		if(data.data){
+	 			tipHide("#loginAlert");
+	 			$("#error").text("");
+	 		}else{
+	 			$("#error").text(data.msg);
+	 		}
+		
+		}) ;
+	 	
 	}
+	
 	</script>
 </body>
 </html>

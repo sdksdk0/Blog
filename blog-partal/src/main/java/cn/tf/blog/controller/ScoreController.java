@@ -78,17 +78,9 @@ public class ScoreController {
 		// 类别
 		List<SType> typeList = typeService.typelist();
 		model.addAttribute("typeList", typeList);
-		// 查询最新注册的用户
-		List<UUser> userList = userService.finduUserByTime();
-		mav.addObject("userList", userList);
-
-		// 最新评论
-		Map<String, Object> map1 = new HashMap<String, Object>();
-		List<UComment> commentList = commentService.findCommentByTime(map1);
-		mav.addObject("commentList", commentList);
-
+		
 		mav.addObject("mainPage", "mall/score.jsp");
-		mav.setViewName("index");
+		mav.setViewName("mall");
 
 		return mav;
 	}

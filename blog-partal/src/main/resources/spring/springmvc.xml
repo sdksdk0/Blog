@@ -29,8 +29,14 @@
 <!-- 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/comment/save"/>
-			<bean class="cn.tf.blog.partal.intercepter.LoginInterceptor"></bean>
+			<bean class="cn.tf.blog.intercepter.LoginInterceptor"></bean>
 		</mvc:interceptor>
-	</mvc:interceptors>  
-	 -->
+		
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/score/**"/>
+			<bean class="cn.tf.blog.intercepter.LoginInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>   -->
+	
 </beans>

@@ -52,38 +52,29 @@
 		tipShow("#loginAlert");
 	}
 
+			
 	function loginAjax() {
 		var redirectUrl = "${redirect}";
 		var username = $("#username").val();
 		var password = $("#password").val();
+		
+		
 
-		$.cookie('cusername', username);
-
-		$.ajax({
-			url : "http://localhost:8087/sso/user/login?r=" + Math.random(),
-			type : "post",
-			dataType : 'JSONP',
-			data : {
-				username : username,
-				password : password,
-			},
-			success : function(data) {
-
-				if (data.status == 200) {
-					//隐藏掉登录框
-					$("#error").text("");
-					tipHide("#loginAlert");
-					window.location.reload();
-				}
-			},
-			error : function(data) {
-				$("#error").text("用户名或密码错误");
-				tipHide("#loginAlert");
-				window.location.reload();
-			}
-		});
-
+	 	$.post("${pageContext.request.contextPath}/login",{username : username,password : password},function(data){
+	 		
+	 		if(data.data){
+	 			tipHide("#loginAlert");
+	 			$("#error").text("");
+	 			window.location.reload();
+	 		}else{
+	 			$("#error").text(data.msg);
+	 		}
+		
+		}) ;
+	 	
 	}
+
+	
 </script>
 
 <style type="text/css">

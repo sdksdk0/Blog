@@ -1,5 +1,6 @@
 package cn.tf.blog.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -15,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.tf.blog.common.util.CookieUtils;
+import cn.tf.blog.common.util.HttpClientUtil;
+import cn.tf.blog.common.util.JsonUtils;
+import cn.tf.blog.common.util.TaotaoResult;
 import cn.tf.blog.po.SType;
+import cn.tf.blog.po.mall.TbItem;
 import cn.tf.blog.pojo.CartItem;
 import cn.tf.blog.pojo.Order;
 import cn.tf.blog.service.CartService;
@@ -84,8 +89,11 @@ public class OrderController {
 			model.addAttribute("date",new DateTime().plusDays(3).toString("yyyy-MM-dd"));
 			model.addAttribute("username");
 			
+			String itemId=order.getOrderItems().get(0).getItemId();
 			
-			CookieUtils.setCookie(request, response, "TT_CART", null);
+			//删除cookie
+			cartService.deleteCartItem(Long.parseLong(itemId), request, response);
+			
 			
 			
 			mav.addObject("mainPage", "mall/success.jsp");
@@ -102,4 +110,8 @@ public class OrderController {
 			return mav;
 		}
 	}
+	
+	
+	
+	
 }
