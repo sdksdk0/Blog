@@ -133,6 +133,10 @@ public class BlogController {
 		List<UBlogtype> blogTypeCountList = blogTypeService.countList(username);
 		mav.addObject("blogTypeCountList", blogTypeCountList);
 		
+		// 类别
+		List<SType> typeList = typeService.typelist();
+		mav.addObject("typeList", typeList);
+		
 		
 		//最新评论
 		Map<String,Object> map1=new HashMap<String,Object>();
@@ -209,6 +213,10 @@ public class BlogController {
 		// 按日志类别分
 		List<UBlogtype> blogTypeCountList = blogTypeService.countList(username);
 		mav.addObject("blogTypeCountList", blogTypeCountList);
+		
+		// 类别
+		List<SType> typeList = typeService.typelist();
+		mav.addObject("typeList", typeList);
 		
 		
 		//最新评论

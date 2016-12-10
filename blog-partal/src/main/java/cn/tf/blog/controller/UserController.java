@@ -143,7 +143,9 @@ public class UserController {
 		List<UComment> commentList = commentService.findCommentByTime(map1);
 		mav.addObject("commentList",commentList);
 		
-		
+		//类别
+		List<SType> typeList = typeService.typelist();
+		mav.addObject("typeList",typeList);
 		
 		//友情链接
 		Map<String,Object> linkmap=new HashMap<String,Object>();

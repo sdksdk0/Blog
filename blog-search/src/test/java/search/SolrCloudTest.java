@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class SolrCloudTest {
 	
-	@Test
+	//@Test
 	public void test1() throws SolrServerException, IOException{
 		//创建一个连接，和solr集群的,参数就是zookeeper的地址列表，
 		String zkHost="139.199.158.214:2181,139.199.158.214:2182,139.199.158.214:2183";
@@ -31,7 +31,7 @@ public class SolrCloudTest {
 	
 	
 	//测试删除功能
-	@Test
+	//@Test
 	public void test2() throws SolrServerException, IOException{
 		//创建一个连接，和solr集群的,参数就是zookeeper的地址列表，
 		String zkHost="139.199.158.214:2181,139.199.158.214:2182,139.199.158.214:2183";
