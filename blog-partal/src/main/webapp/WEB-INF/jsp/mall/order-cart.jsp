@@ -47,7 +47,7 @@
 		</c:forEach>
 		<input type="hidden" name="payment"
 			value="<fmt:formatNumber groupingUsed="false" maxFractionDigits="2" minFractionDigits="2" value="${totalPrice/100 }"/>" />
-		<input type="text" name="orderShipping.receiverName"  value="${username }"  /> 
+		<font color="red">收货人:<input type="text" name="orderShipping.receiverName"  id="receiverName" value="${username }"  /> (注，若此处为空请在自己填写您的收货的用户名)</font>
 		<input
 			type="hidden" name="orderShipping.receiverState" value="北京" /> <input
 			type="hidden" name="orderShipping.receiverCity" value="北京" /> <input
@@ -221,7 +221,7 @@
 							<div class="sticky-wrap">
 								<div class="inner">
 									<button type="submit" class="checkout-submit btn-1"
-										id="order-submit" onclick="$('#orderForm').submit()">提交订单</button>
+										id="order-submit" onclick="checkUsername();">提交订单</button>
 									<span class="total">应付总额：<strong id="payPriceId">￥<fmt:formatNumber
 												value="${totalPrice / 100}" maxFractionDigits="2"
 												minFractionDigits="2" groupingUsed="true" /></strong>
@@ -242,5 +242,22 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/static/js/jquery.cookie.js"></script>
 
+	<script>
+	
+	function checkUsername(){
+		var username=$("#receiverName").val();
+		
+		if(username!=''){
+			$('#orderForm').submit();
+			
+		}else{
+			alert("请输入你的用户名");
+		}
+	
+	}
+	
+	
+	
+	</script>
 
 </html>

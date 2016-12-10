@@ -29,7 +29,7 @@ public class TbOrder {
 
     private String shippingCode;
 
-    private Long userId;
+    private String userId;
 
     private String buyerMessage;
 
@@ -141,15 +141,17 @@ public class TbOrder {
         this.shippingCode = shippingCode == null ? null : shippingCode.trim();
     }
 
-    public Long getUserId() {
-        return userId;
-    }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
-    public String getBuyerMessage() {
+    public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getBuyerMessage() {
         return buyerMessage;
     }
 

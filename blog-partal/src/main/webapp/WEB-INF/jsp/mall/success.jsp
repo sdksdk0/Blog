@@ -42,10 +42,11 @@
 			    <li class="li-st">
 					<div class="fore1">订单号：<a href="javascript:void(0)">${orderId }</a></div>
 					<!-- 货到付款 -->
-					<div class="fore2">货到付款：<strong class="ftx-01">${payment}元</strong></div>
+					<div class="fore2">在线付款：<strong class="ftx-01">${payment}元</strong></div>
 					<div class="fore3">
-					   	快递 &nbsp; 送货时间: 预计 ${date} 送达&nbsp;
+					   	收货人${username }
 					</div>
+					
 				</li>
 			</ul>
 		<!-- 在线支付按钮  -->
@@ -53,9 +54,32 @@
  					<p class="i-tips01">
 				            	您的订单已经在处理中，发货后订单内容会显示承运人联系方式，如有必要您可以联系对方
              		</p>
+             		
+             		<div class="sticky-wrap">
+								<div class="inner">
+									<button type="submit" class="checkout-submit btn-1"
+										id="order-submit" onclick="checkUsername();">去支付</button>
+									
+
+								</div>
+				</div>
 		 </div>
+		 
+		 
+		 <div  id="show" class="hidden"><h2><font color="red">尊敬的用户,您好: 目前在线支付功能尚在接入审核阶段，请联系我们的客服为您手动充值
+		 <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=690644511&site=qq&menu=yes">联系我</a></font></h2></div>
 	</div>
 </div>
 
      </body> 
+     
+     <script>
+     	function checkUsername(){
+     		$("#show").attr("class","");
+     	}
+     
+     
+     </script>
+     
+     
 </html>

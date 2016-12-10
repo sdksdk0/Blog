@@ -36,11 +36,11 @@ public class ItemController {
 	
 
 	@RequestMapping("/item/{itemId}")
+	@ResponseBody
 	public ModelAndView showItem(@PathVariable Long itemId, Model model) {
 		ModelAndView mav = new ModelAndView();
 		ItemInfo item = itemPortalService.getItemById(itemId);
 
-		// System.out.println("title:"+item.getTitle());
 
 		mav.addObject("item", item);
 		// 类别

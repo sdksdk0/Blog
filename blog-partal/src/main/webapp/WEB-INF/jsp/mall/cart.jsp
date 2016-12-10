@@ -109,7 +109,7 @@
           <div class="cart-total-2014">
               <div class="cart-button">
                   <span class="check-comm-btns" id="checkout-jd">
-                      <a class="checkout" href="/order/order-cart.html" clstag="clickcart|keycount|xincart|gotoOrderInfo" id="toSettlement">去结算<b></b></a>
+                      <a class="checkout" href="javascript:void(0)"  onclick="toOrder();" clstag="clickcart|keycount|xincart|gotoOrderInfo" id="toSettlement">去结算<b></b></a>
                   </span>
                   
               </div>
@@ -123,7 +123,38 @@
 </div>
 </div>
 <!--推荐位html修改处-->
+<div id="loginAlert" class="alt login" style="display:none">
+		<h2 class="h2">
+			<em title="登录">博客云用户登录</em><cite></cite>
+		</h2>
+		<a href="javascript:void(0);" id="loginAlertClose" class="close"
+			title="关闭"></a>
+		<div class="cont">
 
+			<ul class="uls form">
+				<li><font color="red"><span id="error"></span></font></li>
+				<li><label>用户名：</label> <INPUT id="username" name="username"
+					class="ipt" type="text" placeholder="请输入用户名"">
+						</P></li>
+				<li><label>密码：</label> <INPUT id="password" name="password"
+					class="ipt" type="password" placeholder="请输入密码"">
+						</P></li>
+				<li><label>&nbsp;</label><input type="button" id="loginSubmit"
+					class="hand btn66x23" value="登 录" onclick="loginAjax()"><a
+						title="忘记密码？" href="#">忘记密码？</a></li>
+				<br />
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+				<li class="alg_c dev gray"><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>还不是博客云会员？
+					<a title="免费注册" href="http://localhost:8087/sso/page/register"
+					target="_blank">免费注册</a></li>
+			</ul>
+
+		</div>
+	</div>
+
+	<input type="hidden" id="cusername" value="${user.username }" />
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/mall/js/base-v1.js"></script>
 <!-- footer start -->
@@ -135,5 +166,62 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/mall/js/jquery.price_format.2.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/mall/js/jquery-1.6.4.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/mall/js/cart.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/static/js/jquery.cookie.js"></script>
+<script>
+
+	function toOrder(){
+		
+		var _ticket = $.cookie("TT_TOKEN_USER");
+		var username=$.cookie("cusername");
+	
+		
+		if (!_ticket) {
+			//alert("请登录！");
+			tipShow("#loginAlert");
+		}else if(username==null || username==''){
+			username=$("#cusername").val();
+			location="${pageContext.request.contextPath}/order/order-cart?username="+username;
+			
+		} else {
+			location="${pageContext.request.contextPath}/order/order-cart?username="+username;
+		}
+			
+		}
+		
+		
+		
+		function loginAjax() {
+		var redirectUrl = "${redirect}";
+		var username = $("#username").val();
+		var password = $("#password").val();
+		
+		$.cookie('cusername', username);
+
+		$.ajax({
+			url : "http://localhost:8087/sso/user/login?r="+Math.random(),
+			type : "post",
+			dataType:'JSONP',
+			data : {
+				username : username,
+				password : password,
+			},
+			success : function(data) {
+				
+				if (data.status == 200) {
+					//隐藏掉登录框
+					$("#error").text("");
+					tipHide("#loginAlert");
+				} 
+			},
+			error : function(data) {
+				$("#error").text("用户名或密码错误");
+				tipHide("#loginAlert");
+			}
+		});
+		
+	}
+	</script>
+
 
 </html>

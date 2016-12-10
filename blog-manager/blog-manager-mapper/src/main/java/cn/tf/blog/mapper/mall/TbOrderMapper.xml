@@ -15,7 +15,7 @@
     <result column="close_time" property="closeTime" jdbcType="TIMESTAMP" />
     <result column="shipping_name" property="shippingName" jdbcType="VARCHAR" />
     <result column="shipping_code" property="shippingCode" jdbcType="VARCHAR" />
-    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId"  />
     <result column="buyer_message" property="buyerMessage" jdbcType="VARCHAR" />
     <result column="buyer_nick" property="buyerNick" jdbcType="VARCHAR" />
     <result column="buyer_rate" property="buyerRate" jdbcType="INTEGER" />
@@ -124,7 +124,7 @@
       #{postFee,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{paymentTime,jdbcType=TIMESTAMP}, #{consignTime,jdbcType=TIMESTAMP}, 
       #{endTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, #{shippingName,jdbcType=VARCHAR}, 
-      #{shippingCode,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{buyerMessage,jdbcType=VARCHAR}, 
+      #{shippingCode,jdbcType=VARCHAR}, #{userId}, #{buyerMessage,jdbcType=VARCHAR}, 
       #{buyerNick,jdbcType=VARCHAR}, #{buyerRate,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.tf.blog.po.mall.TbOrder" >
@@ -223,7 +223,7 @@
         #{shippingCode,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >
-        #{userId,jdbcType=BIGINT},
+        #{userId},
       </if>
       <if test="buyerMessage != null" >
         #{buyerMessage,jdbcType=VARCHAR},
@@ -285,7 +285,7 @@
         shipping_code = #{record.shippingCode,jdbcType=VARCHAR},
       </if>
       <if test="record.userId != null" >
-        user_id = #{record.userId,jdbcType=BIGINT},
+        user_id = #{record.userId},
       </if>
       <if test="record.buyerMessage != null" >
         buyer_message = #{record.buyerMessage,jdbcType=VARCHAR},
@@ -316,7 +316,7 @@
       close_time = #{record.closeTime,jdbcType=TIMESTAMP},
       shipping_name = #{record.shippingName,jdbcType=VARCHAR},
       shipping_code = #{record.shippingCode,jdbcType=VARCHAR},
-      user_id = #{record.userId,jdbcType=BIGINT},
+      user_id = #{record.userId},
       buyer_message = #{record.buyerMessage,jdbcType=VARCHAR},
       buyer_nick = #{record.buyerNick,jdbcType=VARCHAR},
       buyer_rate = #{record.buyerRate,jdbcType=INTEGER}
@@ -364,7 +364,7 @@
         shipping_code = #{shippingCode,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >
-        user_id = #{userId,jdbcType=BIGINT},
+        user_id = #{userId},
       </if>
       <if test="buyerMessage != null" >
         buyer_message = #{buyerMessage,jdbcType=VARCHAR},
@@ -392,7 +392,7 @@
       close_time = #{closeTime,jdbcType=TIMESTAMP},
       shipping_name = #{shippingName,jdbcType=VARCHAR},
       shipping_code = #{shippingCode,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=BIGINT},
+      user_id = #{userId},
       buyer_message = #{buyerMessage,jdbcType=VARCHAR},
       buyer_nick = #{buyerNick,jdbcType=VARCHAR},
       buyer_rate = #{buyerRate,jdbcType=INTEGER}

@@ -2,8 +2,10 @@ package cn.tf.blog.controller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.tf.blog.common.util.CookieUtils;
 import cn.tf.blog.po.SType;
 import cn.tf.blog.pojo.CartItem;
 import cn.tf.blog.pojo.Order;
@@ -33,10 +36,18 @@ public class OrderController {
 	private STypeService typeService;
 	
 	@RequestMapping("/order-cart")
-	public ModelAndView showOrderCart(HttpServletRequest request,HttpServletResponse response,Model  model){
+	public ModelAndView showOrderCart(HttpServletRequest request,String username,HttpServletResponse response,Model  model,HttpSession session){
 		ModelAndView mav = new ModelAndView();
 		
-		String username=(String) request.getSession().getAttribute("username");
+		
+		if(session.getAttribute("username")!=null && session.getAttribute("username")==""){
+			model.addAttribute("username",username);
+		}else{
+			session.setAttribute("username", username);
+			model.addAttribute("username",username);
+		}
+		
+		
 		model.addAttribute("username",username);
 		
 		List<CartItem> list = cartService.getCartItemList(request, response);
@@ -56,8 +67,11 @@ public class OrderController {
 	
 	
 	@RequestMapping("/create")
-	public ModelAndView createOrder(Order  order,Model model){
+	public ModelAndView createOrder(Order  order,Model model,HttpSession session,HttpServletRequest request, HttpServletResponse response){
 		ModelAndView mav = new ModelAndView();
+		
+		String username=(String) session.getAttribute("username");
+		order.setUserId(username);
 		
 		// 类别
 		List<SType> typeList = typeService.typelist();
@@ -68,8 +82,10 @@ public class OrderController {
 			model.addAttribute("orderId",orderId);
 			model.addAttribute("payment",order.getPayment());
 			model.addAttribute("date",new DateTime().plusDays(3).toString("yyyy-MM-dd"));
+			model.addAttribute("username");
 			
 			
+			CookieUtils.setCookie(request, response, "TT_CART", null);
 			
 			
 			mav.addObject("mainPage", "mall/success.jsp");
