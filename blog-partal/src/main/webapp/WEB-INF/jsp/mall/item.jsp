@@ -423,9 +423,6 @@
 		if (!_ticket) {
 			//alert("请登录！");
 			tipShow("#loginAlert");
-
-		} else if (content == null || content == '') {
-			alert("请输入评论内容！");
 		}else if(username==null || username==''){
 			username=$("#cusername").val();
 			$.post("${pageContext.request.contextPath}/score/redure",{price:price,username:username},function(data){

@@ -324,7 +324,7 @@ a.btn:hover,a.btn:hover span {
 	width: 309px;
 }
 .cart-thead .t-price {
-	width: 128px;
+	width: 100px;
 	text-align: right;/*20130701 shijianguo*/
 }
 .cart-thead .t-promotion {
@@ -416,7 +416,7 @@ a.btn:hover,a.btn:hover span {
 	line-height: 18px;
 }
 .cart-tbody .p-price {
-	width: 130px;
+	width: 100px;
 	text-align: right;
 	line-height: 52px;
 }
@@ -453,7 +453,7 @@ a.btn:hover,a.btn:hover span {
 	background-color: #f90;
 }
 .cart-tbody .p-remove {
-	width: 99px;
+	width: 60px;
 	color: #005ea7;
 }
 .cart-tbody .p-name a,.cart-tbody .p-name a:visited,.cart-tbody .p-name a:hover,.cart-tbody .p-remove a,.cart-tbody .p-remove a:visited,.cart-tbody .p-remove a:hover {
@@ -469,7 +469,7 @@ a.btn:hover,a.btn:hover span {
 	color: #999;
 }
 .cart-tbody .p-inventory,.cart-tbody .p-quantity {
-	width: 100px;
+	width: 120px;
 	text-align: center;
 }
 .cart-tbody .p-inventory,.cart-tbody .p-remove {
@@ -481,7 +481,7 @@ a.btn:hover,a.btn:hover span {
 }
 .cart-tbody .p-quantity .quantity-form {
 	width: 76px;
-	height: 22px;
+	height: 35px;
 	margin: 0 auto;
 	padding-top: 16px;
 	overflow: hidden;
@@ -1414,7 +1414,7 @@ color:#999;
 	width: 99px;
 }
 .gift-table .gift-inventory, .gift-table .gift-quantity {
-	width: 100px;
+	width: 120px;
 }
 .gift-table .gift-inventory, .gift-table .gift-action {
 	text-align: center;

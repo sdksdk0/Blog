@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,8 +46,9 @@ public class ScoreController {
 	//兑换K币
 	@RequestMapping("/redure")
 	@ResponseBody
-	public int changScore(Long id,Long price,String username){
+	public int changScore(Long id,Long price,String username,HttpSession session){
 		
+		session.setAttribute("username", username);
 		//判断积分是否足够
 
 		UScore score=new UScore();

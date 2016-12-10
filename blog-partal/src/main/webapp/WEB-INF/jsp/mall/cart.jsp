@@ -13,7 +13,6 @@
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/mall/css/base.css">
    <link href="${pageContext.request.contextPath}/static/mall/css/purchase.2012.css?v=201410141639" rel="stylesheet" type="text/css">
-   <title>我的购物车 - 淘淘商城</title>
    <script>
    	var pageConfig  = {};
    </script>
@@ -21,16 +20,7 @@
 <!--shortcut start-->
 
 <!--shortcut end-->
-<div class="w w1 header clearfix">
-	
-	<div class="progress clearfix">
-		<ul class="progress-1">
-			<li class="step-1"><b></b>1.我的购物车</li>
-			<li class="step-2"><b></b>2.填写核对订单信息</li>
-			<li class="step-3">3.成功提交订单</li>
-		</ul>
-	</div>
-</div>
+
 <div class="w cart">
 	<div class="cart-hd group">
 		<h2>我的购物车</h2>
@@ -45,7 +35,7 @@
     <div class="cart-thead clearfix">
         <div class="column t-checkbox form"><input data-cart="toggle-cb" name="toggle-checkboxes" id="toggle-checkboxes_up" type="checkbox" checked="" value=""><label for="toggle-checkboxes_up">全选</label></div>
         <div class="column t-goods">商品</div>
-        <div class="column t-price">淘淘价</div>
+        <div class="column t-price">价格</div>
         <div class="column t-promotion">优惠</div>
         <div class="column t-inventory">库存</div>
         <div class="column t-quantity">数量</div>
@@ -67,7 +57,7 @@
 		                </div>    
 		                <div class="p-name">
 		                	<a href="/item/${cart.id }.html" clstag="clickcart|keycount|xincart|productnamelink" target="_blank">${cart.title}</a>
-		                	<span class="promise411 promise411_11345721" id="promise411_11345721"></span>
+		    
 		                </div>    
 		            </div>
 		            <div class="cell p-price"><span class="price">¥<fmt:formatNumber groupingUsed="false" value="${cart.price / 100}" maxFractionDigits="2" minFractionDigits="2"/> </span></div>
@@ -77,7 +67,7 @@
 		            <div class="cell p-quantity" for-stock="for-stock-11345721">
 		                <div class="quantity-form" data-bind="">
 		                    <a href="javascript:void(0);" class="decrement" clstag="clickcart|keycount|xincart|diminish1" id="decrement">-</a>
-		                    <input type="text" class="quantity-text" itemPrice="${cart.price}" itemId="${cart.id}" value="${cart.num }" id="changeQuantity-11345721-1-1-0">
+		                    <input type="text" class="quantity-text" itemPrice="${cart.price}" itemId="${cart.id}" value="${cart.num }" id="changeQuantity-11345721-1-1-0"  readonly="readonly">
 		                    <a href="javascript:void(0);" class="increment" clstag="clickcart|keycount|xincart|add1" id="increment">+</a>
 		                </div>
 		            </div>
@@ -91,7 +81,7 @@
           <div class="cart-toolbar clearfix">
             <div class="total fr">
                 <p><span class="totalSkuPrice">¥<fmt:formatNumber value="${totalPrice / 100}" maxFractionDigits="2" minFractionDigits="2" groupingUsed="true"/></span>总计：</p>
-                <p><span id="totalRePrice">- ¥0.00</span>优惠：</p>
+                <p><span id="totalRePrice">- <fmt:formatNumber value="${totalPrice / 100}" maxFractionDigits="2" minFractionDigits="2" groupingUsed="true"/></span>优惠：</p>
             </div>
             <div class="amout fr"><span id="selectedCount">1</span> 件商品</div>
         </div>
@@ -121,15 +111,7 @@
                   <span class="check-comm-btns" id="checkout-jd">
                       <a class="checkout" href="/order/order-cart.html" clstag="clickcart|keycount|xincart|gotoOrderInfo" id="toSettlement">去结算<b></b></a>
                   </span>
-                  <span class="combine-btns" style="display:none">
-                        <span class="fore1" style="display: none;">
-                          <a href="" class="combine-btn">不支持合并付款</a>
-                      </span>
-                      <span class="fore2 hide" style="display: inline;">
-                          <a href="javascript:goToOverseaOrder();" class="checkout-jdInt">去淘淘国际结算<b></b></a>
-                          <a href="javascript:goToOrder();" class="checkout-jd">去淘淘结算<b></b></a>
-                      </span>
-                  </span>
+                  
               </div>
               <div class="total fr">
                   总计（不含运费）：
@@ -149,11 +131,9 @@
 <!-- footer end -->
 
 <!-- 购物车相关业务 -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/mall/js/cart.js"></script>
+
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/mall/js/jquery.price_format.2.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/mall/js/jquery-1.6.4.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/mall/js/jquery-extend.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/mall/js/lib-v1.js" charset="utf-8"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/mall/js/taotao.js" charset="utf-8"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/mall/js/cart.js"></script>
 
 </html>
